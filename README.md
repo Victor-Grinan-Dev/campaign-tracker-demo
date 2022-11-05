@@ -6,10 +6,10 @@
 
 ## Technologies:
 
+- react-router-dom
 - reduxjs/toolkit
 - axios
 - js-cookie
-- react-router-dom
 
 ## Instalation:
 
