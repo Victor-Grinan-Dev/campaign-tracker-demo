@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const portalSlice = createSlice({
     name:'portal',
     initialState:{
-        isLogged:false,
-        currentUser:undefined,
+        isLogged:true,
+        currentUser:"test-user",
 
         //temp:
         search:"",
