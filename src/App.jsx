@@ -24,6 +24,7 @@ import Post from './components/views/post/Post';
 import Chat from './components/views/chat/Chat';
 
 import WarRoom from './components/campaigns/WarRoom';
+import MyArmy from './components/myArmy/MyArmy';
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -41,6 +42,7 @@ const protectedViews = () => {
       <Route path="/post" element={<Post />} />
       <Route path="/chat" element={<Chat />} />
       <Route path="/warroom" element={<WarRoom />} />
+      <Route path="/myarmy" element={<MyArmy />} />
     </>
   )
 }

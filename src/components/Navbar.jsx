@@ -8,7 +8,7 @@ const Navbar = () => {
     isLogged && <div className='navBarContainer'>
         <Link to="/"><img src={logo} alt="logo" className='navBarLogo'/></Link>
         <Link to="/warroom" >WarRoom</Link>
-        <div>My Army</div>
+        <Link to="/myarmy" >My Army</Link>
         <div></div>
     </div>
   )
