@@ -11,8 +11,8 @@ export class User {
   formations = []
   armyList = new ArmyList()//players can have only one army list
   email = ""
-  image = "conscript_red.png"
-  images = ["conscript_red.png", "conscript_blue.png", "conscript_green.png", "conscript_yellow.png"]
+  avatar = "conscript_red"
+  avatars = ["conscript_red", "conscript_blue", "conscript_green", "conscript_yellow"]
 
   constructor(username, password=""){
       this.username = username

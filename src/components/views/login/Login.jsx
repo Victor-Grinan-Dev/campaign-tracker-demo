@@ -35,7 +35,7 @@ const handleSubmit = () => {
           <div>
           <input type="text" name="password" placeholder='Password...'/>
           </div>
-          < HOTWButton caption={"Login"} role={"submit"} action={handleSubmit}/>
+          < HOTWButton caption={"Login"} action={handleSubmit}/>
         </form>
         <br />
         <p>More...</p>
