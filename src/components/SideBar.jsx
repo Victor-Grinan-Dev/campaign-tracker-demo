@@ -10,7 +10,7 @@ const SideBar = () => {
         <p></p>
         <Link to="/">🏠</Link>
         <Link to="/profile">👤</Link>
-        <p>💬</p>
+        <Link to="/chat">💬</Link>
         {user.type === "admin" && <Link to="/adduser">+👤</Link>}
         {user.type === "admin" && <Link to="/post">✍️</Link>}
 
