@@ -1,0 +1,12 @@
+.userData{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    max-width: 350px;
+}
+
+.avatar{
+    width: 50px;
+    margin: 5px;
+}
