@@ -1,0 +1,18 @@
+.conctact{
+    display: flex;
+    flex-direction: column;
+}
+
+.oneSome{
+    width: 230;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
+.someLogo{
+    width: 25px;
+    height: 25px;
+}
+

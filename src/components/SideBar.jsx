@@ -8,8 +8,8 @@ const SideBar = () => {
         <p></p>
         <Link to="/profile">👤</Link>
         <Link to="/about">📜</Link>
+        <Link to="/contact">☎️</Link>
 
-        <p>☎️</p>
         <p>⚙️</p>
         <p>👉🚪</p>
     </div>
