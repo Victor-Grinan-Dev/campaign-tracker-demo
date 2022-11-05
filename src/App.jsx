@@ -19,6 +19,7 @@ import About from './components/views/about/About';
 import Contact from './components/views/contact/Contact';
 import Settings from './components/views/settings/Settings';
 import AddUser from './components/views/addUser/AddUser';
+import Post from './components/views/post/Post';
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -34,6 +35,7 @@ const protectedViews = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/adduser" element={<AddUser />} />
+      <Route path="/post" element={<Post />} />
     </>
   )
 }
