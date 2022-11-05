@@ -18,6 +18,8 @@ import Profile from './components/views/profile/Profile';
 import About from './components/views/about/About';
 import Contact from './components/views/contact/Contact';
 import Settings from './components/views/settings/Settings';
+import AddUser from './components/views/addUser/AddUser';
+
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -31,6 +33,7 @@ const protectedViews = () => {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/adduser" element={<AddUser />} />
     </>
   )
 }
