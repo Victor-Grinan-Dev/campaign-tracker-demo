@@ -126,3 +126,9 @@ a:hover{
     display: none;
   }
 
+.article{
+    margin-top: 40px;
+  }
+.articleImg{
+    width: 80vw;
+}

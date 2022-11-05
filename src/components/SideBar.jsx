@@ -9,6 +9,8 @@ const SideBar = () => {
         <p>icon1</p>
         <p>icon1</p>
         <p>icon1</p>
+        <p>logout</p>
+
     </div>
   )
 }
