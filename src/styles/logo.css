@@ -1,0 +1,11 @@
+.App-logo {
+    height: 100px;
+    width: 100px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
