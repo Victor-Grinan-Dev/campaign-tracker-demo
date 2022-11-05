@@ -7,11 +7,13 @@ import './styles/button.css';
 import './styles/navBar.css';
 import './styles/sideBar.css';
 import './styles/userData.css';
+import './styles/profile.css';
 
 //components:
 import Layout from './pages/Layout';
 import Home from './components/views/home/Home';
 import Login from './components/views/login/Login';
+import Profile from './components/views/profile/Profile';
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -22,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const protectedViews = () => {
   return (
     <>
-    
+      <Route path="/profile" element={<Profile />} />
     </>
   )
 }
