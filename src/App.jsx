@@ -9,6 +9,7 @@ import './styles/sideBar.css';
 import './styles/userData.css';
 import './styles/profile.css';
 import './styles/contact.css';
+import './styles/chat.css';
 
 //components:
 import Layout from './pages/Layout';
@@ -20,7 +21,7 @@ import Contact from './components/views/contact/Contact';
 import Settings from './components/views/settings/Settings';
 import AddUser from './components/views/addUser/AddUser';
 import Post from './components/views/post/Post';
-
+import Chat from './components/views/chat/Chat';
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -36,6 +37,7 @@ const protectedViews = () => {
       <Route path="/settings" element={<Settings />} />
       <Route path="/adduser" element={<AddUser />} />
       <Route path="/post" element={<Post />} />
+      <Route path="/chat" element={<Chat />} />
     </>
   )
 }
