@@ -1,4 +1,15 @@
 {
+    "campaigns":[],
     "maps": [
-    ]
+    ],
+    "factions":[],
+    "badges":[],
+    "active_skills":[],
+    "passive_skills":[],
+    "negative":[],
+    "artifacts":[],
+    "resources":[],
+    "buildings":[],
+    "unit_types":[],
+    "users":[]
 }
