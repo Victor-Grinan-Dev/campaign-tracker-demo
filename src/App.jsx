@@ -1,5 +1,6 @@
 //styles:
 import './App.css';
+import './styles/appMain.css'
 import './styles/login.css';
 import './styles/logo.css';
 

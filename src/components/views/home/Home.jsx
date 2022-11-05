@@ -7,6 +7,11 @@ import { setCurrentUser } from '../../../features/portalSlice';
 //functions
 import { capitalStart } from '../../../functions/capitalStart';
 
+//images
+const visitor = "https://source.unsplash.com/R_6kw7NUTLY";
+const admin = "https://source.unsplash.com/BoISbSP0HVk";
+const user = "https://source.unsplash.com/1vC4ZwkJNdA";
+
 const Home = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => {

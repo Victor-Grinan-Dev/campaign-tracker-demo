@@ -13,7 +13,6 @@ export const portalSlice = createSlice({
         //createCard:
         creatingUnit:{},
         creatingFormation:{},
-
     },
 
     reducers:{
