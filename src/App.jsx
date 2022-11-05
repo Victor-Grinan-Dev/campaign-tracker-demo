@@ -9,7 +9,7 @@ import './styles/sideBar.css';
 import './styles/userData.css';
 import './styles/profile.css';
 import './styles/contact.css';
-import './styles/chat.css'
+import './styles/chat.css';
 
 //components:
 import Layout from './pages/Layout';
