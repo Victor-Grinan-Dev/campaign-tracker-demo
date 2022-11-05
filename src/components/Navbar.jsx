@@ -7,8 +7,9 @@ const Navbar = () => {
   return (
     isLogged && <div className='navBarContainer'>
         <Link to="/"><img src={logo} alt="logo" className='navBarLogo'/></Link>
-        <div>Campaigns</div>
+        <Link to="/warroom" >WarRoom</Link>
         <div>My Army</div>
+        <div></div>
     </div>
   )
 }

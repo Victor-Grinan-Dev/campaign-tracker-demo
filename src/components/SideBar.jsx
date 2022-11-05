@@ -13,7 +13,6 @@ const SideBar = () => {
         <Link to="/chat">💬</Link>
         {user.type === "admin" && <Link to="/adduser">+👤</Link>}
         {user.type === "admin" && <Link to="/post">✍️</Link>}
-
         <Link to="/about">📜</Link>
         <Link to="/contact">☎️</Link>
         <Link to="/settings">⚙️</Link>

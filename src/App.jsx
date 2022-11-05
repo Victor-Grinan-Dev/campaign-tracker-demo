@@ -22,6 +22,8 @@ import Settings from './components/views/settings/Settings';
 import AddUser from './components/views/addUser/AddUser';
 import Post from './components/views/post/Post';
 import Chat from './components/views/chat/Chat';
+
+import WarRoom from './components/campaigns/WarRoom';
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -38,6 +40,7 @@ const protectedViews = () => {
       <Route path="/adduser" element={<AddUser />} />
       <Route path="/post" element={<Post />} />
       <Route path="/chat" element={<Chat />} />
+      <Route path="/warroom" element={<WarRoom />} />
     </>
   )
 }
