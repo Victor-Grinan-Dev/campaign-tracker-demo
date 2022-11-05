@@ -20,15 +20,19 @@ body {
     background-color: var(--base_color);
     min-height: 100vh;
   }
+
+
+.view,
+.main {
+    height: 90vh;
+}
+
 .view{
-    height: 95vh;
     width: 83vw;
-    background-color: #393c44;
     overflow-y: scroll;
 }
 
 main{
-    height: 95vh;
     max-width: 600px;
     position: relative;
     display: flex;
@@ -126,9 +130,10 @@ a:hover{
     display: none;
   }
 
+.articleImg,
 .article{
     margin-top: 40px;
+    width: 75vw;
+    padding-left: 10px;
   }
-.articleImg{
-    width: 80vw;
-}
+  

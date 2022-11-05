@@ -6,6 +6,7 @@ import './styles/logo.css';
 import './styles/button.css';
 import './styles/navBar.css';
 import './styles/sideBar.css';
+import './styles/userData.css';
 
 //components:
 import Layout from './pages/Layout';

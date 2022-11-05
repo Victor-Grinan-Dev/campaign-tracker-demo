@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 //components:
-import Gates from '../../ui_components/Gates';
+import UserData from '../../ui_components/UserData';
 
 //functions
 import { capitalStart } from '../../../functions/capitalStart';
@@ -17,8 +17,9 @@ const Home = () => {
     
     <div>
       <div className="userWelcome view">
-        <Gates />
-        <p>Welcome Home {capitalStart(user.username)}</p>
+        
+        
+        <UserData />
 
         <div className="newsletteer">
           
