@@ -14,6 +14,7 @@ import Layout from './pages/Layout';
 import Home from './components/views/home/Home';
 import Login from './components/views/login/Login';
 import Profile from './components/views/profile/Profile';
+import About from './components/views/about/About';
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -25,6 +26,7 @@ const protectedViews = () => {
   return (
     <>
       <Route path="/profile" element={<Profile />} />
+      <Route path="/about" element={<About />} />
     </>
   )
 }
