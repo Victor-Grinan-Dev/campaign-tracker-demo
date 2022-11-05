@@ -4,13 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 //redux
 import { setCurrentUser } from '../../features/portalSlice';
 
+//functions
+import { capitalStart } from '../../functions/capitalStart';
+
 const Home = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => {
-        console.log(state.portal.currentUser)
-        return state.portal.currentUser})
+        return state.portal.currentUser});
+
   return (
-    <div>Home</div>
+    <div>Welcome Home {capitalStart(user)}</div>
   )
 }
 
