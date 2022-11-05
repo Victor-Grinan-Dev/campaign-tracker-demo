@@ -7,10 +7,10 @@ const SideBar = () => {
     isLogged && <div className='sidebarContainer'>
         <p></p>
         <Link to="/profile">👤</Link>
+        <Link to="/createuser">+👤</Link>
         <Link to="/about">📜</Link>
         <Link to="/contact">☎️</Link>
-
-        <p>⚙️</p>
+        <Link to="/settings">⚙️</Link>
         <p>👉🚪</p>
     </div>
   )
