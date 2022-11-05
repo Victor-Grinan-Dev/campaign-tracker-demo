@@ -25,6 +25,7 @@ body {
 .view,
 .main {
     height: 90vh;
+    max-width: 350;
 }
 
 .view{
@@ -135,5 +136,6 @@ a:hover{
     margin-top: 40px;
     width: 75vw;
     padding-left: 10px;
+    max-width: 350px;
   }
   
