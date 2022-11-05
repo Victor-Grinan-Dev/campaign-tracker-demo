@@ -4,7 +4,10 @@ export const portalSlice = createSlice({
     name:'portal',
     initialState:{
         isLogged:false,
-        currentUser:"test-user",
+        currentUser:{
+            username:undefined,
+            type:undefined
+        },
 
         //temp:
         search:"",

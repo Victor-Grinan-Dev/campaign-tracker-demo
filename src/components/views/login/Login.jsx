@@ -1,25 +1,30 @@
 import React from 'react';
+import HOTWButton from '../../ui_components/HOTWButton';
+import Gates from '../../ui_components/Gates';
 import Logo from '../../ui_components/Logo';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser, setIsLogged } from '../../../features/portalSlice';
+import { User } from '../../../classes/user';
 
-//images
-const visitor = "https://source.unsplash.com/R_6kw7NUTLY";
-const admin = "https://source.unsplash.com/BoISbSP0HVk";
-const user = "https://source.unsplash.com/1vC4ZwkJNdA";
+const testUser = new User("Victor", "Victor123");
+testUser.type = "admin";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+const handleSubmit = () => {
+  dispatch(setCurrentUser(testUser))
+   dispatch(setIsLogged(true));
+}
+
   return (
 
     <div className='login-container'>
       <div className='welcome'>
         <p>Welcome to the "Campaing Tracker App".</p> 
-        <Logo/>
 
-        <div className="gates">
-          <img className="gate" src={visitor} alt="visitor" />
-          <img className="gate" src={admin} alt="admin" />
-          <img className="gate" src={user} alt="user" />
-        </div>
-        
+        <Logo/>
+        <Gates/>
                
       </div>
       <div>
@@ -30,7 +35,7 @@ const Login = () => {
           <div>
           <input type="text" name="password" placeholder='Password...'/>
           </div>
-          <button>Login</button>
+          < HOTWButton caption={"Login"} role={"submit"} action={handleSubmit}/>
         </form>
         <br />
         <p>More...</p>
@@ -42,25 +47,3 @@ const Login = () => {
 }
 
 export default Login;
-
-/*
-              
-            
-            </header>
-
-            <div className={css.gates}>
-                <div className={css.gateContainer}>
-                <p className={css.userGate}>Visitor:</p>
-                <img className={css.gate} src={visitor} alt="visitor" onClick={inComingVisitorHandler}/>
-                </div>
-            
-                <div className={css.gateContainer}>
-                <p className={css.userGate}>Admin:</p>
-                <img className={css.gate} src={admin} alt="admin" />
-                </div>
-           
-                <div className={css.gateContainer}>
-                <p className={css.userGate}>User: </p>
-                <img className={css.gate} src={user} alt="user" onClick={inComingUserHandler}/>
-                </div>
-*/

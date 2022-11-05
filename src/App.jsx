@@ -1,8 +1,11 @@
 //styles:
-import './App.css';
-import './styles/appMain.css'
+
+import './styles/appMain.css';
 import './styles/login.css';
 import './styles/logo.css';
+import './styles/button.css';
+import './styles/navBar.css';
+import './styles/sideBar.css';
 
 //components:
 import Layout from './pages/Layout';
@@ -15,7 +18,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 
-
+const protectedViews = () => {
+  return (
+    <>
+    
+    </>
+  )
+}
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {isLogged ? <Route index element={<Home />} /> : <Route index element={<Login />} />}
-          
+          {isLogged && protectedViews()}
         </Route>
       </Routes>
     </BrowserRouter>

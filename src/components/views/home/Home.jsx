@@ -1,16 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-//redux
-import { setCurrentUser } from '../../../features/portalSlice';
+//components:
+import Gates from '../../ui_components/Gates';
 
 //functions
 import { capitalStart } from '../../../functions/capitalStart';
 
-//images
-const visitor = "https://source.unsplash.com/R_6kw7NUTLY";
-const admin = "https://source.unsplash.com/BoISbSP0HVk";
-const user = "https://source.unsplash.com/1vC4ZwkJNdA";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -18,7 +14,17 @@ const Home = () => {
         return state.portal.currentUser});
 
   return (
-    <div>Welcome Home {capitalStart(user)}</div>
+    
+    <div>
+      <div className="userWelcome view">
+        <Gates />
+        <p>Welcome Home {capitalStart(user.username)}</p>
+      </div>
+      <div className="newsletteer">
+
+      </div>
+
+    </div>
   )
 }
 

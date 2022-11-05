@@ -20,9 +20,28 @@ body {
     background-color: var(--base_color);
     min-height: 100vh;
   }
+.view{
+    height: 95vh;
+    width: 83vw;
+    background-color: #393c44;
+    overflow-y: scroll;
+}
 
 main{
+    height: 95vh;
     max-width: 600px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.layoutContainer{
+    display: flex;
+}
+.rigthBlock{
+    display: flex;
+    flex-direction: column;
 }
 
 h1,
@@ -106,3 +125,4 @@ a:hover{
 .inexistent{
     display: none;
   }
+
