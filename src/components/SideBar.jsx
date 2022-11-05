@@ -5,12 +5,11 @@ const SideBar = () => {
   return (
     isLogged && <div className='sidebarContainer'>
         <p></p>
-        <p>icon1</p>
-        <p>icon1</p>
-        <p>icon1</p>
-        <p>icon1</p>
-        <p>logout</p>
-
+        <p>👤</p>
+        <p>📜</p>
+        <p>☎️</p>
+        <p>⚙️</p>
+        <p>👉🚪</p>
     </div>
   )
 }
