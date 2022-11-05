@@ -3,9 +3,9 @@ import Main from '../components/Main';
 
 function Layout() {
   return (
-    <layout>
+    <div>
         <Main/>
-    </layout>
+    </div>
   )
 }
 
