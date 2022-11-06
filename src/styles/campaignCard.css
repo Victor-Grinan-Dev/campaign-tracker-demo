@@ -1,5 +1,10 @@
 .campaignCard{
-    height: 100px;
-    width: 100px;
-    background-color: beige;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 145px;
+    border-radius: 10px;
+    background-color: rgb(23, 29, 29);
+    margin: 5px;
 }

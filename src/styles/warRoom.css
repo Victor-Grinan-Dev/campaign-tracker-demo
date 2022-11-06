@@ -4,9 +4,15 @@
     justify-content: space-between;
     align-items: center;
 }
-.camapigns{
+.campaignArea{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+.camapigns{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
