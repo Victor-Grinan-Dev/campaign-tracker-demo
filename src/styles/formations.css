@@ -1,0 +1,6 @@
+.browseArea{
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+    align-items: flex-start;
+}

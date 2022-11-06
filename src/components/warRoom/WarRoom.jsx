@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Campaign } from '../../classes/campaign';
+//import { Campaign } from '../../classes/campaign';
 
 const WarRoom = () => {
     const user = useSelector(state => state.portal.currentUser);

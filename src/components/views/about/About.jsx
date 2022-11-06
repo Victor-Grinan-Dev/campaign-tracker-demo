@@ -2,7 +2,7 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div>
+    <div className='about view'>
         <h1>About</h1>
         <p>This app is suppoused to hep the boardgaming comunity to create more extensive campaigns and keep trak of them on line, this should be fun.</p>
 

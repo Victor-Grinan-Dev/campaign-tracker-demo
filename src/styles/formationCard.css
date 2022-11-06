@@ -1,0 +1,73 @@
+.cardFormation{
+    width: 125px;
+    height: 175px;
+    background-color: rgb(55, 54, 54);
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0 0 10px black;
+}
+
+.innerBound{
+    width: 85%;
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.titleArea{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 5px;
+}
+
+.cardFormName{
+    font-size: 14px;
+    text-shadow: 0 0 10px black;
+}
+
+.selected{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(29, 31, 31);
+}
+
+.imgBox{
+    width: 85%;
+    padding: 10px;
+    background-color: rgb(77, 76, 76);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 5px;
+}
+
+.lvl{
+    font-size: 10px;
+    text-shadow: 0 0 10px black;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.details{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5px;
+}
+.formCardDetail{
+    font-size: 10px;
+    text-shadow: 0 0 10px black;
+}
