@@ -1,5 +1,5 @@
 import React from 'react';
-import WarRoom from '../components/campaigns/WarRoom';
+import WarRoom from '../components/warRoom/WarRoom';
 import Main from '../components/Main';
 import Navbar from '../components/Navbar';
 import SideBar from '../components/SideBar';

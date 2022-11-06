@@ -23,7 +23,7 @@ import AddUser from './components/views/addUser/AddUser';
 import Post from './components/views/post/Post';
 import Chat from './components/views/chat/Chat';
 
-import WarRoom from './components/campaigns/WarRoom';
+import WarRoom from './components/warRoom/WarRoom';
 import MyArmy from './components/myArmy/MyArmy';
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
