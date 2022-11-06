@@ -17,6 +17,7 @@ import './styles/token.css';
 import './styles/createFormation.css'
 import './styles/createUnit.css';
 import './styles/warRoom.css';
+import './styles/campaignCard.css'
 
 //components:
 import Layout from './pages/Layout';

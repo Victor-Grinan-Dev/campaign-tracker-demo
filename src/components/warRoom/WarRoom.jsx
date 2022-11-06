@@ -1,6 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-//import { Campaign } from '../../classes/campaign';
+import { testCampign } from './dummyCampaign'; 
+
+
+const allCamp = [ {...testCampign, "name":"camapign 1", "id": "🗺️"}, {...testCampign, "name":"camapign 2", "id": "🪐"}, {...testCampign, "name":"camapign 3", "id": "🌎"} ];
 
 const WarRoom = () => {
     const user = useSelector(state => state.portal.currentUser);
@@ -9,15 +12,12 @@ const WarRoom = () => {
 
         <div className="camapigns">
             <h3>Available Campaigns</h3>
-            <div>
-            🗺️ campaign1 - 3/4 players  <button>Join</button> 
-            </div>
-            <div>
-            🌎 campaign2 - 2/4 players  <button>Join</button> 
-            </div>
-            <div>
-            🪐 campaign3 - 1/2 players  <button>Join</button> 
-            </div>
+            {
+                allCamp.map((c,i) => (
+                    <CampaignCard campaign={c} key={i}/>
+                ))
+            }
+
         </div>
         {user.type === "admin" && <div>
             <div>
