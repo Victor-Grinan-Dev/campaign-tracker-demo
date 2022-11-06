@@ -58,13 +58,3 @@ const CreateUnit = () => {
 }
 
 export default CreateUnit;
-
-/*
-<button key={i} 
-            style={{ 
-              margin:"5px",
-              backgroundColor:"grey",
-              ,
-              
-            }} > { unit.split("_").join(" ") } </button>
-*/
