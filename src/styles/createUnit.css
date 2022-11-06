@@ -28,12 +28,12 @@
     justify-content: space-around;
 }
 .iconTheUnit{
-    background-size: 30px;
+    background-size: 40px;
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
 }
 
 .inputsUnit{

@@ -41,6 +41,7 @@ const CreateUnit = () => {
           <div className="iconTheUnit" style={{
                   backgroundImage: `url(${unitsImages[currentUnit]})`
                 }}/>
+            <p>Type {currentUnit}: Can build and claim tiles. high defence vs tanks.</p>
 
             <div className="inputsUnit">
               <div className='inputLittleSection'><label>Name: </label><input type="text" className='unitNameInput'/></div>
