@@ -33,14 +33,16 @@ export class Formation {
       this.image = image
       this.faction = faction
       this.subfaction = subfaction
-      this.setPointCost() 
-      this.setDamage()
-      this.setMovement()
-      this.setWorkForce()
-      this.setModelCount()
-      this.setMaxVision()
-      this.setFaction()
-      this.setActions()
+      if (this.composition){
+        this.setPointCost() 
+        this.setDamage()
+        this.setMovement()
+        this.setWorkForce()
+        this.setModelCount()
+        this.setMaxVision()
+        this.setFaction()
+        this.setActions()
+      }
       //action points?
       }
 

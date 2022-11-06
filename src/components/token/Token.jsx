@@ -37,7 +37,7 @@ function Token({formation, fn}) {
           }}
           //onClick={activateToken}
           >
-            {
+            {formation.composition ?
               formation.composition.map((unit) => {
                 return <div 
                 name={formation.name} 
@@ -53,7 +53,7 @@ function Token({formation, fn}) {
                   filter: `${isBeen}`,
               }} 
               /> 
-              })
+              }): null
             }
           </div>
     </div>

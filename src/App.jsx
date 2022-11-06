@@ -14,6 +14,7 @@ import './styles/myArmy.css'
 import './styles/formations.css'
 import './styles/formationCard.css';
 import './styles/token.css';
+import './styles/createFormation.css'
 import './styles/createUnit.css';
 
 //components:
