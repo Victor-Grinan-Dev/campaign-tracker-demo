@@ -4,12 +4,9 @@ import Fromations from './Formations';
 const MyArmy = () => {
   return (
     <div className='myArmy view'>
-      <div className="tabs">
-        <ul>
-          <li>🪖🪖🪖</li>
-          <li>+🪖</li>
-        </ul>
-      </div>
+
+      <div className="addFormationButton"><p>+🪖</p></div>
+      
       <div className="searchArea">
         <input type="text" placeholder='Search...'/>
       </div>

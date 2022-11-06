@@ -41,17 +41,6 @@
     background-color: rgb(29, 31, 31);
 }
 
-.factionColor{
-    background-color: rgb(114, 31, 31);
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
 .imgBox{
     width: 85%;
     padding: 10px;

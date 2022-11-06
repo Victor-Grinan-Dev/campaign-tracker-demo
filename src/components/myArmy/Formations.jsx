@@ -5,7 +5,16 @@ import { testForm } from './dummyArmy';
 
 const Fromations = () => {
   return (
-    <div>
+    <div className='browseArea'>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
+      <FormationCard formation={testForm}/>
       <FormationCard formation={testForm}/>
       <FormationCard formation={testForm}/>
       <FormationCard formation={testForm}/>

@@ -1,5 +1,5 @@
-.token{
-    color: black;
+.token{ /* round base */
+    color: black; /* subfaction color */
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -11,6 +11,16 @@
     align-items: center;
     flex-wrap: wrap;
     z-index: 3;
+}
+
+.factionColor{ /* border around base */
+    background-color: rgb(114, 31, 31);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .tokenContent{
