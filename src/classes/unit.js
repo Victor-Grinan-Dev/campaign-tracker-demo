@@ -1,4 +1,4 @@
-import { heroTypes } from "../dummyDatabse/heroTypes"
+import { heroTypes } from "../data/heroTypes"
 
 export class Unit {
     image = ""
@@ -12,6 +12,6 @@ export class Unit {
         this.skills = skills
     }
     makeHero(type){
-      this.hero = heroTypes[type]
+      this.hero = heroTypes[type];
     }
 };

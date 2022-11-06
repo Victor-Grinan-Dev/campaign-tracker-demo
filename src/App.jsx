@@ -10,6 +10,8 @@ import './styles/userData.css';
 import './styles/profile.css';
 import './styles/contact.css';
 import './styles/chat.css';
+import './styles/token.css';
+import './styles/formationCard.css';
 
 //components:
 import Layout from './pages/Layout';
@@ -23,13 +25,16 @@ import AddUser from './components/views/addUser/AddUser';
 import Post from './components/views/post/Post';
 import Chat from './components/views/chat/Chat';
 
+
 import WarRoom from './components/warRoom/WarRoom';
 import MyArmy from './components/myArmy/MyArmy';
+import CreateFormation from './components/myArmy/CreateFormation';
+
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 
 const protectedViews = () => {
   return (
@@ -43,12 +48,13 @@ const protectedViews = () => {
       <Route path="/chat" element={<Chat />} />
       <Route path="/warroom" element={<WarRoom />} />
       <Route path="/myarmy" element={<MyArmy />} />
+      <Route path="/createformation" element={<CreateFormation />} />
     </>
   )
 }
 
 function App() {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const isLogged = useSelector(state => state.portal.isLogged);
   return (
     <BrowserRouter>

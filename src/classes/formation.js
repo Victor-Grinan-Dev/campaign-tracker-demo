@@ -1,7 +1,7 @@
 export class Formation {
     action_points = 1 //amount of actions a formation can do in a turn.
     work_force = 0 //points to complete the an action.
-    damage = null
+    damage = 0
     defense = 0
     model_count = 0
     vision = 1
@@ -18,7 +18,7 @@ export class Formation {
     color='white' //faction related
     subColor='white' //user choice
     is_listed = false
-    point_const = 0  
+    point_cost = 0  
     carry_capacity = 0 //from the units
     infantry_count = 0
     isBeen = false
@@ -71,6 +71,7 @@ export class Formation {
           if(unit?.skills?.type.includes("infantry")){
             this.work_force += unit.point_const;
           }
+          // eslint-disable-next-line
           unit?.skills?.passive.forEach(skill =>{
             if(skill.includes("work_force")){
               apply_bonus = true;
@@ -83,7 +84,8 @@ export class Formation {
         }
       }
       setMovement(){ //checked
-        let isTransport = false;
+        // eslint-disable-next-line
+        
         let transportCapacity = 0;
         let nonInfantryModelsMinMovement = 100;
         let slowestMovement = 100;
@@ -104,10 +106,10 @@ export class Formation {
               nonInfantryModelsMinMovement = unit.skills.movement;
               }
           }
-          //check if there is transport(s) and if true, whats the transport combine capacity.
-          unit?.skills?.passive.forEach(skill => {
+          //check if there is transport(s) and if true, whats the transport combine capacity.           ,n     321321321vm                         
+  
+        unit?.skills?.passive.forEach(skill => {
             if(skill.includes('transport')){
-              isTransport = true;
               transportCapacity += parseInt(skill.split('+')[1], 10);  
             }
           })       
@@ -116,7 +118,7 @@ export class Formation {
         if(transportCapacity >= this.infantry_count){
           this.movement = nonInfantryModelsMinMovement;
         }else{
-          this.movement = slowestMovement;
+        this.movement = slowestMovement;
           } 
         
           this.maxMovement = this.movement;
