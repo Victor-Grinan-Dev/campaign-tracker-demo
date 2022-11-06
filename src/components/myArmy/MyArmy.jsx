@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
-import Fromations from './Formations';
+import Formations from './Formations';
 const MyArmy = () => {
   return (
     <div className='myArmy view'>
@@ -18,7 +18,7 @@ const MyArmy = () => {
       
 
 
-      <Fromations />
+      <Formations />
     </div>
   )
 };

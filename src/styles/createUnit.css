@@ -1,0 +1,64 @@
+.panelCreateUnit{
+    width: 100%;
+    display: flex;
+}
+
+.units{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.unitArea{/* little add unit card */
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(64, 62, 58); 
+    margin: 1px;
+}
+
+.theUnit{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.iconTheUnit{
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    width: 45px;
+    height: 45px;
+}
+
+.inputsUnit{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputLittleSection{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.unitNameInput{
+    width: 75px;
+}
+.unitInput{
+    width: 40px;
+}
+
+.icon{
+    background-repeat:no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size:80%;
+    width:25px;
+    height:25px;
+}

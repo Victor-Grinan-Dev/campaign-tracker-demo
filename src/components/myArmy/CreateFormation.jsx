@@ -1,11 +1,12 @@
 import React from 'react';
+import CreateUnit from './CreateUnit';
 
 const CreateFormation = () => {
   return (
     <div className='create-formation view'>
         
         <div>Create Formation</div>
-        <div>Create Unit</div>
+        <CreateUnit />
     </div>
   )
 }
