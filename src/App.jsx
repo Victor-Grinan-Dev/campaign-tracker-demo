@@ -16,6 +16,7 @@ import './styles/formationCard.css';
 import './styles/token.css';
 import './styles/createFormation.css'
 import './styles/createUnit.css';
+import './styles/warRoom.css';
 
 //components:
 import Layout from './pages/Layout';

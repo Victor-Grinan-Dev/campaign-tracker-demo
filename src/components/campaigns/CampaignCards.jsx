@@ -2,6 +2,7 @@ import React from 'react'
 
 const CampaignCards = ({campaign}) => {
   return (
+    
     <div>
         <p>{campaign.name}-{campaign.players}/{campaign.map.players}</p> <button>Join</button> <button>Details</button>
     </div>

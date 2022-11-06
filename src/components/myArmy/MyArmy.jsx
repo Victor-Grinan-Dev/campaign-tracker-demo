@@ -7,16 +7,14 @@ const MyArmy = () => {
     <div className='myArmy view'>
 
       <div className="panel">
-
+        <div className="showSelected"> 🪖✅</div>
         <div className="addFormationButton"><Link to="/createformation">+🪖</Link></div>
 
         <div className="searchArea">
-          <input type="text" placeholder='Search...'/>
+          <input type="text" placeholder='Search...' className='searchInput'/>
         </div>
         
       </div>
-      
-
 
       <Formations />
     </div>
