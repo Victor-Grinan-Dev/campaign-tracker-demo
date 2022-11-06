@@ -3,9 +3,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
 }
 
 .navBarLogo{
     width: 35px;
-    padding: 10px;
 }

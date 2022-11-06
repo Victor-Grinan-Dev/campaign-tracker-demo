@@ -5,11 +5,18 @@ const MyArmy = () => {
   return (
     <div className='myArmy view'>
 
-      <div className="addFormationButton"><p>+🪖</p></div>
-      
-      <div className="searchArea">
-        <input type="text" placeholder='Search...'/>
+      <div className="panel">
+
+        <div className="addFormationButton"><p>+🪖</p></div>
+
+        <div className="searchArea">
+          <input type="text" placeholder='Search...'/>
+        </div>
+        
       </div>
+      
+
+
       <Fromations />
     </div>
   )

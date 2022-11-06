@@ -9,7 +9,7 @@
 }
 
 body {
-    min-height: 100vh;
+    height: 95vh;
     min-width: 375px;
     display: flex;
     flex-direction: column;
@@ -18,13 +18,12 @@ body {
     font-size: calc(10px + 2vmin);
     color: white;
     background-color: var(--base_color);
-    min-height: 100vh;
   }
 
 
 .view,
 .main {
-    height: 90vh;
+    height: 85vh;
     max-width: 350;
 }
 

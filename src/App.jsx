@@ -10,9 +10,10 @@ import './styles/userData.css';
 import './styles/profile.css';
 import './styles/contact.css';
 import './styles/chat.css';
-import './styles/token.css';
+import './styles/myArmy.css'
 import './styles/formations.css'
 import './styles/formationCard.css';
+import './styles/token.css';
 
 //components:
 import Layout from './pages/Layout';
