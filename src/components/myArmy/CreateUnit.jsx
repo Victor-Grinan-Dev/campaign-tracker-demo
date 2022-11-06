@@ -13,10 +13,9 @@ const CreateUnit = () => {
 
   const currentUnit = "infantry";
   
-
   return (
     <div>
-      <h3>create unit:</h3>
+      <h3>Add unit:</h3>
 
       <div className="panelCreateUnit">
 
@@ -41,14 +40,14 @@ const CreateUnit = () => {
           <div className="iconTheUnit" style={{
                   backgroundImage: `url(${unitsImages[currentUnit]})`
                 }}/>
-            <p>Type {currentUnit}: Can build and claim tiles. high defence vs tanks.</p>
 
             <div className="inputsUnit">
               <div className='inputLittleSection'><label>Name: </label><input type="text" className='unitNameInput'/></div>
               <div className='inputLittleSection'><label>Models: </label><input type="number" className='unitInput'/></div>
               <div className='inputLittleSection'><label>Point const:</label><input type="number" className='unitInput'/></div>
             </div>
-            <button>Add to formation</button>
+            <p>Type {currentUnit}: Can build and claim tiles. high defence vs tanks.</p>
+            <button>Add unit to formation</button>
           
         </div>
       </div>

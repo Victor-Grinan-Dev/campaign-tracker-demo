@@ -15,7 +15,7 @@ const CreateFormation = () => {
             
             <div className="namingSection">
                 <button>create formation</button>
-                <input type="text" className='unitNameInput'/><button>ok</button>
+                <input type="text" className='unitNameInput' placeholder='Name...'/><button>ok</button>
                 <p className='createFormInfoAtrr'> work_force: {creatingFormation.work_force} </p>
                 <p className='createFormInfoAtrr'> model_count: {creatingFormation.model_count} </p>
                 <p className='createFormInfoAtrr'> actions: { creatingFormation.actions ? creatingFormation.actions : "-"} </p>
