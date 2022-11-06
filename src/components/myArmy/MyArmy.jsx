@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
 import Fromations from './Formations';
 const MyArmy = () => {
@@ -7,7 +8,7 @@ const MyArmy = () => {
 
       <div className="panel">
 
-        <div className="addFormationButton"><p>+🪖</p></div>
+        <div className="addFormationButton"><Link to="/createformation">+🪖</Link></div>
 
         <div className="searchArea">
           <input type="text" placeholder='Search...'/>
