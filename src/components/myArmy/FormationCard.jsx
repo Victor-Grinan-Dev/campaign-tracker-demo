@@ -26,8 +26,8 @@ const FormationCard = ({formation}) => {
           </div>
           <div className="detailsValues">
             <p className='formCardDetail'>{formation.point_cost ? formation.point_cost : "-"}</p>
-            <p className='formCardDetail'>{formation.damage ? formation.damage : "0"}</p>
-            <p className='formCardDetail'>{formation.defense ? formation.defense : "0"}</p>
+            <p className='formCardDetail'>{formation.damage ? formation.damage : "-"}</p>
+            <p className='formCardDetail'>{formation.defense ? formation.defense : "-"}</p>
             
           </div>
         </div>

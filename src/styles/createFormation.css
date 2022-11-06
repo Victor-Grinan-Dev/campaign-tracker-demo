@@ -1,0 +1,13 @@
+.create-formation{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.FormationPart{
+    display: flex;
+}
+
+.createFormInfoAtrr{
+    font-size: 12px;
+}
