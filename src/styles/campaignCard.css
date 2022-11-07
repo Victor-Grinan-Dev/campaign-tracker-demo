@@ -2,9 +2,32 @@
     font-size: 14px;
     display: flex;
     flex-direction: column;
-    height: 150px;
-    width: 145px;
+    align-items: center;
+    justify-content: space-between;
+    height: 250px;
+    width: 280px;
     border-radius: 10px;
     background-color: rgb(23, 29, 29);
     margin: 5px;
+}
+
+.camapignBannerContainer{
+    border-radius: 10px 10px 0 0;
+    width: 90%;
+    height: 40%;
+    margin: 5%;
+    overflow: hidden;
+    
+}
+.campaignBanner{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.buttons{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5%;
 }

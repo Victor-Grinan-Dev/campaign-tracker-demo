@@ -4,12 +4,18 @@ import { capitalStart } from '../../functions/capitalStart';
 const CampaignCard = ({campaign}) => {
   return (
     <div className="campaignCard">
-        <p>{campaign.id}-{capitalStart(campaign.name)}</p>
+        <div className="camapignBannerContainer">
+        <img className='campaignBanner' src={campaign.banner} />
+        </div>
+        <h3>{campaign.id}-{capitalStart(campaign.name)}</h3>
         <p> - Players: {campaign.players.length}/{campaign.map.maxPlayers}</p> 
         <p> - Map Name: {campaign.map.name} </p>
         <p> - Map Size: {campaign.map.dimensions} </p>
-        <button>Join 🔗</button>
-        <button>Info 🛈</button>
+
+        <div className="buttons">
+            <button>Join 🔗</button>
+            <button>Info 🛈</button>
+        </div>
     </div>
   )
 }
