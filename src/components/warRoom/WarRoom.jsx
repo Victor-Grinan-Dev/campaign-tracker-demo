@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { testCampign } from './dummyCampaign'; 
 import CampaignCard from './CampaignCard';
+import { Link } from 'react-router-dom';
 
 const allCamp = [ 
     {...testCampign, 
@@ -43,6 +44,12 @@ const WarRoom = () => {
     <div className='warRoom view'>
         <div className="campaignArea">
         <h3>Available Campaigns</h3>
+
+        {
+        user.type === "admin" && <div>
+                <Link><button> Create New Campaign 🗺️ 🪐 🌎</button></Link>
+            </div>
+        }
             <div className="camapigns">
                 
                 {
@@ -54,13 +61,7 @@ const WarRoom = () => {
             </div>
         </div>
         
-        {user.type === "admin" && <div>
-            <div>
-                <button> Create New Campaign 🗺️ 🪐 🌎</button>
-                
-            </div>
-            
-        </div>}
+        
     </div>
   )
 }
