@@ -5,7 +5,7 @@ const CampaignCard = ({campaign}) => {
   return (
     <div className="campaignCard">
         <div className="camapignBannerContainer">
-        <img className='campaignBanner' src={campaign.banner} />
+        <img className='campaignBanner' alt='banner' src={campaign.banner} />
         </div>
         <h3>{campaign.id}-{capitalStart(campaign.name)}</h3>
         <p> - Players: {campaign.players.length}/{campaign.map.maxPlayers}</p> 

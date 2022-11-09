@@ -1,15 +1,20 @@
 {
-    "campaigns":[],
-    "maps": [],
-    "chat":[],
-    "factions":[],
-    "badges":[],
-    "active_skills":[],
-    "passive_skills":[],
-    "negative":[],
-    "artifacts":[],
-    "resources":[],
-    "buildings":[],
-    "unit_types":[],
-    "users":[]
+    "dynamic_db":{
+        "campaigns":[],
+        "maps": [],
+        "users":[],
+        "chat":[]
+    },
+
+    "static_db":{
+        "factions":[],
+        "badges":[],
+        "active_skills":[],
+        "passive_skills":[],
+        "negative":[],
+        "artifacts":[],
+        "resources":[],
+        "buildings":[],
+        "unit_types":[]
+    }
 }

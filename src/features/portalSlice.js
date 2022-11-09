@@ -13,9 +13,15 @@ export const portalSlice = createSlice({
         search:"",
         isLoading:true,
 
-        //createCard:
+        //create:
         creatingUnit:{},
         creatingFormation:{},
+        creatingCampaign:{},
+        creatingMapObj:{},
+        creatingMapArr:[],
+
+        choiceMap:{},
+
     },
 
     reducers:{
@@ -38,11 +44,29 @@ export const portalSlice = createSlice({
 
 
         //unit:
-
+        setCreatingUnit(state, action){
+            state.creatingUnit = action.payload;
+        },
         //formation
-
+        setCreatingFormation(state, action){
+            state.creatingFormation = action.payload;
+        },
         //army:
 
+        //campaign:
+        setCreatingCampaign(state, action){
+            state.creatingCampaign = action.payload;
+        },
+        //map
+        setCreatingMapObj(state, action){
+            state.creatingMapObj = action.payload;
+        },
+        setCreatingMapArr(state, action){
+            state.creatingMapArr = action.payload;
+        },
+        setChoiceMap(state, action){
+            state.choiceMap = action.payload;
+        }
     }
 });
 
@@ -50,7 +74,15 @@ export const {
     setCurrentUser,
     setIsLogged,
     setIsLoading,
-    setSearch
+    setSearch,
+
+    setCreatingUnit,
+    setCreatingFormation,
+    setCreatingCampaign,
+    setCreatingMapObj,
+    setCreatingMapArr,
+    setChoiceMap,
+
 } = portalSlice.actions;
 
 export default portalSlice.reducer;

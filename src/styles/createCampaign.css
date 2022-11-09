@@ -1,0 +1,26 @@
+.createCampaign{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.section{
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.mapSection{
+    flex-direction: column;
+}
+
+.subSection{
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    margin: 5px;
+}
+
+.mapSelect{
+    align-items: center;
+}
