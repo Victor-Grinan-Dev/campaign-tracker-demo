@@ -35,6 +35,7 @@ import Chat from './components/views/chat/Chat';
 import WarRoom from './components/warRoom/WarRoom';
 import MyArmy from './components/myArmy/MyArmy';
 import CreateFormation from './components/myArmy/CreateFormation';
+import CreateCampaign from './components/campaigns/CreateCampaign';
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -55,6 +56,7 @@ const protectedViews = () => {
       <Route path="/warroom" element={<WarRoom />} />
       <Route path="/myarmy" element={<MyArmy />} />
       <Route path="/createformation" element={<CreateFormation />} />
+      <Route path="/createcampaign" element={<CreateCampaign />} />
     </>
   )
 }

@@ -47,7 +47,7 @@ const WarRoom = () => {
 
         {
         user.type === "admin" && <div>
-                <Link><button> Create New Campaign 🗺️ 🪐 🌎</button></Link>
+                <Link to="/createcampaign"> Create New Campaign 🗺️ 🪐 🌎</Link>
             </div>
         }
             <div className="camapigns">
