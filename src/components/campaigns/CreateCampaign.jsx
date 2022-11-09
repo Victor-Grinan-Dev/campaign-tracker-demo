@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { available_maps } from './dummy_availableMaps';
+import SectionArmySize from './SectionArmySize';
 
 const CreateCampaign = () => {
     const [choiceMap, setChoiceMap] = useState();
@@ -26,6 +27,9 @@ const CreateCampaign = () => {
   return (
     <div className='createCampaign view'>
         <h3>Create Campaign</h3>
+
+        <SectionArmySize changeData={changeData} />
+
         <div>
             <button>create campaign</button> 
             <button> cancel </button>
