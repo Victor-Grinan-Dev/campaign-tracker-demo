@@ -37,6 +37,7 @@ import WarRoom from './components/warRoom/WarRoom';
 import MyArmy from './components/myArmy/MyArmy';
 import CreateFormation from './components/myArmy/CreateFormation';
 import CreateCampaign from './components/campaigns/CreateCampaign';
+import DrawMap from './components/drawMap/DrawMap';
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -58,6 +59,7 @@ const protectedViews = () => {
       <Route path="/myarmy" element={<MyArmy />} />
       <Route path="/createformation" element={<CreateFormation />} />
       <Route path="/createcampaign" element={<CreateCampaign />} />
+      <Route path="/drawmap" element={<DrawMap />} />
     </>
   )
 }
