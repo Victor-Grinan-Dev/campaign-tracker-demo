@@ -29,6 +29,7 @@ export const factions = {
       name:"The Death Machines",
       color:"#395B64",
       benefit:["build%+10"]},
+      
     beast_hordes:{
       id:"bh",
       name:"The Beast Hordes",
