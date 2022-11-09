@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Campaign } from '../../classes/campaign';
-import { setCreatingCampaign } from '../../features/portalSlice';
+import { setChoiceMap, setCreatingCampaign } from '../../features/portalSlice';
+import { capitalStart } from '../../functions/capitalStart';
 import { genId } from '../../functions/genId';
 import { available_maps } from './dummy_availableMaps';
 
@@ -10,7 +11,24 @@ const CreateCampaign = () => {
     const creatingCampaign = useSelector(state => state.portal.creatingCampaign)
     const choiceMap = useSelector(state => state.portal.choiceMap)
 
+    const handleMap = (e) => {
+        dispatch(setChoiceMap(JSON.parse(e.target.value)));
+    }
+
     const changeData = (e) => {
+        if(e.target.name === "map"){
+            
+            console.log( available_maps.filter(item => {
+                return item.name === JSON.parse(e.target.name)
+            }))
+ /*
+            const item = available_maps.filter(map => {
+                return map.name === e.target.name;
+            })
+ */
+            //console.log(item)
+           //dispatch(setChoiceMap(item[0]))
+        }
         dispatch(setCreatingCampaign({ ...creatingCampaign, [e.target.name]: e.target.value }));
     };
 
@@ -22,9 +40,6 @@ const CreateCampaign = () => {
 
             console.log(toSaveCampaign)
         }
-
-
-
         //write to the data base the new campaign as a new object
     };
 
@@ -54,12 +69,10 @@ const CreateCampaign = () => {
                 <option value="100" >1500pts</option>
                 <option value="100" >1750pts</option>
                 <option value="100" >2000pts</option>
-                <option value="100" >2500pts</option>
-                <option value="100" >3000pts</option>
-                <option value="100" >4000pts</option>
-                <option value="100" >5000pts</option>
 
             </select>
+
+            <input type="number" name="armySize" className='numInput' placeholder='Write a num'/>
         
         </div>
         
@@ -82,10 +95,10 @@ const CreateCampaign = () => {
 
         <div className="mapSection section">
         
-            <div className="flexRow subSection">
+            <div className="flexRow subSection mapSelect">
 
                 <label className="sectionName">Available maps: </label>
-                <select onChange={changeData} name="map">  
+                <select onChange={handleMap} name="map">  
                     <option value="" hidden>Choose</option>    
                         {
                             available_maps.map((map, i) => (
@@ -97,7 +110,7 @@ const CreateCampaign = () => {
 
             <div className="flexColumn subSection ">
                 
-                <p>Map name: {choiceMap ? choiceMap.name : "undefined" }</p>
+                <p>Map name: {choiceMap.name ? <>"{capitalStart(choiceMap.name)}"</> : "undefined" }</p>
                 <p>Shape: {choiceMap ? choiceMap.shape : "undefined" }</p>
                 <p>Dimensions: {choiceMap ? choiceMap.dimensions : "undefined" }</p>
                 <p>max players: {choiceMap ? choiceMap.maxPlayers : "undefined" }</p>

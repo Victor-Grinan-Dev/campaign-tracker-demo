@@ -20,7 +20,7 @@ export const portalSlice = createSlice({
         creatingMapObj:{},
         creatingMapArr:[],
 
-        choiceMap:[],
+        choiceMap:{},
 
     },
 
@@ -81,6 +81,7 @@ export const {
     setCreatingCampaign,
     setCreatingMapObj,
     setCreatingMapArr,
+    setChoiceMap,
 
 } = portalSlice.actions;
 
