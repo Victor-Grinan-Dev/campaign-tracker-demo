@@ -19,6 +19,9 @@ export const portalSlice = createSlice({
         creatingCampaign:{},
         creatingMapObj:{},
         creatingMapArr:[],
+
+        choiceMap:[],
+
     },
 
     reducers:{
@@ -61,6 +64,9 @@ export const portalSlice = createSlice({
         setCreatingMapArr(state, action){
             state.creatingMapArr = action.payload;
         },
+        setChoiceMap(state, action){
+            state.choiceMap = action.payload;
+        }
     }
 });
 
