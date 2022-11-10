@@ -1,12 +1,17 @@
 import React from 'react';
-import {topStart, leftStart, evenLeftStart, leftIncrementor, topIncrementor} from '../../data/mapConfig';
 import Tile from './Tile';
 
-const MapReader = ({nestedArray, tileSize, action=null, showTilesId=false}) => {
+const MapReader = ({nestedArray, tileSize, action=null, showTilesId=false, topStart=0, leftStart=0}) => {
 
+    const side = tileSize //width and length of a tile
+
+    //logic variables:
+    const evenLeftStart = leftStart + side * 0.5;
+    const leftIncrementor = side - 0.9; //incrementor 
+    const topIncrementor = side * 0.73; //incrementor 
     
     const handleLeft = (y, x) => {
-        if(y % 2 !== 0) {
+        if(y % 2 === 0) {
             return leftStart + leftIncrementor * x
         } else {
             return evenLeftStart + leftIncrementor * x
@@ -14,12 +19,17 @@ const MapReader = ({nestedArray, tileSize, action=null, showTilesId=false}) => {
     }
 
   return (
-    <div className="canvas">  
+    <div className="canvas"
+    style={{
+        height:`${nestedArray.length * tileSize}px`,
+        width:`${nestedArray.length * tileSize}px`,
+    }}
+    >  
         {
          nestedArray.map((row, y) => (
              row.map((tile, x) => (       
                  tile.terrain && <Tile 
-                 
+
                     key={tile.id} 
                     id={tile.id}
                     tileObj={tile}

@@ -2,7 +2,7 @@ import React from 'react';
 import Token from '../token/Token';
 import { tilesImages } from '../../images/tiles';
 
-const Tile = ({tileObj, func = null, showId=false, tileSize}) => {
+const Tile = ({tileObj, posTop, posLeft, func = null, showId=false, tileSize}) => {
 
     console.log(tileObj)
     //if there is no tile make a blank tile? 
@@ -17,8 +17,9 @@ const Tile = ({tileObj, func = null, showId=false, tileSize}) => {
           backgroundSize: `${tileSize}px ${tileSize + 5}px`,
           width:`${tileSize}px`,
           height:`${tileSize + 5}px`,
-          left:`${tileObj.posLeft}px`,
-          top:`${tileObj.posTop}px`,
+          left:`${posLeft}px`,
+          top:`${posTop}px`,
+          position:"absolute"
         }}
         >
           <div className="tileContent">
@@ -32,39 +33,3 @@ const Tile = ({tileObj, func = null, showId=false, tileSize}) => {
     
 
 export default Tile;
-
-/*
-    <div
-    id={id}
-    className={css.Tile}
-    name="tile"
-    onClick={detectClick} 
-    style={{
-      backgroundImage:`url(${tileImage})`, //not working
-      left:`${posLeft}px`,
-      top:`${posTop}px`,
-    }}
-    >
-      <div className="tileContent" name="token">
-        {showId && <p>{id}</p>}
-        {formation && <Token formation={formation} /> }
-       
-      
-        </div>
-
-        {
-          status === 'hostile' ? <div name={`filter_${status}`} className={css.tileFilter}
-            style={{
-              backgroundImage:`url(${filterImage})`,
-            }} /> : null
-        }
-        {
-          status === 'unexplored' ? <div name={`filter_${status}`} className={css.tileFilter}
-            style={{
-              backgroundImage:`url(${filterImage})`,
-            }} /> : null
-        }
-
-
-        </div>
-*/
