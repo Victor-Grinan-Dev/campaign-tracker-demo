@@ -19,6 +19,7 @@ import './styles/createUnit.css';
 import './styles/warRoom.css';
 import './styles/campaignCard.css';
 import './styles/createCampaign.css';
+import './styles/drawMap.css';
 
 //components:
 import Layout from './pages/Layout';

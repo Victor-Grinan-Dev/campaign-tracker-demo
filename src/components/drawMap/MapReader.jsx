@@ -1,14 +1,10 @@
 import React from 'react';
-import {side, topStart, leftStart, evenLeftStart, leftIncrementor, topIncrementor} from '../../data/mapConfig';
+import {topStart, leftStart, evenLeftStart, leftIncrementor, topIncrementor} from '../../data/mapConfig';
 import Tile from './Tile';
 
-const MapReader = ({nestedArray, action=null, showTilesId=false}) => {
+const MapReader = ({nestedArray, tileSize, action=null, showTilesId=false}) => {
 
-    const mapAreaStyle = {
-        position:"relative"
-        //handle with dinamically from here
-    }
-
+    
     const handleLeft = (y, x) => {
         if(y % 2 !== 0) {
             return leftStart + leftIncrementor * x
@@ -18,21 +14,23 @@ const MapReader = ({nestedArray, action=null, showTilesId=false}) => {
     }
 
   return (
-    <div className="mapArea" style={{mapAreaStyle}}>  
-    {
+    <div className="canvas">  
+        {
          nestedArray.map((row, y) => (
              row.map((tile, x) => (       
                  tile.terrain && <Tile 
+                 
                     key={tile.id} 
                     id={tile.id}
-                    tileObject={tile}
+                    tileObj={tile}
 
                     showId={showTilesId}
                     image={tile.terrain.image}  
                     posTop={topStart + topIncrementor * y} 
                     posLeft={handleLeft(y, x)} 
-                    tileWidth={side} 
-                    tileHeight={side + 5}
+
+                    tileSize={tileSize} 
+                    
                     func={action}  
 
                     //game varible items
@@ -43,8 +41,36 @@ const MapReader = ({nestedArray, action=null, showTilesId=false}) => {
             ))
         ))
     }
-</div>
+    </div>
   )
 }
 
 export default MapReader;
+
+/*
+{
+         nestedArray.map((row, y) => (
+             row.map((tile, x) => (       
+                 tile.terrain && <Tile 
+                    key={tile.id} 
+                    id={tile.id}
+                    tileObj={tile}
+
+                    showId={showTilesId}
+                    image={tile.terrain.image}  
+                    posTop={topStart + topIncrementor * y} 
+                    posLeft={handleLeft(y, x)} 
+
+                    tileSize={tileSize} 
+                    
+                    func={action}  
+
+                    //game varible items
+                    objective={tile.objective} 
+                    formation={tile.formation}
+                    status={tile.status}
+                />
+            ))
+        ))
+    }
+*/

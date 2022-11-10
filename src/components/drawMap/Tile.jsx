@@ -2,17 +2,21 @@ import React from 'react';
 import Token from '../token/Token';
 import { tilesImages } from '../../images/tiles';
 
-const Tile = ({tileObj, func = null, showId=false}) => {
+const Tile = ({tileObj, func = null, showId=false, tileSize}) => {
 
+    console.log(tileObj)
     //if there is no tile make a blank tile? 
+    
     return (
         <div
-        id={tileObj.id}
+        id={tileObj?.id}
         className="tile"
         onClick={func} 
         style={{
           backgroundImage:`url(${tilesImages[tileObj.terrain.name]}`,
-          backgroundSize: `${50}px ${56}px`,
+          backgroundSize: `${tileSize}px ${tileSize + 5}px`,
+          width:`${tileSize}px`,
+          height:`${tileSize + 5}px`,
           left:`${tileObj.posLeft}px`,
           top:`${tileObj.posTop}px`,
         }}
@@ -25,6 +29,7 @@ const Tile = ({tileObj, func = null, showId=false}) => {
         </div>
       )
     }
+    
 
 export default Tile;
 

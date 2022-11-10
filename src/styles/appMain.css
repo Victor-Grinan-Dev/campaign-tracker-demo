@@ -25,6 +25,7 @@ body {
 .main {
     height: 85vh;
     max-width: 350;
+    position: relative;
 }
 
 .view{
