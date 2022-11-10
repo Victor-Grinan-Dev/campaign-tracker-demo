@@ -1,7 +1,7 @@
 import React from 'react';
 import Tile from './Tile';
 
-const MapReader = ({nestedArray, tileSize, action=null, showTilesId=false, topStart=0, leftStart=0}) => {
+const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false, topStart=0, leftStart=0}) => {
 
     const side = tileSize //width and length of a tile
 
@@ -11,11 +11,20 @@ const MapReader = ({nestedArray, tileSize, action=null, showTilesId=false, topSt
     const topIncrementor = side * 0.73; //incrementor 
     
     const handleLeft = (y, x) => {
-        if(y % 2 === 0) {
-            return leftStart + leftIncrementor * x
-        } else {
-            return evenLeftStart + leftIncrementor * x
+        if (shape==="sq"){
+            if(y % 2 !== 0) {
+                return leftStart + leftIncrementor * x
+            } else {
+                return evenLeftStart + leftIncrementor * x
+            }
+        }else{
+            if(y % 2 !== 0) {
+                return leftStart + leftIncrementor * x
+            } else {
+                return evenLeftStart + leftIncrementor * x
+            }
         }
+
     }
 
   return (
