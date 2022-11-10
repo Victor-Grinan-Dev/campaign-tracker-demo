@@ -4,7 +4,6 @@ import { tilesImages } from '../../images/tiles';
 
 const Tile = ({tileObj, posTop, posLeft, func = null, showId=false, tileSize}) => {
 
-    console.log(tileObj)
     //if there is no tile make a blank tile? 
     
     return (

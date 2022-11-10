@@ -7,12 +7,12 @@ const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false
 
     //logic variables:
     const evenLeftStart = leftStart + side * 0.5;
-    const leftIncrementor = side - 0.9; //incrementor 
-    const topIncrementor = side * 0.73; //incrementor 
+    const leftIncrementor = side ; //incrementor (-0.9?)
+    const topIncrementor = side * 0.75; //incrementor 
     
     const handleLeft = (y, x) => {
         if (shape==="sq"){
-            if(y % 2 !== 0) {
+            if(y % 2 === 0) {
                 return leftStart + leftIncrementor * x
             } else {
                 return evenLeftStart + leftIncrementor * x
@@ -30,7 +30,7 @@ const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false
   return (
     <div className="canvas"
     style={{
-        height:`${nestedArray.length * tileSize}px`,
+        height:`${nestedArray.length * topIncrementor + (nestedArray.length * 2)}px`,
         width:`${nestedArray.length * tileSize}px`,
     }}
     >  

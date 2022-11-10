@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Tile } from '../../classes/tile';
 import { hexTestMap, testMap } from '../warRoom/dummyMap';
 import MapReader from './MapReader';
 
-const tileSize = 30
 
+const chosenMap = hexTestMap;
 const DrawMap = () => {
 
   return (
@@ -14,7 +13,7 @@ const DrawMap = () => {
 
         </div>
         <div className="screen">
-        {<MapReader nestedArray={hexTestMap.map} tileSize={30} shape={hexTestMap.shape} /> }
+        {<MapReader nestedArray={chosenMap.map} tileSize={30} shape={chosenMap.shape} /> }
         </div>
     </div>
   )
