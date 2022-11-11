@@ -11,6 +11,10 @@
     height: 120px;
 }
 
+.dimensionArea{
+    display: inline;
+}
+
 .screen{
     display: flex;
     justify-content: center;

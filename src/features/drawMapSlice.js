@@ -4,7 +4,7 @@ import { generateMap } from '../functions/mapGenerator';
 export const drawMapSlice = createSlice({
     name:'drawMap',
     initialState:{
-        mapObj:generateMap("Name Undefined", "5x5", "sq" ),
+        mapObj:generateMap("Name Undefined", "min", "sq" ),
         mapName:"Name Undefined",
         shape:"sq",
         dimension:"min",

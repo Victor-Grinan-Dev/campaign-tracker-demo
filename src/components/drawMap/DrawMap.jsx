@@ -5,7 +5,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setShape } from '../../features/drawMapSlice';
+import { setMapObj, setShape, setDimension } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
@@ -42,14 +42,57 @@ const DrawMap = () => {
       dispatch(setShape("sq"));
     }
   }
+
+  const dimensionHandler = (e) => {
+    const [x, y] = dimension.split("x");
+     if (e.target.name === "width"){
+      dispatch(setDimension(`${parseInt(e.target.value, 10)}x${y}`))
+     }else if(e.target.name === "heigth"){
+      dispatch(setDimension(`${x}x${parseInt(e.target.value, 10)}`))
+     }else{
+      dispatch(setDimension(`${parseInt(e.target.value, 10)}`))
+     }
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
           <p>Name: New Map</p>
           <div className="topPanelButtons">
             <button>- zoom +</button>
-            <button>width</button>
-            <button>height</button>
+          {
+            shape === "sq" ? <div className="dimensionArea"> 
+              <select name="width" onChange={dimensionHandler}>
+              <option value="" hidden>width</option>
+                <option value="9">9</option>
+                <option value="11">11</option>
+                <option value="13">13</option>
+                <option value="15">15</option>
+                <option value="17">17</option>
+                <option value="21">21</option>
+                <option value="23">23</option>
+                <option value="25">25</option>
+              </select> 
+              <select name="heigth" onChange={dimensionHandler}>
+              <option value="" hidden>heigth</option>
+                <option value="9">9</option>
+                <option value="11">11</option>
+                <option value="13">13</option>
+                <option value="15">15</option>
+                <option value="17">17</option>
+                <option value="21">21</option>
+                <option value="23">23</option>
+                <option value="25">25</option>
+              </select>
+            </div> :
+            <select name="hexSide" onChange={dimensionHandler}>
+                <option value="" hidden>Dimension</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+                <option value="9">9</option>
+                <option value="11">11</option>
+                <option value="13">13</option>
+            </select>
+          }
             <button className='appButton' onClick={shapeHandler} >shape</button>
             <button>cancel</button>
             <button>reset tiles</button>

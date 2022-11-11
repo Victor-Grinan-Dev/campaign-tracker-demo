@@ -148,6 +148,12 @@ export const generateMap = (name, dimensions, shape) => {
         else if(dimensions.split('x').length === 2){
             y = dimensions.split('x')[0]
             x = dimensions.split('x')[1]
+            if(y < 9 || y === "undefined"){
+                y = 9;
+            }
+            if(x < 9 || x === "undefined"){
+                x = 9;
+            }
             map = generateSqMap(name, y, x);
         }else{
             map = generateSqMap(name, dimensions, dimensions);
