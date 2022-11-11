@@ -37,7 +37,7 @@ export const hexCleaner = (nestedArray) => {
             if (nestedArray[y][x].image !== null){
                 has_started = true;
             }
-            if(has_started && currentTile.image === null){
+            if(has_started && currentTile.terrain === null){
                 // newArray = currentRow.slice(x - 1)
                 newArray = currentRow.slice(0, x);
                 cleanedNestedArray.push(newArray);
@@ -49,6 +49,13 @@ export const hexCleaner = (nestedArray) => {
     return cleanedNestedArray;
 }
 export const canvasSquare = (name, maxRows, maxCols) => {
+
+    if(maxCols < 9){
+        maxCols = 9;
+    }
+    if(maxRows< 9){
+        maxRows = 9;
+    }
 
     let columns;
     const map = [];
@@ -63,7 +70,7 @@ export const canvasSquare = (name, maxRows, maxCols) => {
         }
         map.push(rows);
     }
-    return new Map(name, "sq",`${maxRows}x${maxCols}`, map, null);
+    return new Map(name, "sq",`${maxRows}x${maxCols}`, map, null, true);
 }
 export const canvasHex = (name, side = 13) => {
     //TODO: fix the generator to start in alphabet "a" instead of "i"
@@ -75,10 +82,10 @@ export const canvasHex = (name, side = 13) => {
     }else if (side % 2 === 0){
         side += 1;
     }
-
+    
     const width = side * 3 - 5;
     const height = side * 2 - 1;
-
+    
     let row;
     let funnyCase;  
     side > 5 ? funnyCase = 0 : funnyCase = 1;     
@@ -100,20 +107,19 @@ export const canvasHex = (name, side = 13) => {
         for (let x = 0; x < row; x++){
     
             if (x < rule -1 || x > row - rule - relation[side] + 1 ){
-                line.push(new Tile(null, null));
+                line.push(new Tile(`${y}00`, y, x, null));
             }else if (x > rule - funnyCase){
                 const id = generateTileId(y, x, alphaStart)
-                line.push(new Tile(id, "blank"));
+                line.push(new Tile(id, y, x, terrainTypes["blank"]));
             }
         }
         hex.push(line);
         alphaStart += 1
     }
-    hex = hexCleaner(hex)
     
-    const hexMap = new Map(name, "hx",`${side}`, hex)
+    //hex = hexCleaner(hex)
     
-    return hexMap;
+    return new Map(name, "hx",`${side}`, hex, true);
 }
 //TODO: generate a proper map:
 const generateHexagonalMap = (name, side = 13) => {
@@ -130,13 +136,16 @@ const generateSqMap  = (name = "Blank Canvas", maxRows = 25, maxCols = 25, shape
     return map;
 }
 //TODO: switcth shapes
-export const generateMap = (name = "Unknown", dimensions="7x7", shape = "sq") => {
-    //this should be the only function you need to generate any of the available map options as a canvas or a random tiles
+export const generateMap = (name, dimensions, shape) => {
+    
     let map;
     let y;
     let x;
     if(shape === "sq"){
-        if(dimensions.split('x').length === 2){
+        if(dimensions === "min"){
+            map = generateSqMap(name, 9, 9);
+        }
+        else if(dimensions.split('x').length === 2){
             y = dimensions.split('x')[0]
             x = dimensions.split('x')[1]
             map = generateSqMap(name, y, x);
@@ -145,7 +154,15 @@ export const generateMap = (name = "Unknown", dimensions="7x7", shape = "sq") =>
         }
         
     }else if (shape === "hx"){
-        map = generateHexagonalMap(name, dimensions);
+        if(dimensions === "min"){
+            map = generateHexagonalMap(name, 5);
+        }
+        else if(dimensions.split('x').length === 3){
+            x = dimensions.split('x')[0]
+            map = generateHexagonalMap(name, x);
+        }else{
+            map = generateHexagonalMap(name, parseInt(dimensions, 10));
+        }
     }
     return map;
 }

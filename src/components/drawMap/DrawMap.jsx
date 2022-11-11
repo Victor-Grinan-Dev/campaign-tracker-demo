@@ -1,25 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
+//image
 import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
-import { hexTestMap, testMap } from '../warRoom/dummyMap';
-import {canvasSquare, canvasHex} from '../../functions/mapGenerator';
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { setMapObj, setShape } from '../../features/drawMapSlice';
+
+//components
 import MapReader from './MapReader';
 
-const testSqGen = canvasSquare("testSq", 15, 15);
-console.log(testSqGen.map)
-const chosenMap = testSqGen
-const DrawMap = () => {
+//functions
+import { hexTestMap, testMap } from '../warRoom/dummyMap';
+import {canvasSquare, canvasHex, generateMap} from '../../functions/mapGenerator';
 
+const testSqGen = canvasSquare("testSq", 15, 15);
+const testHxGen = canvasHex("testHx", 4);
+
+
+const DrawMap = () => {
+  const dispatch = useDispatch();
+
+  const mapName = useSelector(state=>state.drawMap.mapName);
+  const mapObj = useSelector(state=>state.drawMap.mapObj);
+  let shape = useSelector(state=>state.drawMap.shape);
+  const dimension = useSelector(state=>state.drawMap.dimension);
+  const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
+
+  useEffect(() => {
+    dispatch(setMapObj(generateMap(mapName, dimension, shape)));
+  }, [
+    dispatch,
+    shape,
+    dimension,
+  ]);
+
+  const shapeHandler = (e) => {
+    if(shape === "sq"){
+      dispatch(setShape("hx"));
+    }else if(shape === "hx"){
+      dispatch(setShape("sq"));
+    }
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
           <p>Name: New Map</p>
           <div className="topPanelButtons">
-            <button>next terrain</button>
+            <button>- zoom +</button>
             <button>width</button>
             <button>height</button>
-            <button>shape</button>
+            <button className='appButton' onClick={shapeHandler} >shape</button>
             <button>cancel</button>
             <button>reset tiles</button>
             <button>save map</button>
@@ -33,7 +64,7 @@ const DrawMap = () => {
           backgroundColor:`url(${water})`,
         }}
         >
-        {<MapReader nestedArray={chosenMap.map} tileSize={50} shape={chosenMap.shape} /> }
+        {<MapReader nestedArray={mapObj.map} tileSize={50} shape={mapObj.shape} mapObj={mapObj}/> }
         </div>
         <div className="bottomPanel">
           <p>bottom panel</p>

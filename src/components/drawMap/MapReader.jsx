@@ -1,7 +1,7 @@
 import React from 'react';
 import Tile from './Tile';
 
-const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false, topStart=0, leftStart=0}) => {
+const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false, topStart=0, leftStart=0, mapObj=true}) => {
 
     const side = tileSize //width and length of a tile
     
@@ -11,8 +11,8 @@ const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false
     const topIncrementor = side * 0.75; //incrementor 
     
     const handleLeft = (y, x) => {
-        if (shape==="sq"){
-            if(y % 2 === 0) {
+        if (shape === "sq" || mapObj.isAutomated){
+            if( y % 2 === 0 ) {
                 return leftStart + leftIncrementor * x
             } else {
                 return evenLeftStart + leftIncrementor * x
@@ -29,8 +29,8 @@ const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false
   return (
     <div className="canvas"
     style={{
-        height:`${nestedArray.length * tileSize}px`,
-        width:`${nestedArray.length * topIncrementor}px`,
+        height:`${nestedArray.length * topIncrementor}px`,
+        width:`${nestedArray.length * tileSize}px`,
         position:"relative",
     }}
     >  
