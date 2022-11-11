@@ -146,4 +146,7 @@ a:hover{
   color: rgb(0, 0, 0);
   background-color: burlywood;
 }
-  
+
+.tinyNumInPut{
+  width: 45px;
+}
