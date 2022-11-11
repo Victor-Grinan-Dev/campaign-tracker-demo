@@ -139,4 +139,11 @@ a:hover{
     padding-left: 10px;
     max-width: 350px;
   }
+
+.appButton{
+  border-radius: 10px;
+  border-color: rgb(218, 116, 43);
+  color: rgb(0, 0, 0);
+  background-color: burlywood;
+}
   

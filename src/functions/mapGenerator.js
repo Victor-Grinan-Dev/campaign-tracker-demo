@@ -109,9 +109,9 @@ export const canvasHex = (name, side = 13) => {
         hex.push(line);
         alphaStart += 1
     }
-    console.log("before",hex)
+    
     //hex = hexCleaner(hex)
-    console.log("after", hex)
+    
     return new Map(name, "hx",`${side}`, hex, true)
 }
 //TODO: generate a proper map:
@@ -129,8 +129,8 @@ const generateSqMap  = (name = "Blank Canvas", maxRows = 25, maxCols = 25, shape
     return map;
 }
 //TODO: switcth shapes
-export const generateMap = (name = "Unknown", dimensions="7x7", shape = "sq") => {
-    //this should be the only function you need to generate any of the available map options as a canvas or a random tiles
+export const generateMap = (name, dimensions, shape) => {
+
     let map;
     let y;
     let x;
@@ -144,7 +144,12 @@ export const generateMap = (name = "Unknown", dimensions="7x7", shape = "sq") =>
         }
         
     }else if (shape === "hx"){
-        map = generateHexagonalMap(name, dimensions);
+        if(dimensions.split('x').length === 3){
+            x = dimensions.split('x')[0]
+            map = generateHexagonalMap(name, x);
+        }else{
+            map = generateHexagonalMap(name, parseInt(dimensions, 10));
+        }
     }
     return map;
 }

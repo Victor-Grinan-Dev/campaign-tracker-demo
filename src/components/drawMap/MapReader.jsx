@@ -29,8 +29,8 @@ const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false
   return (
     <div className="canvas"
     style={{
-        height:`${nestedArray.length * tileSize}px`,
-        width:`${nestedArray.length * topIncrementor}px`,
+        height:`${nestedArray.length * topIncrementor}px`,
+        width:`${nestedArray.length * tileSize}px`,
         position:"relative",
     }}
     >  
