@@ -5,16 +5,18 @@ import Logo from '../../ui_components/Logo';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser, setIsLogged } from '../../../features/portalSlice';
 import { User } from '../../../classes/user';
+import Cookies from 'js-cookie';
 
-const testUser = new User("Victor", "Victor123");
+export const testUser = new User("Victor", "Victor123");
 testUser.type = "admin";
 
 const Login = () => {
   const dispatch = useDispatch();
 
 const handleSubmit = () => {
-  dispatch(setCurrentUser(testUser))
+   dispatch(setCurrentUser(testUser))
    dispatch(setIsLogged(true));
+   Cookies.set("portalLog", "true")//?
 }
 
   return (
