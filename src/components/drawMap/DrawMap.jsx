@@ -5,7 +5,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setNestedArr } from '../../features/drawMapSlice';
+import { setMapObj, setShape } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
@@ -18,30 +18,30 @@ const testSqGen = canvasSquare("testSq", 15, 15);
 const testHxGen = canvasHex("testHx", 4);
 
 
-
 const DrawMap = () => {
+  const dispatch = useDispatch();
+
   const mapName = useSelector(state=>state.drawMap.mapName);
-  const nestedArr = useSelector(state=>state.drawMap.nestedArr);
-  const shape = useSelector(state=>state.drawMap.shape);
+  const mapObj = useSelector(state=>state.drawMap.mapObj);
+  let shape = useSelector(state=>state.drawMap.shape);
   const dimension = useSelector(state=>state.drawMap.dimension);
   const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
 
-  let chosenMap = generateMap(mapName, dimension, shape)
-
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    
-    //dispatch(setNestedArr())
+    dispatch(setMapObj(generateMap(mapName, dimension, shape)));
   }, [
     dispatch,
-    mapName,
-    nestedArr,
     shape,
     dimension,
-    maxPlayers,
   ]);
 
+  const shapeHandler = (e) => {
+    if(shape === "sq"){
+      dispatch(setShape("hx"));
+    }else if(shape === "hx"){
+      dispatch(setShape("sq"));
+    }
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -50,7 +50,7 @@ const DrawMap = () => {
             <button>- zoom +</button>
             <button>width</button>
             <button>height</button>
-            <button className='appButton'>shape</button>
+            <button className='appButton' onClick={shapeHandler} >shape</button>
             <button>cancel</button>
             <button>reset tiles</button>
             <button>save map</button>
@@ -64,7 +64,7 @@ const DrawMap = () => {
           backgroundColor:`url(${water})`,
         }}
         >
-        {<MapReader nestedArray={chosenMap.map} tileSize={50} shape={chosenMap.shape} mapObj={chosenMap}/> }
+        {<MapReader nestedArray={mapObj.map} tileSize={50} shape={mapObj.shape} mapObj={mapObj}/> }
         </div>
         <div className="bottomPanel">
           <p>bottom panel</p>

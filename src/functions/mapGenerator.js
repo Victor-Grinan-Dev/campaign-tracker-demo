@@ -50,6 +50,13 @@ export const hexCleaner = (nestedArray) => {
 }
 export const canvasSquare = (name, maxRows, maxCols) => {
 
+    if(maxCols < 9){
+        maxCols = 9;
+    }
+    if(maxRows< 9){
+        maxRows = 9;
+    }
+
     let columns;
     const map = [];
     for (let y = 0; y < maxRows; y++){
@@ -112,7 +119,7 @@ export const canvasHex = (name, side = 13) => {
     
     //hex = hexCleaner(hex)
     
-    return new Map(name, "hx",`${side}`, hex, true)
+    return new Map(name, "hx",`${side}`, hex, true);
 }
 //TODO: generate a proper map:
 const generateHexagonalMap = (name, side = 13) => {
@@ -130,12 +137,15 @@ const generateSqMap  = (name = "Blank Canvas", maxRows = 25, maxCols = 25, shape
 }
 //TODO: switcth shapes
 export const generateMap = (name, dimensions, shape) => {
-
+    
     let map;
     let y;
     let x;
     if(shape === "sq"){
-        if(dimensions.split('x').length === 2){
+        if(dimensions === "min"){
+            map = generateSqMap(name, 9, 9);
+        }
+        else if(dimensions.split('x').length === 2){
             y = dimensions.split('x')[0]
             x = dimensions.split('x')[1]
             map = generateSqMap(name, y, x);
@@ -144,7 +154,10 @@ export const generateMap = (name, dimensions, shape) => {
         }
         
     }else if (shape === "hx"){
-        if(dimensions.split('x').length === 3){
+        if(dimensions === "min"){
+            map = generateHexagonalMap(name, 5);
+        }
+        else if(dimensions.split('x').length === 3){
             x = dimensions.split('x')[0]
             map = generateHexagonalMap(name, x);
         }else{
