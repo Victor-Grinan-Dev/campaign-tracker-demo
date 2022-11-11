@@ -14,6 +14,9 @@ import MapReader from './MapReader';
 import { hexTestMap, testMap } from '../warRoom/dummyMap';
 import {canvasSquare, canvasHex, generateMap} from '../../functions/mapGenerator';
 
+//data
+import { terrainTypes } from '../../data/terrainTypes.js'
+
 const testSqGen = canvasSquare("testSq", 15, 15);
 const testHxGen = canvasHex("testHx", 4);
 
@@ -21,8 +24,8 @@ const testHxGen = canvasHex("testHx", 4);
 const DrawMap = () => {
   const dispatch = useDispatch();
 
-  const mapName = useSelector(state=>state.drawMap.mapName);
   const mapObj = useSelector(state=>state.drawMap.mapObj);
+  const mapName = useSelector(state=>state.drawMap.mapName);
   const shape = useSelector(state=>state.drawMap.shape);
   const dimension = useSelector(state=>state.drawMap.dimension);
   const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
@@ -63,6 +66,23 @@ const DrawMap = () => {
       dispatch(setTileSize(tileSize - 5));
     }
   }
+
+  const setAllHandler = (e) => {
+    console.log(mapObj)
+    const newArr = [];
+    const oldArr = mapObj.map;
+
+    for (let row of oldArr){
+      const newRow = [];
+      for (let tile of row){
+        if (tile.terrain){
+          newRow.push({...tile, "terrain": terrainTypes[e.target.value]})
+        }
+      }
+      newArr.push(newRow);
+    }
+    dispatch(setMapObj({...mapObj, "map": newArr}));
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -77,7 +97,7 @@ const DrawMap = () => {
           </div>
           <div className="topPanelButtons">
             <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
-             <> zoom </> 
+             <>zoom</> 
             <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
           {
             shape === "sq" ? <div className="dimensionArea"> 
@@ -115,7 +135,16 @@ const DrawMap = () => {
           }
             <button className='appButton' onClick={shapeHandler} >shape</button>
 
-            <button>set all</button>
+            <select onChange={setAllHandler} className='appButton'>
+              <option value="" hidden>set all tiles</option>
+              <option value="blank" >blank</option>
+              <option value="plains" >plains</option>
+              <option value="hills" >hills</option>
+              <option value="forest" >forest</option>
+              <option value="swamp" >swamp</option>
+              <option value="mountains" >mountains</option>
+              <option value="city" >city</option>
+            </select>
             <button>random all</button>
           </div>
        
