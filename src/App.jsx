@@ -83,13 +83,6 @@ function App() {
         dispatch(setIsLogged(true))
         dispatch(setCurrentUser(testUser))
       }
-      
-      //for (let user of users){
-      //  if(user.id === cookie){
-      //    
-      //    
-      //  }
-      //}
     }         
   }, []);
 

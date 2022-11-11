@@ -7,8 +7,9 @@ import {canvasSquare, canvasHex} from '../../functions/mapGenerator';
 import MapReader from './MapReader';
 
 const testSqGen = canvasSquare("testSq", 15, 15);
-console.log(testSqGen.map)
-const chosenMap = testSqGen
+const testHxGen = canvasHex("testHx", 4);
+console.log(testHxGen.map)
+const chosenMap = testHxGen
 const DrawMap = () => {
 
   return (
@@ -33,7 +34,7 @@ const DrawMap = () => {
           backgroundColor:`url(${water})`,
         }}
         >
-        {<MapReader nestedArray={chosenMap.map} tileSize={50} shape={chosenMap.shape} /> }
+        {<MapReader nestedArray={chosenMap.map} tileSize={50} shape={chosenMap.shape} mapObj={chosenMap}/> }
         </div>
         <div className="bottomPanel">
           <p>bottom panel</p>
