@@ -1,6 +1,9 @@
 {
     "dynamic_db":{
-        "campaigns":[],
+        "campaigns":[
+            [],
+            []
+        ],
         "maps": [],
         "users":[],
         "chat":[]
@@ -18,3 +21,4 @@
         "unit_types":[]
     }
 }
+

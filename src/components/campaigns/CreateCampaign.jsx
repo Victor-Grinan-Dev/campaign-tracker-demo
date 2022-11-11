@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Campaign } from '../../classes/campaign';
 import { setChoiceMap, setCreatingCampaign } from '../../features/portalSlice';
 import { capitalStart } from '../../functions/capitalStart';
@@ -125,8 +126,8 @@ const CreateCampaign = () => {
             </div>
     
             <div className="subSection">
-                link to Draw a map in blank canvas
-                {/* <Link to="/drawmap"> Draw a map in blank canvas </Link> */}
+                
+                 <Link to="/drawmap"> Draw a map in blank canvas </Link> 
             </div>
 
     </div>
@@ -142,6 +143,6 @@ const CreateCampaign = () => {
   )
 };
 
-export default CreateCampaign
+export default CreateCampaign;
 
 

@@ -6,6 +6,7 @@ const forest = new Terrain("forest", 2, 1, 2, true, true, false, [], "luck+4");
 const swamp = new Terrain("swamp", 1, 2, -1, false, false, false, [], "luck+9");
 const mountains = new Terrain("mountains", 7, 7, 3, true, true, false, [], null);
 const city = new Terrain("city", 0, 0, 4, true, true, false, [], []);
+const blank = new Terrain("blank", null, null, null, undefined, undefined, undefined, null, null, null)
 
 export const terrainTypes = {
   plains: plains,
@@ -13,5 +14,6 @@ export const terrainTypes = {
   forest: forest,
   swamp: swamp,
   mountains: mountains,
-  city:city
+  city:city,
+  blank:blank,
 }
