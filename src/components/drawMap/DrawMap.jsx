@@ -56,12 +56,20 @@ const DrawMap = () => {
   return (
     <div className='drawmap view'>
         <div className="topPanel">
-          <p>Name: New Map</p>
+          <div className="topArea">
+          <div className="nameArea">
+            <p>Name: New Map</p>
+          </div>
+          <div className="mainButtons">
+            <button>save</button>
+            <button>cancel</button>
+          </div>
+          </div>
           <div className="topPanelButtons">
             <button>- zoom +</button>
           {
             shape === "sq" ? <div className="dimensionArea"> 
-              <select name="width" onChange={dimensionHandler}>
+              <select name="width" onChange={dimensionHandler} className="appButton">
               <option value="" hidden>width</option>
                 <option value="9">9</option>
                 <option value="11">11</option>
@@ -72,7 +80,7 @@ const DrawMap = () => {
                 <option value="23">23</option>
                 <option value="25">25</option>
               </select> 
-              <select name="heigth" onChange={dimensionHandler}>
+              <select name="heigth" onChange={dimensionHandler} className="appButton">
               <option value="" hidden>heigth</option>
                 <option value="9">9</option>
                 <option value="11">11</option>
@@ -84,7 +92,7 @@ const DrawMap = () => {
                 <option value="25">25</option>
               </select>
             </div> :
-            <select name="hexSide" onChange={dimensionHandler}>
+            <select name="hexSide" onChange={dimensionHandler} className="appButton">
                 <option value="" hidden>Dimension</option>
                 <option value="5">5</option>
                 <option value="7">7</option>
@@ -94,9 +102,7 @@ const DrawMap = () => {
             </select>
           }
             <button className='appButton' onClick={shapeHandler} >shape</button>
-            <button>cancel</button>
-            <button>reset tiles</button>
-            <button>save map</button>
+
             <button>set all</button>
             <button>random all</button>
           </div>
