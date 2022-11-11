@@ -9,6 +9,8 @@ export const drawMapSlice = createSlice({
         shape:"sq",
         dimension:"min",
         maxPlayers:2,
+
+        tileSize:50,
     }, 
 
     reducers:{
@@ -27,6 +29,10 @@ export const drawMapSlice = createSlice({
         setMaxPlayers(state, action){
             state.maxPlayers = action.payload;
         },
+
+        setTileSize(state, action){
+            state.tileSize = action.payload;
+        },
     }
 
 });
@@ -37,6 +43,7 @@ export const {
     setShape,
     setDimension,
     setMaxPlayers,
+    setTileSize,
 } = drawMapSlice.actions;
 
 export default drawMapSlice.reducer;

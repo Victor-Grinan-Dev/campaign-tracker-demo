@@ -5,7 +5,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setShape, setDimension } from '../../features/drawMapSlice';
+import { setMapObj, setShape, setDimension, setTileSize } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
@@ -23,9 +23,10 @@ const DrawMap = () => {
 
   const mapName = useSelector(state=>state.drawMap.mapName);
   const mapObj = useSelector(state=>state.drawMap.mapObj);
-  let shape = useSelector(state=>state.drawMap.shape);
+  const shape = useSelector(state=>state.drawMap.shape);
   const dimension = useSelector(state=>state.drawMap.dimension);
   const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
+  const tileSize = useSelector(state=>state.drawMap.tileSize);
 
   useEffect(() => {
     dispatch(setMapObj(generateMap(mapName, dimension, shape)));
@@ -53,6 +54,15 @@ const DrawMap = () => {
       dispatch(setDimension(`${parseInt(e.target.value, 10)}`))
      }
   }
+
+  const tileSizeHandler = (e) => {
+    if(e.target.name === "+" && tileSize <= 200){
+      dispatch(setTileSize(tileSize + 5));
+    }
+    else if (e.target.name === "-" && tileSize >= 15){
+      dispatch(setTileSize(tileSize - 5));
+    }
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -66,7 +76,9 @@ const DrawMap = () => {
           </div>
           </div>
           <div className="topPanelButtons">
-            <button>- zoom +</button>
+            <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
+             <> zoom </> 
+            <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
           {
             shape === "sq" ? <div className="dimensionArea"> 
               <select name="width" onChange={dimensionHandler} className="appButton">
@@ -113,7 +125,7 @@ const DrawMap = () => {
           backgroundColor:`url(${water})`,
         }}
         >
-        {<MapReader nestedArray={mapObj.map} tileSize={50} shape={mapObj.shape} mapObj={mapObj}/> }
+        {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj}/> }
         </div>
         <div className="bottomPanel">
           <p>bottom panel</p>
