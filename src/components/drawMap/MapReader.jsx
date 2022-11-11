@@ -4,8 +4,8 @@ import Tile from './Tile';
 const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false, topStart=0, leftStart=0}) => {
 
     const side = tileSize //width and length of a tile
-
-    //logic variables:
+    
+    //logic variables: 
     const evenLeftStart = leftStart + side * 0.5;
     const leftIncrementor = side ; //incrementor (-0.9?)
     const topIncrementor = side * 0.75; //incrementor 
@@ -24,14 +24,14 @@ const MapReader = ({nestedArray, tileSize, shape, action=null, showTilesId=false
                 return evenLeftStart + leftIncrementor * x
             }
         }
-
     }
 
   return (
     <div className="canvas"
     style={{
-        height:`${nestedArray.length * topIncrementor + (nestedArray.length * 2)}px`,
-        width:`${nestedArray.length * tileSize}px`,
+        height:`${nestedArray.length * tileSize}px`,
+        width:`${nestedArray.length * topIncrementor}px`,
+        position:"relative",
     }}
     >  
         {
