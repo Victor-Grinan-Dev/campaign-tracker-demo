@@ -1,5 +1,4 @@
 //styles:
-
 import './styles/appMain.css';
 import './styles/login.css';
 import './styles/logo.css';
@@ -34,7 +33,6 @@ import AddUser from './components/views/addUser/AddUser';
 import Post from './components/views/post/Post';
 import Chat from './components/views/chat/Chat';
 
-
 import WarRoom from './components/warRoom/WarRoom';
 import MyArmy from './components/myArmy/MyArmy';
 import CreateFormation from './components/myArmy/CreateFormation';
@@ -45,7 +43,15 @@ import DrawMap from './components/drawMap/DrawMap';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //redux
-import {  useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
+
+//cookies
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
+import { setCurrentUser, setIsLogged } from './features/portalSlice';
+
+//test
+import { testUser } from './components/views/login/Login';
 
 const protectedViews = () => {
   return (
@@ -67,8 +73,26 @@ const protectedViews = () => {
 }
 
 function App() {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const isLogged = useSelector(state => state.portal.isLogged);
+
+  useEffect(() => {
+    if(Cookies.get("portalLog")){
+      const cookie = Cookies.get("portalLog");
+      if (cookie === "true"){
+        dispatch(setIsLogged(true))
+        dispatch(setCurrentUser(testUser))
+      }
+      
+      //for (let user of users){
+      //  if(user.id === cookie){
+      //    
+      //    
+      //  }
+      //}
+    }         
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

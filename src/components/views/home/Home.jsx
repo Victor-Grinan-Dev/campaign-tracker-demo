@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserData from '../../ui_components/UserData';
 
 //functions
-import { capitalStart } from '../../../functions/capitalStart';
+//import { capitalStart } from '../../../functions/capitalStart';
 
 
 const Home = () => {
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const user = useSelector(state => {
         return state.portal.currentUser});
 

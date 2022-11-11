@@ -1,9 +1,26 @@
+//react
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+//cookies
+import Cookies from 'js-cookie';
+
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser, setIsLogged } from '../features/portalSlice';
+
+
 const SideBar = () => {
+    const dispatch = useDispatch();
     const isLogged = useSelector(state => state.portal.isLogged);
     const user = useSelector(state =>state.portal.currentUser);
+
+    const logout = () => {
+      Cookies.remove("portalLog", { path: '/' });
+      dispatch(setCurrentUser({}));
+      dispatch(setIsLogged(false));
+      //dispatch()
+   }
 
   return (
     isLogged && <div className='sidebarContainer'>
@@ -16,7 +33,7 @@ const SideBar = () => {
         <Link to="/about">📜</Link>
         <Link to="/contact">☎️</Link>
         <Link to="/settings">⚙️</Link>
-        <p>👉🚪</p>
+        <p onClick={logout}>👉🚪</p>
     </div>
   )
 }
