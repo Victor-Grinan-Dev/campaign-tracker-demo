@@ -130,6 +130,16 @@ const DrawMap = () => {
     console.log(changingName);
     setChangeinName(false)
   }
+
+  const cancelHandler = () => {
+    dispatch(setMapName)
+        dispatch(setMapName("Name Undefined"));
+        dispatch(setShape("sq"));
+        dispatch(setDimension("min"));
+        dispatch(setMaxPlayers(2));
+        dispatch(setTileSize(30));
+        //navigate("/createcampaign");
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -146,7 +156,7 @@ const DrawMap = () => {
             
             <div className="mainButtons">
               <button>save</button>
-              <button>cancel</button>
+              <button onClick={cancelHandler}>cancel</button>
             </div>
           </div>
             
