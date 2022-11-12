@@ -40,6 +40,7 @@ const DrawMap = () => {
   ]);
 
   const shapeHandler = (e) => {
+    console.log(mapObj)
     if(shape === "sq"){
       dispatch(setShape("hx"));
     }else if(shape === "hx"){
@@ -68,7 +69,6 @@ const DrawMap = () => {
   }
 
   const setAllHandler = (e) => {
-    console.log(mapObj)
     const newArr = [];
     const oldArr = mapObj.map;
 
@@ -77,6 +77,8 @@ const DrawMap = () => {
       for (let tile of row){
         if (tile.terrain){
           newRow.push({...tile, "terrain": terrainTypes[e.target.value]})
+        }else{
+          newRow.push(tile)
         }
       }
       newArr.push(newRow);

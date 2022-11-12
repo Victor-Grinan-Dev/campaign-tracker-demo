@@ -10,7 +10,7 @@ export const drawMapSlice = createSlice({
         dimension:"min",
         maxPlayers:2,
 
-        tileSize:50,
+        tileSize:30,
     }, 
 
     reducers:{
