@@ -5,7 +5,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setShape, setDimension, setTileSize } from '../../features/drawMapSlice';
+import { setMapObj, setShape, setDimension, setTileSize, setBrush } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
@@ -30,6 +30,7 @@ const DrawMap = () => {
   const dimension = useSelector(state=>state.drawMap.dimension);
   const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
   const tileSize = useSelector(state=>state.drawMap.tileSize);
+  const brush = useSelector(state=>state.drawMap.brush);
 
   useEffect(() => {
     dispatch(setMapObj(generateMap(mapName, dimension, shape)));
@@ -87,6 +88,28 @@ const DrawMap = () => {
 
   const randomizeHandler = () => {
     dispatch(setMapObj({...mapObj, "map": mapRandomizer(mapObj.map) }));
+  }
+
+  const brushHandler = (e) => {
+    dispatch(setBrush(terrainTypes[e.target.name])) 
+  }
+
+  const clickTileHandler = (e) => {
+    const newNestedArr = [];
+    for (let row of mapObj.map){
+      const newRow = [];
+      for (let tile of row){
+        if( tile.id === e.target.id ){
+          newRow.push({...tile, "terrain": brush})
+        }
+        else{
+          newRow.push(tile);
+        }
+      }
+      newNestedArr.push(newRow);
+    }
+
+    dispatch(setMapObj({...mapObj, "map":newNestedArr}));
   }
 
   return (
@@ -154,7 +177,7 @@ const DrawMap = () => {
               <option value="hills" >hills</option>
               <option value="forest" >forest</option>
               <option value="swamp" >swamp</option>
-              <option value="mountains" >mountains</option>
+              <option value="mountains" >mountain</option>
               <option value="city" >city</option>
               </select>
             <button onClick={randomizeHandler} className='appButton' >randomize</button>
@@ -168,18 +191,25 @@ const DrawMap = () => {
           backgroundColor:`url(${water})`,
         }}
         >
-        {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj}/> }
+        {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} action={clickTileHandler}/> }
         </div>
         <div className="bottomPanel">
-          <p>bottom panel</p>
+          <p>Brush:</p>
           <div className="topPanelButtons">
             <div className="terrainButtons">
-              <button>blank</button>
-              <button>plains</button>
-              <button>hills</button>
-              <button>swamp</button>
-              <button>city</button>
-              <button>mountain</button>
+              
+              <button name="plains" onClick={brushHandler} >plains</button>
+              <button name="hills" onClick={brushHandler} >hills</button>
+              <button name="forest" onClick={brushHandler} >forest</button>
+              <button name="swamp" onClick={brushHandler} >swamp</button>
+              <button name="city" onClick={brushHandler} >city</button>
+              <button name="mountains" onClick={brushHandler} >mountain</button>
+
+              <div>
+                <button name="blank" onClick={brushHandler} >blank</button>
+                <button name={null} onClick={brushHandler} >empty</button>
+              </div>
+
             </div>
 
             <div className="featuresButton">
