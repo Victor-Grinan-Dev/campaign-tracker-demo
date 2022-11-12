@@ -12,6 +12,7 @@ export const drawMapSlice = createSlice({
 
         tileSize:30,
         brush:null,
+        reset:0,
     }, 
 
     reducers:{
@@ -38,6 +39,10 @@ export const drawMapSlice = createSlice({
         setBrush(state, action){
             state.brush = action.payload;
         },
+
+        setReset(state){
+            state.reset = state.reset += 1;
+        },
     }
 
 });
@@ -50,6 +55,7 @@ export const {
     setMaxPlayers,
     setTileSize,
     setBrush,
+    setReset,
 } = drawMapSlice.actions;
 
 export default drawMapSlice.reducer;

@@ -5,7 +5,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setShape, setDimension, setTileSize, setBrush } from '../../features/drawMapSlice';
+import { setMapObj, setShape, setDimension, setTileSize, setBrush, setReset } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
@@ -31,6 +31,7 @@ const DrawMap = () => {
   const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
+  const reset = useSelector(state=>state.drawMap.reset);
 
   useEffect(() => {
     dispatch(setMapObj(generateMap(mapName, dimension, shape)));
@@ -38,6 +39,7 @@ const DrawMap = () => {
     dispatch,
     shape,
     dimension,
+    reset,
   ]);
 
   const shapeHandler = (e) => {
@@ -112,6 +114,9 @@ const DrawMap = () => {
     dispatch(setMapObj({...mapObj, "map":newNestedArr}));
   }
 
+  const resetHandler = () => {
+     dispatch(setReset())
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -162,7 +167,7 @@ const DrawMap = () => {
               </select>
             }
               <button className='appButton' onClick={shapeHandler} >shape</button>
-              <button>reset</button>
+              <button onClick={resetHandler}>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">
