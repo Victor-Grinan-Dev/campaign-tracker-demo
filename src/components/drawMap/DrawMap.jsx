@@ -7,6 +7,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset, setMaxPlayers } from '../../features/drawMapSlice';
+import { setCurrentUser } from '../../features/portalSlice';
 
 //components
 import MapReader from './MapReader';
@@ -22,7 +23,6 @@ import { terrainTypes } from '../../data/terrainTypes.js'
 const testSqGen = canvasSquare("testSq", 9, 9);
 const testHxGen = canvasHex("testHx", 4);
 
-
 const DrawMap = () => {
   const navigate = useNavigate();
 
@@ -37,7 +37,10 @@ const DrawMap = () => {
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
 
+  const currentUser = useSelector(state=>state.portal.currentUser);
+
   const [changingName, setChangeinName] = useState(false);
+  const [ errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
     updateMap(generateMap(mapName, dimension, shape))
@@ -53,9 +56,10 @@ const DrawMap = () => {
   const updateMap = (map) => {
     const upDtatedPlayableTiles = setPlayableTiles(map);
     dispatch(setMapObj(upDtatedPlayableTiles));
+    setErrMsg("")
   }
   
-  const shapeHandler = (e) => {
+  const shapeHandler = () => {
     if(shape === "sq"){
       dispatch(setShape("hx"));
     }else if(shape === "hx"){
@@ -107,7 +111,8 @@ const DrawMap = () => {
   }
 
   const brushHandler = (e) => {
-    dispatch(setBrush(terrainTypes[e.target.name])) 
+    dispatch(setBrush(terrainTypes[e.target.name]))
+    setErrMsg("");
   }
 
   const clickTileHandler = (e) => {
@@ -129,19 +134,20 @@ const DrawMap = () => {
 
   const resetHandler = () => {
      dispatch(setReset())
+     setErrMsg("");
   }
 
   const nameHandler = (e) => {
-     dispatch(setMapName(e.target.value))
+     dispatch(setMapName(e.target.value));
+     setErrMsg("");
   }
 
   const changeNameOkButton = () => {
-    console.log(changingName);
-    setChangeinName(false)
+    setChangeinName(false);
+    setErrMsg("");
   }
 
   const cancelHandler = () => {
-    dispatch(setMapName)
         dispatch(setMapName("Name Undefined"));
         dispatch(setShape("sq"));
         dispatch(setDimension("min"));
@@ -185,16 +191,21 @@ const DrawMap = () => {
   const saveMapHandler = () => {
     
       if(nameValidator() && mapValidator()){
-        console.log("valid map")
+        dispatch(setCurrentUser({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]}));
+        setErrMsg("Map has been saved!");
       }else{
-        console.log("invalid map")
+        setErrMsg("Invalid Map");
       }
   }
   return (
     <div className='drawmap view'>
+        <div>
+          <p>🤖: {errMsg}</p>
+        </div>
+        
         <div className="topPanel">
           <div className="topArea panelSection">
-          
+    
             {
             changingName ? 
               <div>
