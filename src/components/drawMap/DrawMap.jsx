@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 //image
 import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset } from '../../features/drawMapSlice';
+import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset, setMaxPlayers } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
@@ -23,7 +24,7 @@ const testHxGen = canvasHex("testHx", 4);
 
 
 const DrawMap = () => {
-  const [changingName, setChangeinName] = useState(false);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -36,6 +37,7 @@ const DrawMap = () => {
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
 
+  const [changingName, setChangeinName] = useState(false);
 
   useEffect(() => {
     dispatch(setMapObj(generateMap(mapName, dimension, shape)));
@@ -130,6 +132,16 @@ const DrawMap = () => {
     console.log(changingName);
     setChangeinName(false)
   }
+
+  const cancelHandler = () => {
+    dispatch(setMapName)
+        dispatch(setMapName("Name Undefined"));
+        dispatch(setShape("sq"));
+        dispatch(setDimension("min"));
+        dispatch(setMaxPlayers(2));
+        dispatch(setTileSize(30));
+        navigate("/createcampaign");
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -145,8 +157,8 @@ const DrawMap = () => {
             }
             
             <div className="mainButtons">
-              <button>save</button>
-              <button>cancel</button>
+              <button className='appButtonGreen'>save</button>
+              <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
             </div>
           </div>
             

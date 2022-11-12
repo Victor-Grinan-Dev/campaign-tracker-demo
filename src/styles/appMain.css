@@ -145,6 +145,23 @@ a:hover{
   border-color: rgb(218, 116, 43);
   color: rgb(0, 0, 0);
   background-color: burlywood;
+  text-shadow: 0 0 10px rgb(246, 246, 246);
+}
+
+.appButtonDanger{
+  border-radius: 10px;
+  color: rgb(75, 3, 3);
+  border-color: rgb(255, 0, 0);
+  background-color: rgb(211, 73, 31);
+  text-shadow: 0 0 5px rgb(246, 246, 246);
+}
+
+.appButtonGreen{
+  border-radius: 10px;
+  color: rgb(3, 75, 21);
+  border-color: rgb(5, 125, 3);
+  background-color: rgb(31, 211, 61);
+  text-shadow: 0 0 5px rgb(246, 246, 246);
 }
 
 .tinyNumInPut{
