@@ -193,6 +193,7 @@ const DrawMap = () => {
       if(nameValidator() && mapValidator()){
         dispatch(setCurrentUser({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]}));
         setErrMsg("Map has been saved!");
+        localStorage.setItem("portal", JSON.stringify(currentUser));
       }else{
         setErrMsg("Invalid Map");
       }
