@@ -5,7 +5,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset } from '../../features/drawMapSlice';
+import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset, setMaxPlayers } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
