@@ -1,8 +1,8 @@
 
 export class Map {
     
-    maxPlayers = 2
-    constructor(name, shape, dimensions, map, isAutomated = false){
+    maxPlayers = 2;
+    constructor(name, shape, dimensions, map, isAutomated = false, author=undefined){
     this.name = name;
     this.shape = shape;
     this.dimensions = dimensions;
