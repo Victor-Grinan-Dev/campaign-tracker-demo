@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 //image
 import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
@@ -23,7 +24,7 @@ const testHxGen = canvasHex("testHx", 4);
 
 
 const DrawMap = () => {
-  const [changingName, setChangeinName] = useState(false);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -36,6 +37,7 @@ const DrawMap = () => {
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
 
+  const [changingName, setChangeinName] = useState(false);
 
   useEffect(() => {
     dispatch(setMapObj(generateMap(mapName, dimension, shape)));
@@ -138,7 +140,7 @@ const DrawMap = () => {
         dispatch(setDimension("min"));
         dispatch(setMaxPlayers(2));
         dispatch(setTileSize(30));
-        //navigate("/createcampaign");
+        navigate("/createcampaign");
   }
   return (
     <div className='drawmap view'>
@@ -155,8 +157,8 @@ const DrawMap = () => {
             }
             
             <div className="mainButtons">
-              <button>save</button>
-              <button onClick={cancelHandler}>cancel</button>
+              <button className='appButtonGreen'>save</button>
+              <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
             </div>
           </div>
             
