@@ -40,7 +40,9 @@ const DrawMap = () => {
   const [changingName, setChangeinName] = useState(false);
 
   useEffect(() => {
-    dispatch(setMapObj(generateMap(mapName, dimension, shape)));
+    updateMap(generateMap(mapName, dimension, shape))
+    //const upDtatedPlayableTiles = setPlayableTiles(generateMap(mapName, dimension, shape))
+    //dispatch(setMapObj(upDtatedPlayableTiles));
   }, [
     dispatch,
     shape,
@@ -48,6 +50,11 @@ const DrawMap = () => {
     reset,
   ]);
 
+  const updateMap = (map) => {
+    const upDtatedPlayableTiles = setPlayableTiles(map);
+    dispatch(setMapObj(upDtatedPlayableTiles));
+  }
+  
   const shapeHandler = (e) => {
     if(shape === "sq"){
       dispatch(setShape("hx"));
@@ -91,11 +98,12 @@ const DrawMap = () => {
       }
       newArr.push(newRow);
     }
-    dispatch(setMapObj({...mapObj, "map": newArr}));
+    updateMap({...mapObj, "map": newArr})
+    
   }
 
   const randomizeHandler = () => {
-    dispatch(setMapObj({...mapObj, "map": mapRandomizer(mapObj.map) }));
+    updateMap({...mapObj, "map": mapRandomizer(mapObj.map) });
   }
 
   const brushHandler = (e) => {
@@ -116,8 +124,7 @@ const DrawMap = () => {
       }
       newNestedArr.push(newRow);
     }
-
-    dispatch(setMapObj({...mapObj, "map":newNestedArr}));
+    updateMap({...mapObj, "map":newNestedArr});
   }
 
   const resetHandler = () => {
@@ -142,6 +149,47 @@ const DrawMap = () => {
         dispatch(setTileSize(30));
         navigate("/createcampaign");
   }
+  const setPlayableTiles = (mapObj) => {
+    let playableTiles = 0;
+    for(let row of mapObj.map){
+      for (let tile of row){
+        if (tile.terrain && tile.terrain.name !== "mountains" && tile.terrain.name !== "blank"){
+            playableTiles += 1;
+        }
+      }
+    }
+    return {...mapObj,"playableTiles": playableTiles}
+  }
+  const mapValidator = () => {
+    let result = false;
+
+    if(mapObj.playableTiles / mapObj.totalTiles * 100 > 50){
+      result = true;
+    }
+    return result;
+  }
+
+  const nameValidator = () => {
+    let result = false;
+    
+    if(
+      mapObj.name !== "Name Undefined" &&
+      mapObj.name.replace(/\s/g, '')
+      ){
+        result = true;
+      }
+
+    return result;
+  }
+
+  const saveMapHandler = () => {
+    
+      if(nameValidator() && mapValidator()){
+        console.log("valid map")
+      }else{
+        console.log("invalid map")
+      }
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -157,7 +205,7 @@ const DrawMap = () => {
             }
             
             <div className="mainButtons">
-              <button className='appButtonGreen'>save</button>
+              <button className='appButtonGreen' onClick={saveMapHandler}>save</button>
               <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
             </div>
           </div>

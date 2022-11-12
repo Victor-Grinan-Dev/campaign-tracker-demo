@@ -1,6 +1,7 @@
 
 export class Map {
-    
+    playableTiles = 0;
+    totalTiles = 0
     maxPlayers = 2;
     constructor(name, shape, dimensions, map, isAutomated = false, author=undefined){
     this.name = name;
@@ -8,7 +9,27 @@ export class Map {
     this.dimensions = dimensions;
     this.map = map;// array of MapLines/bidimentional array
     this.isAutomated = isAutomated;
+    this.setPlayableTiles();
+    this.setTotalTiles();
     };
+    setTotalTiles(){
+        for(let row of this.map){
+            for (let tile of row){
+                if (tile.terrain){
+                    this.totalTiles += 1;
+                }
+            }
+        }
+    }
+    setPlayableTiles(){
+        for(let row of this.map){
+            for (let tile of row){
+                if (tile.terrain && tile.terrain.name !== "mountains" && tile.terrain.name !== "blank"){
+                    this.playableTiles += 1;
+                }
+            }
+        }
+    }
 
     getFormation(fromTileId){       
       this.map.map((row)=>{
