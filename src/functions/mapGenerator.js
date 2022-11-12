@@ -135,7 +135,56 @@ const generateSqMap  = (name = "Blank Canvas", maxRows = 25, maxCols = 25, shape
     map = canvasSquare(name, maxRows, maxCols);
     return map;
 }
-//TODO: switcth shapes
+
+const shuffleArr = (array) => {
+    let currentIndex = array.length,  randomIndex;
+
+    while (currentIndex != 0) {      
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+      
+    return array;
+}
+
+const percentageArray = (plainsPercent = 50,mountainsPercent = 1,forestPercent = 22,hillsPercent = 15, swampPercent= 10, cityPercent=2) => {
+
+    const plainsTiles = new Array(plainsPercent).fill("plains");
+    const mountainsTiles = new Array(mountainsPercent).fill("mountains");
+    const forestTiles = new Array(forestPercent).fill("forest");
+    const hillsTiles = new Array(hillsPercent).fill("hills");
+    const swampTiles = new Array(swampPercent).fill("swamp");
+    const cityTiles = new Array(cityPercent).fill("city");
+
+    const percentsArray = plainsTiles.concat(mountainsTiles, forestTiles, hillsTiles, swampTiles, cityTiles)
+
+    return shuffleArr(percentsArray);
+};
+
+const randomTerrain = () => {
+    //returns random terrain with percent chances (percentageArray);
+    return terrainTypes[percentageArray()[Math.floor(Math.random() * 100)]];
+}
+
+export const mapRandomizer = (nestedArr) => {
+    
+    const newNestedArr = [];
+    for (let row of nestedArr){
+        const newRow = [];
+        for (let tileObj of row){
+            if(tileObj.terrain){
+                newRow.push({...tileObj, "terrain" : randomTerrain()});
+            }else{
+                newRow.push(tileObj);
+            }    
+        }
+        newNestedArr.push(newRow);
+    }
+
+    return newNestedArr;   
+}
+
 export const generateMap = (name, dimensions, shape) => {
     
     let map;
