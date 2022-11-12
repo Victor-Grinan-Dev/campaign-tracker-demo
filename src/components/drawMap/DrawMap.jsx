@@ -92,54 +92,60 @@ const DrawMap = () => {
   return (
     <div className='drawmap view'>
         <div className="topPanel">
-          <div className="topArea">
-          <div className="nameArea">
+          <div className="topArea panelSection">
+          
             <p>Name: New Map</p>
+            
+            <div className="mainButtons">
+              <button>save</button>
+              <button>cancel</button>
+            </div>
           </div>
-          <div className="mainButtons">
-            <button>save</button>
-            <button>cancel</button>
-          </div>
-          </div>
-          <div className="topPanelButtons">
-            <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
-             <>zoom</> 
-            <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
-          {
-            shape === "sq" ? <div className="dimensionArea"> 
-              <select name="width" onChange={dimensionHandler} className="appButton">
-              <option value="" hidden>width</option>
-                <option value="9">9</option>
-                <option value="11">11</option>
-                <option value="13">13</option>
-                <option value="15">15</option>
-                <option value="17">17</option>
-                <option value="21">21</option>
-                <option value="23">23</option>
-                <option value="25">25</option>
-              </select> 
-              <select name="heigth" onChange={dimensionHandler} className="appButton">
-              <option value="" hidden>heigth</option>
-                <option value="9">9</option>
-                <option value="11">11</option>
-                <option value="13">13</option>
-                <option value="15">15</option>
-                <option value="17">17</option>
-                <option value="21">21</option>
-                <option value="23">23</option>
-                <option value="25">25</option>
+            
+            <div className="midTopPanel panelSection">
+            new canvas: 
+            {
+              shape === "sq" ? <div className="dimensionArea"> 
+                <select name="width" onChange={dimensionHandler} className="appButton">
+                <option value="" hidden>width</option>
+                  <option value="9">9</option>
+                  <option value="11">11</option>
+                  <option value="13">13</option>
+                  <option value="15">15</option>
+                  <option value="17">17</option>
+                  <option value="21">21</option>
+                  <option value="23">23</option>
+                  <option value="25">25</option>
+                </select> 
+                <select name="heigth" onChange={dimensionHandler} className="appButton">
+                <option value="" hidden>heigth</option>
+                  <option value="9">9</option>
+                  <option value="11">11</option>
+                  <option value="13">13</option>
+                  <option value="15">15</option>
+                  <option value="17">17</option>
+                  <option value="21">21</option>
+                  <option value="23">23</option>
+                  <option value="25">25</option>
+                </select>
+              </div> :
+              <select name="hexSide" onChange={dimensionHandler} className="appButton">
+                  <option value="" hidden>Dimension</option>
+                  <option value="5">5</option>
+                  <option value="7">7</option>
+                  <option value="9">9</option>
+                  <option value="11">11</option>
+                  <option value="13">13</option>
               </select>
-            </div> :
-            <select name="hexSide" onChange={dimensionHandler} className="appButton">
-                <option value="" hidden>Dimension</option>
-                <option value="5">5</option>
-                <option value="7">7</option>
-                <option value="9">9</option>
-                <option value="11">11</option>
-                <option value="13">13</option>
-            </select>
-          }
-            <button className='appButton' onClick={shapeHandler} >shape</button>
+            }
+              <button className='appButton' onClick={shapeHandler} >shape</button>
+          </div>
+
+        <div className="bottomTopPanel panelSection">
+  
+          <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
+             <>zoom</> 
+          <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
 
             <select onChange={setAllHandler} className='appButton'>
               <option value="" hidden>set all tiles</option>
@@ -150,9 +156,11 @@ const DrawMap = () => {
               <option value="swamp" >swamp</option>
               <option value="mountains" >mountains</option>
               <option value="city" >city</option>
-            </select>
+              </select>
             <button onClick={randomizeHandler} className='appButton' >randomize</button>
-          </div>
+
+          
+        </div>
        
         </div>
         <div className="screen"

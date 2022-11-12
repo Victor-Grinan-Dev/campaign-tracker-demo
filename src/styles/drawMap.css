@@ -9,11 +9,20 @@
     display: flex;
     flex-wrap: wrap;
     height: 120px;
+    justify-content: center;
+    align-items:flex-start;
+}
+
+.panelSection{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .dimensionArea{
     display: inline;
 }
+
 
 .screen{
     display: flex;
