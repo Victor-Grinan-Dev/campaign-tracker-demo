@@ -31,35 +31,35 @@ export class Map {
         }
     }
 
-    getFormation(fromTileId){       
-      this.map.map((row)=>{
-          row.map((tile)=>{
-              if (tile.id === fromTileId){
-                  return tile.formation
-              }
-          })
-      })
+    getFormation(fromTileId){
+        for (let row of this.map){
+            for (let tile of row){
+                if (tile.id === fromTileId){
+                    return tile.formation
+                }
+            }
+        }    
     };
 
     placeFormation(formation, tileId){
-        this.map.map((row)=>{
-            row.map((tile)=>{
+        for (let row of this.map){
+            for (let tile of row){
                 if (tile.id === tileId){
                     tile.formation = formation
                 } 
-            })
-        })
+            }
+        }
         return 0;
     };
 
     deleteFormation(tileId){
-        this.map.map((row)=>{
-            row.map((tile)=>{
+        for (let row of this.map){
+            for (let tile of row){
                 if (tile.id === tileId){
                     tile.formation = null
                 }
-            })
-        })
+            }
+        }
         return 0;
     };
 

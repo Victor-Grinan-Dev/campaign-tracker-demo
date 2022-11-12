@@ -13,15 +13,11 @@ import { setCurrentUser } from '../../features/portalSlice';
 import MapReader from './MapReader';
 
 //functions
-import { hexTestMap, testMap } from '../warRoom/dummyMap';
 import {capitalStart} from '../../functions/capitalStart.js'
-import {canvasSquare, canvasHex, generateMap, mapRandomizer} from '../../functions/mapGenerator';
+import { generateMap, mapRandomizer} from '../../functions/mapGenerator';
 
 //data
 import { terrainTypes } from '../../data/terrainTypes.js'
-
-const testSqGen = canvasSquare("testSq", 9, 9);
-const testHxGen = canvasHex("testHx", 4);
 
 const DrawMap = () => {
   const navigate = useNavigate();
@@ -44,8 +40,7 @@ const DrawMap = () => {
 
   useEffect(() => {
     updateMap(generateMap(mapName, dimension, shape))
-    //const upDtatedPlayableTiles = setPlayableTiles(generateMap(mapName, dimension, shape))
-    //dispatch(setMapObj(upDtatedPlayableTiles));
+    // eslint-disable-next-line
   }, [
     dispatch,
     shape,
@@ -145,6 +140,10 @@ const DrawMap = () => {
   const changeNameOkButton = () => {
     setChangeinName(false);
     setErrMsg("");
+  }
+
+  const setStartsHandler = () => {
+    console.log(maxPlayers)
   }
 
   const cancelHandler = () => {
@@ -311,7 +310,7 @@ const DrawMap = () => {
             </div>
 
             <div className="featuresButton">
-              <button>start</button>
+              <button onClick={setStartsHandler}>start</button>
               <button>flag</button>
 
               {/*
