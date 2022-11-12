@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //image
 import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setShape, setDimension, setTileSize, setBrush, setReset } from '../../features/drawMapSlice';
+import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset } from '../../features/drawMapSlice';
 
 //components
 import MapReader from './MapReader';
 
 //functions
 import { hexTestMap, testMap } from '../warRoom/dummyMap';
+import {capitalStart} from '../../functions/capitalStart.js'
 import {canvasSquare, canvasHex, generateMap, mapRandomizer} from '../../functions/mapGenerator';
 
 //data
@@ -22,6 +23,8 @@ const testHxGen = canvasHex("testHx", 4);
 
 
 const DrawMap = () => {
+  const [changingName, setChangeinName] = useState(false);
+
   const dispatch = useDispatch();
 
   const mapObj = useSelector(state=>state.drawMap.mapObj);
@@ -32,6 +35,7 @@ const DrawMap = () => {
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
+
 
   useEffect(() => {
     dispatch(setMapObj(generateMap(mapName, dimension, shape)));
@@ -117,12 +121,28 @@ const DrawMap = () => {
   const resetHandler = () => {
      dispatch(setReset())
   }
+
+  const nameHandler = (e) => {
+     dispatch(setMapName(e.target.value))
+  }
+
+  const changeNameOkButton = () => {
+    console.log(changingName);
+    setChangeinName(false)
+  }
   return (
     <div className='drawmap view'>
         <div className="topPanel">
           <div className="topArea panelSection">
           
-            <p>Name: New Map</p>
+            {
+            changingName ? 
+              <div>
+                <input type="text" onChange={nameHandler}/>
+                <button onClick={changeNameOkButton}>ok</button>
+              </div> : 
+              <p onClick={()=>setChangeinName(true)}>Name: "{capitalStart(mapName)}"</p>
+            }
             
             <div className="mainButtons">
               <button>save</button>
@@ -222,16 +242,20 @@ const DrawMap = () => {
               <button>start</button>
               <button>flag</button>
 
+              {/*
               <button> building 1 </button>
               <button> building 2 </button>
               <button> building 3 </button>
+              */}
             
             </div>
 
-            <div>
-              <button> hostile ai </button>
-              <button> friendly ai </button>
-            </div>
+              {/*
+              <div>
+                <button> hostile ai </button>
+                <button> friendly ai </button>
+              </div>
+              */}
         
           </div>
 
