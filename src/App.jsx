@@ -83,7 +83,8 @@ function App() {
         dispatch(setIsLogged(true))
         dispatch(setCurrentUser(testUser))
       }
-    }         
+    }   
+    // eslint-disable-next-line      
   }, []);
 
   return (
