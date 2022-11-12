@@ -142,6 +142,10 @@ const DrawMap = () => {
     setErrMsg("");
   }
 
+  const setStartsHandler = () => {
+    console.log(maxPlayers)
+  }
+
   const cancelHandler = () => {
         dispatch(setMapName("Name Undefined"));
         dispatch(setShape("sq"));
@@ -306,7 +310,7 @@ const DrawMap = () => {
             </div>
 
             <div className="featuresButton">
-              <button>start</button>
+              <button onClick={setStartsHandler}>start</button>
               <button>flag</button>
 
               {/*
