@@ -12,12 +12,12 @@ import MapReader from './MapReader';
 
 //functions
 import { hexTestMap, testMap } from '../warRoom/dummyMap';
-import {canvasSquare, canvasHex, generateMap} from '../../functions/mapGenerator';
+import {canvasSquare, canvasHex, generateMap, mapRandomizer} from '../../functions/mapGenerator';
 
 //data
 import { terrainTypes } from '../../data/terrainTypes.js'
 
-const testSqGen = canvasSquare("testSq", 15, 15);
+const testSqGen = canvasSquare("testSq", 9, 9);
 const testHxGen = canvasHex("testHx", 4);
 
 
@@ -68,7 +68,6 @@ const DrawMap = () => {
   }
 
   const setAllHandler = (e) => {
-    console.log(mapObj)
     const newArr = [];
     const oldArr = mapObj.map;
 
@@ -77,12 +76,19 @@ const DrawMap = () => {
       for (let tile of row){
         if (tile.terrain){
           newRow.push({...tile, "terrain": terrainTypes[e.target.value]})
+        }else{
+          newRow.push(tile)
         }
       }
       newArr.push(newRow);
     }
     dispatch(setMapObj({...mapObj, "map": newArr}));
   }
+
+  const randomizeHandler = () => {
+    dispatch(setMapObj({...mapObj, "map": mapRandomizer(mapObj.map) }));
+  }
+
   return (
     <div className='drawmap view'>
         <div className="topPanel">
@@ -145,7 +151,7 @@ const DrawMap = () => {
               <option value="mountains" >mountains</option>
               <option value="city" >city</option>
             </select>
-            <button>random all</button>
+            <button onClick={randomizeHandler} className='appButton' >randomize</button>
           </div>
        
         </div>
