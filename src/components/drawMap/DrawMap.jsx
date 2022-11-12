@@ -162,6 +162,7 @@ const DrawMap = () => {
               </select>
             }
               <button className='appButton' onClick={shapeHandler} >shape</button>
+              <button>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">
@@ -198,16 +199,16 @@ const DrawMap = () => {
           <div className="topPanelButtons">
             <div className="terrainButtons">
               
-              <button name="plains" onClick={brushHandler} >plains</button>
-              <button name="hills" onClick={brushHandler} >hills</button>
-              <button name="forest" onClick={brushHandler} >forest</button>
-              <button name="swamp" onClick={brushHandler} >swamp</button>
-              <button name="city" onClick={brushHandler} >city</button>
-              <button name="mountains" onClick={brushHandler} >mountain</button>
+              <button name="plains" onClick={brushHandler} className='appButton' >plains</button>
+              <button name="hills" onClick={brushHandler} className='appButton' >hills</button>
+              <button name="forest" onClick={brushHandler} className='appButton' >forest</button>
+              <button name="swamp" onClick={brushHandler} className='appButton' >swamp</button>
+              <button name="city" onClick={brushHandler} className='appButton' >city</button>
+              <button name="mountains" onClick={brushHandler} className='appButton' >mountain</button>
 
               <div>
-                <button name="blank" onClick={brushHandler} >blank</button>
-                <button name={null} onClick={brushHandler} >empty</button>
+                <button name="blank" onClick={brushHandler} className='appButton' >blank</button>
+                <button name={null} onClick={brushHandler} className='appButton' >delete</button>
               </div>
 
             </div>
