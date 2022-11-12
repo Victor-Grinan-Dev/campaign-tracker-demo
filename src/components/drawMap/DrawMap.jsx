@@ -167,7 +167,7 @@ const DrawMap = () => {
               </select>
             }
               <button className='appButton' onClick={shapeHandler} >shape</button>
-              <button onClick={resetHandler}>reset</button>
+              <button onClick={resetHandler} className='appButton'>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">
