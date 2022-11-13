@@ -35,7 +35,7 @@ const DrawMap = () => {
 
   const currentUser = useSelector(state=>state.portal.currentUser);
 
-  const [changingName, setChangeinName] = useState(false);
+  const [changingName, setChangingName] = useState(false);
   const [ errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
@@ -134,11 +134,12 @@ const DrawMap = () => {
 
   const nameHandler = (e) => {
      dispatch(setMapName(e.target.value));
+     updateMap({...mapObj, "name": mapName})
      setErrMsg("");
   }
 
   const changeNameOkButton = () => {
-    setChangeinName(false);
+    setChangingName(false);
     setErrMsg("");
   }
 
@@ -180,20 +181,19 @@ const DrawMap = () => {
     let result = false;
     
     if(
-      mapObj.name !== "Name Undefined" &&
-      mapObj.name.replace(/\s/g, '')
+      mapName !== "Name Undefined" &&
+      mapName.replace(/\s/g, '')
       ){
         result = true;
       }else{
-        if(mapObj.name === "Name Undefined"){
+        if(mapName === "Name Undefined"){
           console.log("map needs a name")
         }
-        if(mapObj.name.replace(/\s/g, '')){
-          console.log("incorrect map name", mapObj.name.replace(/\s/g, ''))
+        if(mapName.replace(/\s/g, '')){
+          console.log("empty map name", mapObj.name.replace(/\s/g, ''))
         }
       }
     
-
     return result;
   }
 
@@ -202,8 +202,14 @@ const DrawMap = () => {
       if(nameValidator() && mapValidator()){
         
         dispatch(setCurrentUser({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]}));
+        console.log({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]})
         setErrMsg("Map has been saved!");
+       
         localStorage.setItem("portal", JSON.stringify(currentUser));
+
+        //resetValues:
+        //mapObj
+
       }else{
         setErrMsg("Invalid Map");
       }
@@ -223,7 +229,7 @@ const DrawMap = () => {
                 <input type="text" onChange={nameHandler}/>
                 <button onClick={changeNameOkButton}>ok</button>
               </div> : 
-              <p onClick={()=>setChangeinName(true)}>Name: "{capitalStart(mapName)}"</p>
+              <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapObj.name)}"</p>
             }
             
             <div className="mainButtons">
