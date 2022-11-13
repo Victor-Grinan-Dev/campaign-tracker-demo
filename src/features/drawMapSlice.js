@@ -13,6 +13,7 @@ export const drawMapSlice = createSlice({
         tileSize:30,
         brush:null,
         reset:0,
+        startPosLeft:2,
     }, 
 
     reducers:{
@@ -43,6 +44,22 @@ export const drawMapSlice = createSlice({
         setReset(state){
             state.reset = state.reset += 1;
         },
+        setStartPosLeft(state, action){
+            const alltiles = state.mapObj.totalTiles;
+            if (alltiles < 80){
+                state.startPosLeft = 2;
+            }else{
+                if(state.mapObj.playableTiles / 8 >= 30){
+                    state.startPosLeft = 8;
+                }else{
+                    state.startPosLeft = Math.floor(state.mapObj.playableTiles / 8);
+                }
+            }
+            state.startPosLeft = action.payload;
+        },
+        countDownStartPosLeft(state){
+            state.startPosLeft = state.startPosLeft - 1;
+        },
     }
 
 });
@@ -56,6 +73,8 @@ export const {
     setTileSize,
     setBrush,
     setReset,
+    setStartPosLeft,
+    countDownStartPosLeft,
 } = drawMapSlice.actions;
 
 export default drawMapSlice.reducer;
