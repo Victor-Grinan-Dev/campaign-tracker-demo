@@ -1,4 +1,5 @@
 export class Campaign {
+    isPublished = false;
     isStarted = false;
     isEnded = false;
     rules = [];

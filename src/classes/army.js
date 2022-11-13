@@ -4,7 +4,7 @@
       color=null
       faction = null //this is an object with own properties, including faction color.
   
-      constructor(name="", composition=""){
+      constructor(name="", composition=[]){
           this.name = name
           this.composition = composition //an array of all formations-objects.
           this.setPointCost()
