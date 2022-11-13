@@ -208,7 +208,9 @@ const DrawMap = () => {
         localStorage.setItem("portal", JSON.stringify(currentUser));
 
         //resetValues:
-        //mapObj
+        resetHandler();
+        dispatch(setMapName("Name Undefined"));
+        setChangingName(false);
 
       }else{
         setErrMsg("Invalid Map");
@@ -229,7 +231,7 @@ const DrawMap = () => {
                 <input type="text" onChange={nameHandler}/>
                 <button onClick={changeNameOkButton}>ok</button>
               </div> : 
-              <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapObj.name)}"</p>
+              <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapName)}"</p>
             }
             
             <div className="mainButtons">
