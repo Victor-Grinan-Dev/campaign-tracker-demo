@@ -51,7 +51,10 @@ import { useEffect } from 'react';
 import { setCurrentUser, setIsLogged } from './features/portalSlice';
 
 //test
-import { testUser } from './components/views/login/Login';
+//import { testUser } from './components/views/login/Login';
+
+//device
+import {isMobile} from 'react-device-detect';
 
 const protectedViews = () => {
   return (
@@ -94,20 +97,24 @@ function App() {
     
     }   
 
-
     // eslint-disable-next-line      
   }, []);
 
+  if (isMobile){
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {isLogged ? <Route index element={<Home />} /> : <Route index element={<Login />} />}
+            {isLogged && protectedViews()}
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    );
+  }
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {isLogged ? <Route index element={<Home />} /> : <Route index element={<Login />} />}
-          {isLogged && protectedViews()}
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+    <h1>This app is only for mobiles</h1>
+  )
 }
 
 export default App;
