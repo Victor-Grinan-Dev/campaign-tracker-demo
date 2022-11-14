@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { skills_by_unit_type } from '../../data/skillsByUnitType';
 import { capitalStart } from '../../functions/capitalStart';
 import { unitsImages } from '../../images/units';
 
 const CreateUnit = () => {
-
+  const [currentUnit, setCurrentUnit] = useState('infantry');
+  const [unitName, setUnitName] = useState('infantry');
+ 
   const unitTypes = [];
  
   for (let unit in skills_by_unit_type){//
     unitTypes.push(skills_by_unit_type[unit].type);
   }
-
-  const currentUnit = "infantry";
   
+  const addHandler = (e) => {
+    console.log(e.target.name)
+    setCurrentUnit(e.target.name)
+  }
+
   return (
     <div>
       <h3>Add unit:</h3>
@@ -29,7 +34,7 @@ const CreateUnit = () => {
                 }}
                 />
                 <label style={{fontSize:"8px"}}> { capitalStart(unit.split("_").join(" ")) } </label>
-                <button> + </button>
+                <button onClick={addHandler} name={unit}> select </button>
               </div>
             ))
             }
