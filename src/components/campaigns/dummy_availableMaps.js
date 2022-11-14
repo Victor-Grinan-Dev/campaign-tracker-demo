@@ -1,3 +1,3 @@
 import { hexTestMap, testMap } from "../warRoom/dummyMap";
-
-export const available_maps = [testMap, hexTestMap];
+import { devilsArena } from "../../data/maps/devilsArena";
+export const available_maps = [testMap, hexTestMap, devilsArena];
