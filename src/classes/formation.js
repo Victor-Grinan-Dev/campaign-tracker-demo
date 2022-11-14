@@ -25,12 +25,11 @@ export class Formation {
     isMoved = false
     owner = undefined //army that owns it
 
-    constructor(name, composition, s_description="", l_description="", image="", faction="", subfaction=""){
+    constructor(name, composition, s_description="", l_description="", faction="", subfaction=""){
       this.name = name
       this.composition = composition
       this.s_description = s_description
       this.l_description = l_description
-      this.image = image
       this.faction = faction
       this.subfaction = subfaction
       if (this.composition){

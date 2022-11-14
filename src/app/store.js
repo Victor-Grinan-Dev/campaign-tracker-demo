@@ -10,7 +10,7 @@ export default configureStore({
     reducer:{
         portal: portalReducer,
         drawMap: drawMapReducer,
-        formation: unitReducer,
-        unit: formationReducer,
+        formation: formationReducer,
+        unit: unitReducer,
         }
 });
