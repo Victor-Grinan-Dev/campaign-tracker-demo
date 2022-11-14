@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { avatars } from '../../../images/avatars';
+import { avatars } from '../../../i_mages/avatars';
 
 const Profile = () => {
     const user = useSelector(state => state.portal.currentUser);

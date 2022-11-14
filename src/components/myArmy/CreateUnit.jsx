@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { skills_by_unit_type } from '../../data/skillsByUnitType';
 import { capitalStart } from '../../functions/capitalStart';
-import { unitsImages } from '../../images/units';
+import { unitsImages } from '../../i_mages/units';
 
 const CreateUnit = () => {
 
