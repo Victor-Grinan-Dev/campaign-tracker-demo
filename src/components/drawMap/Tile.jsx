@@ -1,6 +1,6 @@
 import React from 'react';
 import Token from '../token/Token';
-import { tilesImages } from '../../i_mages/tiles';
+import { tilesImages } from '../../images/tiles';
 
 const Tile = ({tileObj, posTop, posLeft, func = null, showId=false, tileSize}) => {
 

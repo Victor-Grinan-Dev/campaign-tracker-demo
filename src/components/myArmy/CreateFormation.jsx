@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formation } from '../../classes/formation';
 import CreateUnit from './CreateUnit';
-import { unitsImages } from '../../i_mages/units';
+import { unitsImages } from '../../images/units';
 import FormationCard from './FormationCard';
 
 const creatingFormation = new Formation("-", [ ])

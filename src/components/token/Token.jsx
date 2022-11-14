@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { unitsImages } from '../../i_mages/units';
+import { unitsImages } from '../../images/units';
 
 function Token({formation, fn}) {
 

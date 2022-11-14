@@ -1,5 +1,5 @@
 import React from 'react';
-import { someImages, someImgArr } from '../../../i_mages/some';
+import { someImages, someImgArr } from '../../../images/some';
 
 const Contact = () => {
     
