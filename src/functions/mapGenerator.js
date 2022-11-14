@@ -1,5 +1,5 @@
 import { terrainTypes } from '../data/terrainTypes';
-import { Tile } from '../classes/t_ile';
+import { Tile } from '../classes/tile';
 import { Map } from '../classes/map';
 
 const relation = {
