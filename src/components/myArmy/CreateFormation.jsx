@@ -13,8 +13,9 @@ const CreateFormation = () => {
         <div className="FormationPart">
             
             <div className="namingSection">
-                <button>create formation</button>
-                <input type="text" className='unitNameInput' placeholder='Name...'/><button>ok</button>
+                <button> create </button>
+                <input type="text" className='unitNameInput' placeholder='Name...'/>
+                {/* 
                 <select name="facrion">
                   <option value="" hidden>choose</option>
                 </select>
@@ -27,6 +28,7 @@ const CreateFormation = () => {
                 <p className='createFormInfoAtrr'> dedication: {creatingFormation.dedication} </p>
                 <p className='createFormInfoAtrr'> carry_capacity: {creatingFormation.carry_capacity} </p>
                 <p className='createFormInfoAtrr'> infantry_count: {creatingFormation.infantry_count} </p>
+                */}
             </div>
 
             <FormationCard formation={creatingFormation}/>
