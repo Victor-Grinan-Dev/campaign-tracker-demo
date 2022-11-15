@@ -1,4 +1,4 @@
-import { Tile } from "../../classes/tile";
+import { Tile } from "../../classes/t_ile";
 import { terrainTypes } from "../../data/terrainTypes";
 import { Map } from "../../classes/map";
 
