@@ -14,13 +14,17 @@ import { setComposition } from '../../features/formationSlice';
 const CreateUnit = () => {
   const dispatch = useDispatch();
 
-  const unit = useSelector(state => state.unit.type);
+  const type = useSelector(state => state.unit.type);
   const unitName = useSelector(state => state.unit.name);
-  const formation = useSelector(state => state.formation.composition);
+  const composition = useSelector(state => state.formation.composition);
 
   const unitDescription = "this unit is good for nothing";
   const unitTypes = [];
  
+  const pointCost = useSelector(state => state.unit.point_cost);
+  const models = useSelector(state => state.unit.models);
+
+
   for (let unit in skills_by_unit_type){//
     unitTypes.push(skills_by_unit_type[unit].type);
   }
@@ -42,9 +46,8 @@ const CreateUnit = () => {
   }
 
   const addUnitHandler = () => {
-    const id = formation.length + 1;
-    console.log() 
-    dispatch(setComposition(new Unit(id, unitName)))
+    const id = composition.length + 1;
+    dispatch(setComposition([...composition, new Unit(id, unitName, models, pointCost, skills_by_unit_type[type])]))
   }
   return (
     <div>
@@ -72,7 +75,7 @@ const CreateUnit = () => {
         <div className="theUnit" >
 
           <div className="iconTheUnit" style={{
-                  backgroundImage: `url(${unitsImages[unit]})`
+                  backgroundImage: `url(${unitsImages[type]})`
                 }}/>
 
             <div className="inputsUnit">
@@ -86,7 +89,7 @@ const CreateUnit = () => {
                 <input type="number" className='unitInput' onChange={poitCostHandler}/>
               </div>
             </div>
-            <p>Type {unit.type}: {unitDescription}</p>
+            <p>Type {type.type}: {unitDescription}</p>
             <button onClick={addUnitHandler}>Add unit to formation</button>
           
         </div>
