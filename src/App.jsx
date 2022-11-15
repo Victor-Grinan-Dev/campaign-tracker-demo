@@ -105,7 +105,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {isLogged ? <Route index element={<Home />} /> : <Route index element={<Login />} />}
+            <Route index element={<Home />} />
             {isLogged && protectedViews()}
           </Route>
         </Routes>
