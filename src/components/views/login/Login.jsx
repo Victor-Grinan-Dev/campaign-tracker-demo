@@ -1,51 +1,107 @@
-import React from 'react';
-import HOTWButton from '../../ui_components/HOTWButton';
-import Gates from '../../ui_components/Gates';
-import Logo from '../../ui_components/Logo';
-import { useDispatch } from 'react-redux';
-import { setCurrentUser, setIsLogged } from '../../../features/portalSlice';
-import { User } from '../../../classes/user';
-import Cookies from 'js-cookie';
+import React, { useRef, useState, useEffect, useContext } from "react";
+import HOTWButton from "../../ui_components/HOTWButton";
+import Gates from "../../ui_components/Gates";
+import Logo from "../../ui_components/Logo";
+import { useDispatch } from "react-redux";
+import { setCurrentUser, setIsLogged } from "../../../features/portalSlice";
+import { User } from "../../../classes/user";
+import Cookies from "js-cookie";
+import { UserContext } from "../../LoginComponents/UserContext";
 
 export const testUser = new User("Victor", "Victor123");
 testUser.type = "admin";
 
 const Login = () => {
+  const userRef = useRef();
   const dispatch = useDispatch();
 
-const handleSubmit = () => {
-   dispatch(setCurrentUser(testUser))
-   dispatch(setIsLogged(true));
-   Cookies.set("portalLog", "true")//?
-}
+  // const handleSubmit = () => {
+  //   dispatch(setCurrentUser(testUser));
+  //   dispatch(setIsLogged(true));
+  //   Cookies.set("portalLog", "true"); //?
+  // };
+
+  // Login to db space
+  const { loginUser, wait, loggedInCheck, user } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(false);
+  const [errMsg, setErrMsg] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onChangeInput = (e) => {
+    // e.preventDefault();
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const submitForm = async (e) => {
+    console.log("from submitForm");
+    e.preventDefault();
+
+    if (!Object.values(formData).every((val) => val.trim() !== "")) {
+      setErrMsg("Please Fill in all Required Fields!");
+      return;
+    }
+
+    const data = await loginUser(formData);
+    if (data.success) {
+      console.log(data);
+      // e.target.reset();
+      setRedirect("Redirecting...");
+      console.log("go to loggedIncheck");
+      const ret = await loggedInCheck();
+      console.log(user.name);
+      // dispatch(setIsLogged(true));
+      // console.log(formData.email);
+      console.log(user);
+      // console.log(formData.password);
+      // dispatch(changeUserName(user.name));
+      // dispatch(changeUserIndex(user.id));
+      // dispatch(changeUserName(data[item].username));
+      // dispatch(changeUserIndex(item));
+      return;
+    }
+    setErrMsg(data.message);
+  };
 
   return (
+    <div className="login-container">
+      <div className="welcome">
+        <p>Welcome to the "Campaing Tracker App".</p>
 
-    <div className='login-container'>
-      <div className='welcome'>
-        <p>Welcome to the "Campaing Tracker App".</p> 
-
-        <Logo/>
-        <Gates/>
-               
+        <Logo />
+        <Gates />
       </div>
       <div>
-      <form >
+        <form>
           <div>
-          <input type="text" name="username" placeholder='Username...'/>
+            {/* <input type="text" name="username" placeholder="Username..." /> */}
+            <input
+              type="text"
+              name="email"
+              placeholder="Username..."
+              onChange={onChangeInput}
+              value={formData.email}
+              ref={userRef}
+              autoComplete="off"
+              required
+            />
           </div>
           <div>
-          <input type="text" name="password" placeholder='Password...'/>
+            {/* <input type="text" name="password" placeholder="Password..." /> */}
+            <input type="password" name="password" placeholder="Password..." onChange={onChangeInput} value={formData.password} required />
           </div>
-          < HOTWButton caption={"Login"} action={handleSubmit}/>
+          {/* <HOTWButton caption={"Login"} action={handleSubmit} /> */}
+          <HOTWButton caption={"Login"} action={submitForm} />
         </form>
         <br />
         <p>More...</p>
-
       </div>
     </div>
-
-  )
-}
+  );
+};
 
 export default Login;

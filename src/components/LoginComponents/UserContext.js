@@ -5,7 +5,8 @@ import React from "react";
 // import { Link, useNavigate } from "react-router-dom";
 //redux:
 import { useDispatch } from "react-redux";
-import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/globalState/globalStateSlice";
+// import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/globalState/globalStateSlice";
+import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/portalSlice";
 // **********
 
 import { createContext, useState, useEffect } from "react";
@@ -75,8 +76,8 @@ export const UserContextProvider = ({ children }) => {
       console.log(data);
       if (data.success && data.user) {
         console.log(data.user);
-        dispatch(changeUserName(data.user.name));
-        dispatch(changeUserIndex(data.user.id));
+        // dispatch(changeUserName(data.user.name));
+        // dispatch(changeUserIndex(data.user.id));
         dispatch(setIsLogged(true));
         setUser(data.user);
         return;
