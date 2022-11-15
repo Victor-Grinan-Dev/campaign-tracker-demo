@@ -24,7 +24,6 @@ import './styles/tile.css';
 //components:
 import Layout from './pages/Layout';
 import Home from './components/views/home/Home';
-import Login from './components/views/login/Login';
 import Profile from './components/views/profile/Profile';
 import About from './components/views/about/About';
 import Contact from './components/views/contact/Contact';
@@ -93,8 +92,6 @@ function App() {
           console.log("get data from database?")
         }
       }
-    console.log(currentUser)
-    
     }   
 
     // eslint-disable-next-line      
@@ -105,7 +102,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {isLogged ? <Route index element={<Home />} /> : <Route index element={<Login />} />}
+            <Route index element={<Home />} />
             {isLogged && protectedViews()}
           </Route>
         </Routes>

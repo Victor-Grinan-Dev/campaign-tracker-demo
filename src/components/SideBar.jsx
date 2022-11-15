@@ -1,6 +1,6 @@
 //react
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //cookies
 import Cookies from 'js-cookie';
@@ -12,11 +12,14 @@ import { setCurrentUser, setIsLogged } from '../features/portalSlice';
 
 const SideBar = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const isLogged = useSelector(state => state.portal.isLogged);
     const user = useSelector(state =>state.portal.currentUser);
 
     const logout = () => {
+      navigate("/")
       Cookies.remove("portalLog", { path: '/' });
+      
       dispatch(setCurrentUser({}));
       dispatch(setIsLogged(false));
       //dispatch()

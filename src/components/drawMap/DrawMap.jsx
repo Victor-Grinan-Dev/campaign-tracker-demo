@@ -6,7 +6,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset, setMaxPlayers } from '../../features/drawMapSlice';
+import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
 import { setCurrentUser } from '../../features/portalSlice';
 
 //components
@@ -32,6 +32,8 @@ const DrawMap = () => {
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
+  const startPosLeft = useSelector(state=>state.drawMap.startPosLeft);
+
 
   const currentUser = useSelector(state=>state.portal.currentUser);
 
@@ -106,29 +108,74 @@ const DrawMap = () => {
   }
 
   const brushHandler = (e) => {
-    dispatch(setBrush(terrainTypes[e.target.name]))
-    setErrMsg("");
+    if(terrainTypes[e.target.name]){
+      dispatch(setBrush(terrainTypes[e.target.name]))
+      setErrMsg("");
+    }else if(e.target.name === "del"){
+      dispatch(setBrush(e.target.name))
+    }else{
+      dispatch(setBrush(null))
+      setErrMsg("No Brush selected");
+    }
+
   }
 
   const clickTileHandler = (e) => {
+    
     const newNestedArr = [];
-    for (let row of mapObj.map){
-      const newRow = [];
-      for (let tile of row){
-        if( tile.id === e.target.id ){
-          newRow.push({...tile, "terrain": brush})
-        }
-        else{
-          newRow.push(tile);
-        }
-      }
-      newNestedArr.push(newRow);
-    }
-    updateMap({...mapObj, "map":newNestedArr});
-  }
 
+    if(brush && brush !== "del" && brush !== "startingPos"){//click with a brush terrain
+      for (let row of mapObj.map){
+        const newRow = [];
+        for (let tile of row){
+          if( tile.id === e.target.id ){
+            newRow.push({...tile, "terrain": brush})
+          }
+          else{
+            newRow.push(tile);
+          }
+        }
+        newNestedArr.push(newRow);
+      }
+      updateMap({...mapObj, "map":newNestedArr});
+    }else if(brush === "del"){//clck with brusH del
+      for (let row of mapObj.map){
+        const newRow = [];
+        for (let tile of row){
+          if( tile.id === e.target.id ){
+            newRow.push({...tile, "terrain": null})
+          }
+          else{
+            newRow.push(tile);
+          }
+        }
+        newNestedArr.push(newRow);
+      }
+      updateMap({...mapObj, "map":newNestedArr});
+    }else if (brush === "startingPos" && startPosLeft > 0){
+      dispatch(countDownStartPosLeft())
+      for (let row of mapObj.map){
+        const newRow = [];
+        for (let tile of row){
+          if( tile.id === e.target.id ){
+            newRow.push({...tile, "isStartingPosition": true})
+          }
+          else{
+            newRow.push(tile);
+          }
+        }
+        newNestedArr.push(newRow);
+        
+      }
+      console.log(newNestedArr)
+      updateMap({...mapObj, "map":newNestedArr});
+    }
+    //click with no selected brush
+  }
+  
   const resetHandler = () => {
-     dispatch(setReset())
+     dispatch(setReset());
+     dispatch(setReset(setStartPosLeft()))
      setErrMsg("");
   }
 
@@ -144,7 +191,7 @@ const DrawMap = () => {
   }
 
   const setStartsHandler = () => {
-    console.log(maxPlayers)
+    dispatch(setBrush("startingPos"))
   }
 
   const cancelHandler = () => {
@@ -155,6 +202,7 @@ const DrawMap = () => {
         dispatch(setTileSize(30));
         navigate("/createcampaign");
   }
+
   const setPlayableTiles = (mapObj) => {
     let playableTiles = 0;
     for(let row of mapObj.map){
@@ -166,6 +214,7 @@ const DrawMap = () => {
     }
     return {...mapObj,"playableTiles": playableTiles}
   }
+
   const mapValidator = () => {
     let result = false;
 
@@ -323,7 +372,7 @@ const DrawMap = () => {
 
               <div>
                 <button name="blank" onClick={brushHandler} className='appButton' >blank</button>
-                <button name={null} onClick={brushHandler} className='appButton' >delete</button>
+                <button name="del" onClick={brushHandler} className='appButton' >delete</button>
               </div>
 
             </div>
