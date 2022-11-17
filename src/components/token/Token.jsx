@@ -22,7 +22,8 @@ function Token({formation, fn}) {
   */
   
   const isBeen = formation.isBeen ? "grayscale(1)" : "grayscale(0)";
-  
+
+
   return (
     <div className="factionColor token"
     style={{
