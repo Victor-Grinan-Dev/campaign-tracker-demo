@@ -11,3 +11,8 @@
 .createFormInfoAtrr{
     font-size: 12px;
 }
+
+.sideData{
+    display: flex;
+    justify-content: space-between;
+}

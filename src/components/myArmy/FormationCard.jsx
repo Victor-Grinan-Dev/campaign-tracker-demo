@@ -14,6 +14,7 @@ const FormationCard = ({formation}) => {
 
         <div className="imgBox">
           <p className="lvl">Lvl {formation.level}</p>
+          {/* <p className="xpbar">XP {formation.xp}</p> */}
             <Token formation={formation}/>
         </div>
 
