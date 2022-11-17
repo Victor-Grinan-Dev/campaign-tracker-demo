@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Formation } from '../../classes/formation';
 import CreateUnit from './CreateUnit';
 import FormationCard from './FormationCard';
@@ -6,6 +7,13 @@ import FormationCard from './FormationCard';
 const creatingFormation = new Formation("-", [ ])
 
 const CreateFormation = () => {
+
+  useEffect(() => {
+    effect
+    return () => {
+      cleanup
+    };
+  }, [input]);
   return (
     <div className='create-formation view'>
         <h3>Create Formation:</h3>
