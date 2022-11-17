@@ -1,7 +1,8 @@
 export const factions = {
+
   human_kin:{
     id:"hk",
-    name:"thr_human_kin",
+    name:"The Human Kin",
     color:"#d5d5d5",
     benefit:["luck+20"]
   },
@@ -9,7 +10,7 @@ export const factions = {
       id:"ja",
       name:"The Justice Aliance",
       color:"#309abb",
-      benefit:["defence+10"]
+      benefit:["defence+5"]
     },
         
     dark_forces:{
@@ -18,12 +19,14 @@ export const factions = {
       color:"#830202",
       benefit:["damage%+10"]
     },
+
     advanced_humanoids:{
       id:"ae",
       name:"The Advanced Humanoids",
       color:"#1fc778",
       benefit:['XP%+10']
     },
+
     death_machines:{
       id:"dm",
       name:"The Death Machines",
@@ -36,13 +39,39 @@ export const factions = {
       color:"#0F3D3E",
       benefit:["movement+1"]
     },
+
     infestation_bugs:{
       id:"ib",
       name:"The Infestation Bugs",
       color:"#D1512D",
       benefit:["pasive: claim_tile"]
+    },
+
+    tecnho_dwarf:{
+      id:"td",
+      name:"The Techno Dwarfs",
+      color:"cian",
+      benefit:["defence+5"]
+    },
+    kind_ciborgs:{
+      id:"kc",
+      name:"The Kind Ciborgs",
+      color:"maroon",
+      benefit:["defence+5"]
     }
   }
+
+export const factionsArr = [
+  "The Human Kin",
+  "The Justice Aliance",
+  "The Dark Forces",
+  "The Advanced Humanoids",
+  "The Death Machines",
+  "The Beast Hordes",
+  "The Infestation Bugs",
+  "The Techno Dwarfs",
+  "The Kind Ciborgs"
+]
 
 export const allFactions = [
   "hk",
@@ -52,4 +81,5 @@ export const allFactions = [
   "dm",
   "bh",
   "ib",
+  "td",
 ]

@@ -36,9 +36,7 @@ export const formationsSlice = createSlice({
         setSubfaction(state, action){
             state.subfaction = action.payload;
         },
-
     }
-
 });
 
 export const {
