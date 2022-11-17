@@ -3,7 +3,6 @@ export class Formation {
     work_force = 0 //points to complete the an action.
     damage = 0
     defense = 0
-    model_count = 0
     vision = 1
     Xp = 0
     actions=[]
@@ -19,11 +18,11 @@ export class Formation {
     subColor='white' //user choice
     is_listed = false
     carry_capacity = 0 //from the units
+    model_count = 0
     infantry_count = 0
     isBeen = false
     isMoved = false
     owner = undefined //army that owns it
-
     point_cost = 0 
 
     constructor(name, composition, s_description="", l_description="", faction="", subfaction=""){

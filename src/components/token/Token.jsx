@@ -2,6 +2,30 @@ import { useEffect, useState } from 'react';
 import { unitsImages } from '../../images/units';
 
 function Token({formation, fn}) {
+  let unitCount = formation?.composition?.length;
+
+  let size;
+
+  switch (unitCount) {
+    case 1:
+      size = 60;
+      break;
+    case 2:
+      size=40;
+      break;
+    case 3 || 4:
+      size=30;
+      break;
+    case 5 || 6:
+      size=20;
+      break;
+    case 7 || 8 || 9:
+      size=15;
+      break;
+  
+    default:
+      break;
+  }
 
   /* 
       const [color, setColor] = useState();
@@ -24,6 +48,7 @@ function Token({formation, fn}) {
   const isBeen = formation.isBeen ? "grayscale(1)" : "grayscale(0)";
 
 
+
   return (
     <div className="factionColor token"
     style={{
@@ -36,7 +61,6 @@ function Token({formation, fn}) {
           style={{
             backgroundColor: `${formation.subColor}`
           }}
-          //onClick={activateToken}
           >
             {formation.composition ?
               formation.composition.map((unit) => {
@@ -48,9 +72,9 @@ function Token({formation, fn}) {
                 onClick={fn}
                 style={{
                   backgroundImage:`url(${unitsImages[unit.skills.type]})`,
-                  backgroundSize: formation.unitCount===1 ? "50px 50px" : formation.unitCount===2 ? "30px 40px" : "30px 30px",
-                  width: formation.unitCount===1 ? "50px" : formation.unitCount===2 ? "30px" : "30px",
-                  height: formation.unitCount===1 ? "50px" : formation.unitCount===2 ? "40px" : "30px",
+                  backgroundSize: `${size}px ${size}px`,
+                  width: `${size}px`,
+                  height: `${size}px`,
                   filter: `${isBeen}`,
               }} 
               /> 
