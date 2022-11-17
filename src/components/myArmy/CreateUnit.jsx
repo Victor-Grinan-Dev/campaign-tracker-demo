@@ -46,8 +46,10 @@ const CreateUnit = () => {
   }
 
   const addUnitHandler = () => {
-    const id = composition.length + 1;
-    dispatch(setComposition([...composition, new Unit(id, unitName, models, pointCost, skills_by_unit_type[type])]));
+    if(composition.length < 9){
+      const id = composition.length + 1;
+      dispatch(setComposition([...composition, new Unit(id, unitName, models, pointCost, skills_by_unit_type[type])]));
+    }
   }
   return (
     <div>
