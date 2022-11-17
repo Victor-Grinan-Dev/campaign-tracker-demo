@@ -64,7 +64,7 @@ export class Formation {
         });
       }
       setDamage(){ //checked
-          this.damage = Math.floor(this.point_const / 10)
+          this.damage = Math.floor(this.point_cost / 10)
       }
       setWorkForce(){ //checked
         let apply_bonus = false;

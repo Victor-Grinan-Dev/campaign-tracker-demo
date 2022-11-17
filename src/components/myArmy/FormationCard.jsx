@@ -22,12 +22,14 @@ const FormationCard = ({formation}) => {
             <p className='formCardDetail'>Point cost: </p>
             <p className='formCardDetail'>Damage:</p>
             <p className='formCardDetail'>Defense:</p>
+            <p className='formCardDetail'>Movement:</p>
             
           </div>
           <div className="detailsValues">
-            <p className='formCardDetail'>{formation.point_cost ? formation.point_cost : "-"}</p>
-            <p className='formCardDetail'>{formation.damage ? formation.damage : "-"}</p>
-            <p className='formCardDetail'>{formation.defense ? formation.defense : "-"}</p>
+            <p className='formCardDetail'>{formation.point_cost}</p>
+            <p className='formCardDetail'>{formation.damage}</p>
+            <p className='formCardDetail'>{formation.defense}</p>
+            <p className='formCardDetail'>{formation.movement}</p>
             
           </div>
         </div>

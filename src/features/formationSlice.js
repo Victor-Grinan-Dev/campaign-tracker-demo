@@ -4,7 +4,7 @@ export const formationsSlice = createSlice({
     name:'formation',
     initialState:{
         formationObj:{},
-        name:"Name Undefined",
+        name:"-",
         composition: [],
         s_description: "",
         l_description: "",
