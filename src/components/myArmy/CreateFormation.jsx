@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formation } from '../../classes/formation';
-import { setFormationObj } from '../../features/formationSlice';
+import { setFaction, setFormationObj } from '../../features/formationSlice';
 import CreateUnit from './CreateUnit';
 import FormationCard from './FormationCard';
+import { factions } from '../../data/factions';
+import { factionsArr } from '../../data/factions';
 
 const CreateFormation = () => {
-
+  
   const nameFormation = useSelector(state => state.formation.name)
   const composition = useSelector(state => state.formation.composition);
   const creatingFormation = useSelector(state => state.formation.formationObj);
+
+  const faction = useSelector(state =>state.formation.faction);
 
   const dispatch = useDispatch();
 
@@ -19,14 +23,17 @@ const CreateFormation = () => {
   }, []);
 
   useEffect(() => {
-    const newFormation = new Formation(nameFormation, composition);
+    const newFormation = new Formation(nameFormation, composition, faction);
     dispatch(setFormationObj(newFormation));
-  }, [composition]);
+  }, [composition, faction]);
 
   const updateFormation = (e) => {
     dispatch(setFormationObj({...creatingFormation, [e.target.name]: e.target.value}))
   }
-  
+  const updateFaction = (e) => {
+    const key = e.target.value.split("The ")[1].replace(" ","_").toLowerCase();
+    dispatch(setFaction(factions[key]));
+  }
   return (
     <div className='create-formation view'>
         <h3>Create Formation: {/* creatingFormation.name === '-' ? 'Name...?' : creatingFormation.name */}</h3>
@@ -37,8 +44,13 @@ const CreateFormation = () => {
               <div>
                 <button>Add</button>
                   <input type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
-                  <select name="faction">
-                    <option value="" hidden></option>
+                  <select name="faction" onChange={updateFaction}>
+                    <option value="" hidden>Choose...</option>
+                    {
+                      factionsArr.map((f,i)=>(
+                        <option value={f} key={i}>{f}</option>
+                      ))
+                    }
                   </select>
               </div>
               <div className="sideData">

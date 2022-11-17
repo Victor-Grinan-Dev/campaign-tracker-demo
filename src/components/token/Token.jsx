@@ -51,20 +51,21 @@ function Token({formation, fn}) {
 
   return (
     <div className="factionColor token"
-    style={{
-      backgroundColor: `${formation.color}`
-    }}
-    >
+      style={{
+        backgroundColor: `${formation.color}`
+      }}
+      >
       <div 
-          className="token"
-          name="token"
-          style={{
-            backgroundColor: `${formation.subColor}`
+        className="token"
+        name="token"
+        style={{
+          backgroundColor: `${formation.subColor}`
           }}
-          >
-            {formation.composition ?
-              formation.composition.map((unit) => {
-                return <div 
+        >
+          {
+            formation.composition ?
+            formation.composition.map((unit) => {
+              return <div 
                 name={formation.name} 
                 className="tokenIcon" 
                 key={unit.id} 
@@ -76,13 +77,12 @@ function Token({formation, fn}) {
                   width: `${size}px`,
                   height: `${size}px`,
                   filter: `${isBeen}`,
-              }} 
+                }} 
               /> 
-              }): null
-            }
-          </div>
+            }): null
+          }
+      </div>
     </div>
-    
   )
 }
 
