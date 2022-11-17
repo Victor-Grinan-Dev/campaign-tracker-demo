@@ -4,11 +4,11 @@ export class Unit {
     
     hero = null;
     equipment = [];
-    constructor(id, unitName, models,point_const, skills){
+    constructor(id, unitName, models, point_cost, skills){
         this.id = id;
         this.name = unitName;
         this.models = models;
-        this.point_const = point_const;
+        this.point_cost = point_cost;
         this.skills = skills;
         if(this.skills?.type){this.image = this.skills.type;}
     }

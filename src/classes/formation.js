@@ -18,12 +18,13 @@ export class Formation {
     color='white' //faction related
     subColor='white' //user choice
     is_listed = false
-    point_cost = 0  
     carry_capacity = 0 //from the units
     infantry_count = 0
     isBeen = false
     isMoved = false
     owner = undefined //army that owns it
+
+    point_cost = 0 
 
     constructor(name, composition, s_description="", l_description="", faction="", subfaction=""){
       this.name = name
@@ -59,7 +60,7 @@ export class Formation {
       }
       setPointCost(){ // checked  
         this.composition.forEach(unit =>{
-        this.point_const += unit.point_const
+        this.point_cost += unit.point_cost
         });
       }
       setDamage(){ //checked
