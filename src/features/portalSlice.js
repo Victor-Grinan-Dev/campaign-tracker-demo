@@ -12,6 +12,7 @@ export const portalSlice = createSlice({
         //temp:
         search:"",
         isLoading:true,
+        robotSay:"",
 
         //create:
         creatingUnit:{},
@@ -40,6 +41,9 @@ export const portalSlice = createSlice({
 
         setSearch(state, action) {
             state.search = action.payload;
+        },
+        setRobotSay(state, action){
+            state.robotSay = action.payload;
         },
 
 
@@ -75,6 +79,7 @@ export const {
     setIsLogged,
     setIsLoading,
     setSearch,
+    setRobotSay,
 
     setCreatingUnit,
     setCreatingFormation,
