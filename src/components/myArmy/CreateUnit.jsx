@@ -8,8 +8,11 @@ import { unitsImages } from '../../images/units';
 import { Unit } from '../../classes/unit';
 //redux
 import { setName, setModels, setPoint_cost, setType } from '../../features/unitSlice';
+import { setComposition } from '../../features/formationSlice';
 
-import { setComposition, setFormationObj } from '../../features/formationSlice';
+//fuctions
+import { genId } from '../../functions/genId';
+
 
 const CreateUnit = () => {
   const dispatch = useDispatch();
@@ -39,7 +42,7 @@ const CreateUnit = () => {
 
   const poitCostHandler = (e) => {
     dispatch(setPoint_cost( parseInt(e.target.value, 10)));
-  }
+  }     
 
   const typeHandler = (e) => {
     dispatch(setType( e.target.value));
@@ -47,7 +50,7 @@ const CreateUnit = () => {
 
   const addUnitHandler = () => {
     if(composition.length < 9){
-      const id = composition.length + 1;
+      const id = genId();
       dispatch(setComposition([...composition, new Unit(id, unitName, models, pointCost, skills_by_unit_type[type])]));
     }
   }

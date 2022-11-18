@@ -34,6 +34,11 @@ const CreateFormation = () => {
     const key = e.target.value.split("The ")[1].replace(" ","_").toLowerCase();
     dispatch(setFaction(factions[key]));
   }
+
+  const clickOutUnitHandler = (e) => {
+     console.log(e.target.attributes.name.value);
+     console.log(e.target.id)
+  }
   return (
     <div className='create-formation view'>
         <h3>Create Formation: {/* creatingFormation.name === '-' ? 'Name...?' : creatingFormation.name */}</h3>
@@ -97,7 +102,7 @@ const CreateFormation = () => {
                 */}
             </div>
 
-            <FormationCard formation={creatingFormation}/>
+            <FormationCard formation={creatingFormation} fn={clickOutUnitHandler}/>
         </div>
         
         <CreateUnit />
