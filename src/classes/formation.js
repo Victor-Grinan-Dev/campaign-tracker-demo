@@ -19,7 +19,6 @@ export class Formation {
     isMoved = false
     owner = undefined //army that owns it
     point_cost = 0 
-    l_description="";
 
     /**** future features ****/
     //action_points = 1 //amount of actions a formation can do in a turn.
@@ -30,10 +29,10 @@ export class Formation {
     //carry_capacity = 0 //from the units
     //type = undefined //this comes from the composition of the formation (old 40k formations rules)
 
-    constructor(name, composition, faction=null, subfaction="", s_description=""){
+    constructor(name, composition, faction=null, subfaction="", description=""){
       this.name = name;
       this.composition = composition;
-      this.s_description = s_description;
+      this.description = description;
       this.faction = faction;
       this.subfaction = subfaction;
       this.color = faction ? faction.color : "white";

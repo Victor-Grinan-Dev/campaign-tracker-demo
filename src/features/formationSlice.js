@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const formationsSlice = createSlice({
     name:'formation',
     initialState:{
-        formationObj:{},
-        name:"-",
+        formationObj:{
+            name:"-",
+            composition:[]
+        },
         composition: [],
-        s_description: "",
-        l_description: "",
         faction: undefined,
         subfaction: "",
     }, 
@@ -16,19 +16,9 @@ export const formationsSlice = createSlice({
         setFormationObj(state, action){
             state.formationObj = action.payload;
         },
-        setName(state, action){
-            state.name = action.payload;
-        },
         setComposition(state, action){
             state.composition = action.payload;
         },
-        setS_description(state, action){
-            state.s_description = action.payload;
-        },
-        setL_description(state, action){
-            state.l_description = action.payload;
-        },
-
         setFaction(state, action){
             state.faction = action.payload;
         },
@@ -41,10 +31,8 @@ export const formationsSlice = createSlice({
 
 export const {
     setFormationObj,
-    setName,
     setComposition,
-    setS_description,
-    setL_description,
+
     setFaction,
     setSubfaction,
 } = formationsSlice.actions;

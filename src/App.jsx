@@ -77,7 +77,7 @@ const protectedViews = () => {
 function App() {
   const dispatch = useDispatch();
   const isLogged = useSelector(state => state.portal.isLogged);
-  const currentUser = useSelector(state => state.portal.currentUser);
+  //const currentUser = useSelector(state => state.portal.currentUser);
 
   useEffect(() => {
     if(Cookies.get("portalLog")){

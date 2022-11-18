@@ -33,8 +33,11 @@ const FormationCard = ({formation, fn}) => {
             <p className='formCardDetail'>{formation.movement}</p>
             
           </div>
+          
         </div>
-
+        <div>
+          <p style={{fontSize:"10px"}}>❌</p>
+        </div>
       </div>
     </div>
   )

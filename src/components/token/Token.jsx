@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+
 import { unitsImages } from '../../images/units';
 
 function Token({formation, fn}) {

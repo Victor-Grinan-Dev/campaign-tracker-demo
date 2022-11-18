@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formation } from '../../classes/formation';
@@ -7,10 +7,11 @@ import CreateUnit from './CreateUnit';
 import FormationCard from './FormationCard';
 import { factions } from '../../data/factions';
 import { factionsArr } from '../../data/factions';
+import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 const CreateFormation = () => {
-  
-  const nameFormation = useSelector(state => state.formation.name)
+  const user = useSelector(state=>state.portal.currentUser)
+  const robotSay = useSelector(state=> state.portal.robotSay)
   const composition = useSelector(state => state.formation.composition);
   const creatingFormation = useSelector(state => state.formation.formationObj);
 
@@ -19,12 +20,9 @@ const CreateFormation = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setFormationObj(new Formation("-", [ ])))
-  }, []);
-
-  useEffect(() => {
-    const newFormation = new Formation(nameFormation, composition, faction);
+    const newFormation = new Formation(creatingFormation.name, composition, faction);
     dispatch(setFormationObj(newFormation));
+    // eslint-disable-next-line
   }, [composition, faction]);
 
   const updateFormation = (e) => {
@@ -45,6 +43,36 @@ const CreateFormation = () => {
 
     dispatch(setComposition(newComposition))
   }
+
+  const addFormation = () => {
+
+    if (creatingFormation.name && creatingFormation.name !== "-" && creatingFormation.faction && creatingFormation.description && creatingFormation.composition.length > 0){
+      //console.log(JSON.parse(
+      dispatch(setCurrentUser({...user,"formations":[...user.formations, creatingFormation]}));
+      
+      localStorage.setItem("portal", JSON.stringify(user));
+      dispatch(setRobotSay("saved formation"));
+     /*
+      if(JSON.stringify(localStorage.getItem("portal", JSON.stringify(user))).formations.includes(creatingFormation)){
+        
+      }else{
+        dispatch(setRobotSay("try again something went wrong"));
+      }
+     */
+    }else{
+      if(!creatingFormation.name){
+       dispatch(setRobotSay("Formations needs a name"))     
+      }else if(creatingFormation.name === "-"){
+       dispatch(setRobotSay("Incorrect name of formation"))       
+      }else if(!creatingFormation.faction){
+       dispatch(setRobotSay("A faction is required"))     
+      }else if(!creatingFormation.description){
+       dispatch(setRobotSay("Write a short description"))     
+      }else if(creatingFormation.composition.length <= 0){
+        dispatch(setRobotSay("a formation needs at least one unit"))    
+      }
+    }
+  }
   return (
     <div className='create-formation view'>
         <h3>Create Formation: {/* creatingFormation.name === '-' ? 'Name...?' : creatingFormation.name */}</h3>
@@ -53,7 +81,8 @@ const CreateFormation = () => {
             
             <div className="namingSection" style={{overflow:'scroll'}}>
               <div>
-                <button>Add</button>
+                <p>🤖: {robotSay}</p>
+                <button onClick={addFormation}>Add</button>
                   <input type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
                   <select name="faction" onChange={updateFaction}>
                     <option value="" hidden>Choose...</option>
@@ -63,11 +92,9 @@ const CreateFormation = () => {
                       ))
                     }
                   </select>
-                  name
-                  composition
-                  faction
-                  subfaction
-                  s_description
+
+                  <textarea name="description" id="" cols="30" rows="3" placeholder='Short description...' onChange={updateFormation}/>
+                  
               </div>
               <div className="sideData">
                 <div className="keys">
