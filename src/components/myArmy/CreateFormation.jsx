@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formation } from '../../classes/formation';
-import { setFaction, setFormationObj } from '../../features/formationSlice';
+import { setComposition, setFaction, setFormationObj } from '../../features/formationSlice';
 import CreateUnit from './CreateUnit';
 import FormationCard from './FormationCard';
 import { factions } from '../../data/factions';
@@ -36,8 +36,14 @@ const CreateFormation = () => {
   }
 
   const clickOutUnitHandler = (e) => {
-     console.log(e.target.attributes.name.value);
-     console.log(e.target.id)
+
+     let newComposition = [];   
+
+    newComposition = composition.filter(u => {
+      return u.id !== e.target.id;
+    });
+
+    dispatch(setComposition(newComposition))
   }
   return (
     <div className='create-formation view'>
