@@ -48,7 +48,7 @@ const CreateFormation = () => {
                     <option value="" hidden>Choose...</option>
                     {
                       factionsArr.map((f,i)=>(
-                        <option value={f} key={i}>{f}</option>
+                        <option value={f} key={i}>{f.split("The ")[1]}</option>
                       ))
                     }
                   </select>
