@@ -1,7 +1,7 @@
 import React from 'react';
 import Token from '../token/Token';
 
-const FormationCard = ({formation}) => {
+const FormationCard = ({formation, fn}) => {
   return (
     <div className='cardFormation'>
       
@@ -14,7 +14,8 @@ const FormationCard = ({formation}) => {
 
         <div className="imgBox">
           <p className="lvl">Lvl {formation.level}</p>
-            <Token formation={formation}/>
+          {/* <p className="xpbar">XP {formation.xp}</p> */}
+            <Token formation={formation} fn={fn}/>
         </div>
 
         <div className="details">
@@ -22,16 +23,21 @@ const FormationCard = ({formation}) => {
             <p className='formCardDetail'>Point cost: </p>
             <p className='formCardDetail'>Damage:</p>
             <p className='formCardDetail'>Defense:</p>
+            <p className='formCardDetail'>Movement:</p>
             
           </div>
           <div className="detailsValues">
-            <p className='formCardDetail'>{formation.point_cost ? formation.point_cost : "-"}</p>
-            <p className='formCardDetail'>{formation.damage ? formation.damage : "-"}</p>
-            <p className='formCardDetail'>{formation.defense ? formation.defense : "-"}</p>
+            <p className='formCardDetail'>{formation.point_cost}</p>
+            <p className='formCardDetail'>{formation.damage}</p>
+            <p className='formCardDetail'>{formation.defense}</p>
+            <p className='formCardDetail'>{formation.movement}</p>
             
           </div>
+          
         </div>
-
+        <div>
+          <p style={{fontSize:"10px"}}>❌</p>
+        </div>
       </div>
     </div>
   )
