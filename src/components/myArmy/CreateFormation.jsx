@@ -63,11 +63,16 @@ const CreateFormation = () => {
                       ))
                     }
                   </select>
+                  name
+                  composition
+                  faction
+                  subfaction
+                  s_description
               </div>
               <div className="sideData">
                 <div className="keys">
-                  <p className='createFormInfoAtrr'>🕴Model count:</p>
-                  <p className='createFormInfoAtrr'>🪖Infantry count:</p>
+                  <p className='createFormInfoAtrr'>🕴🚙Model count:</p>
+                  <p className='createFormInfoAtrr'>👯👯Infantry count:</p>
                 </div>
                 <div className="values">
                   <p className='createFormInfoAtrr'>{creatingFormation.model_count}</p>
