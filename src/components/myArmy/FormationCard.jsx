@@ -1,7 +1,7 @@
 import React from 'react';
 import Token from '../token/Token';
 
-const FormationCard = ({formation}) => {
+const FormationCard = ({formation, fn}) => {
   return (
     <div className='cardFormation'>
       
@@ -15,7 +15,7 @@ const FormationCard = ({formation}) => {
         <div className="imgBox">
           <p className="lvl">Lvl {formation.level}</p>
           {/* <p className="xpbar">XP {formation.xp}</p> */}
-            <Token formation={formation}/>
+            <Token formation={formation} fn={fn}/>
         </div>
 
         <div className="details">

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formation } from '../../classes/formation';
-import { setFaction, setFormationObj } from '../../features/formationSlice';
+import { setComposition, setFaction, setFormationObj } from '../../features/formationSlice';
 import CreateUnit from './CreateUnit';
 import FormationCard from './FormationCard';
 import { factions } from '../../data/factions';
@@ -34,6 +34,17 @@ const CreateFormation = () => {
     const key = e.target.value.split("The ")[1].replace(" ","_").toLowerCase();
     dispatch(setFaction(factions[key]));
   }
+
+  const clickOutUnitHandler = (e) => {
+
+     let newComposition = [];   
+
+    newComposition = composition.filter(u => {
+      return u.id !== e.target.id;
+    });
+
+    dispatch(setComposition(newComposition))
+  }
   return (
     <div className='create-formation view'>
         <h3>Create Formation: {/* creatingFormation.name === '-' ? 'Name...?' : creatingFormation.name */}</h3>
@@ -48,7 +59,7 @@ const CreateFormation = () => {
                     <option value="" hidden>Choose...</option>
                     {
                       factionsArr.map((f,i)=>(
-                        <option value={f} key={i}>{f}</option>
+                        <option value={f} key={i}>{f.split("The ")[1]}</option>
                       ))
                     }
                   </select>
@@ -97,7 +108,7 @@ const CreateFormation = () => {
                 */}
             </div>
 
-            <FormationCard formation={creatingFormation}/>
+            <FormationCard formation={creatingFormation} fn={clickOutUnitHandler}/>
         </div>
         
         <CreateUnit />

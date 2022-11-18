@@ -64,9 +64,10 @@ function Token({formation, fn}) {
         >
           {
             formation.composition ?
-            formation.composition.map((unit) => {
+            formation.composition.map((unit,i) => {
               return <div 
-                name={formation.name} 
+                id={unit.id}
+                name={unit.name} 
                 className="tokenIcon" 
                 key={unit.id} 
                 type={"tokenIcon"} 
