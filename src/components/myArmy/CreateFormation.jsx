@@ -10,8 +10,9 @@ import { factionsArr } from '../../data/factions';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 const CreateFormation = () => {
-  const user = useSelector(state=>state.portal.currentUser)
-  const robotSay = useSelector(state=> state.portal.robotSay)
+  const user = useSelector(state=>state.portal.currentUser);
+  const robotSay = useSelector(state=> state.portal.robotSay);
+  
   const composition = useSelector(state => state.formation.composition);
   const creatingFormation = useSelector(state => state.formation.formationObj);
 
@@ -21,7 +22,7 @@ const CreateFormation = () => {
 
   useEffect(() => {
     localStorage.setItem("portal", JSON.stringify(user));
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const newFormation = new Formation(creatingFormation.name, composition, faction);
