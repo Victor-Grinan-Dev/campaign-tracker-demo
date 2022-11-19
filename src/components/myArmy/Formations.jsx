@@ -9,25 +9,15 @@ const Fromations = () => {
   console.log(formations)
   return (
     <div className='browseArea'>
-      {
+      
+      {formations.length > 0 ?
         formations.map((f,i) => (
           <FormationCard formation={f} key={i} />
-        ))
+        )) :
+        
+        <p>Create some formations to be displayed</p>
+        
       }
-      {/*
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      <FormationCard formation={testForm}/>
-      */}
     </div>
   )
 }
