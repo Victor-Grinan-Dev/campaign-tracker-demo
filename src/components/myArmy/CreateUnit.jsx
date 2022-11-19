@@ -19,9 +19,6 @@ const CreateUnit = () => {
   const unitNameRef = useRef(null);
   const unitModelsRef = useRef(null);
   const unitPointsRef = useRef(null);
-  const formationNameRef = useRef(null);
-  const factioRef = useRef(null);
-  const descriptionRef = useRef(null);
 
   const dispatch = useDispatch();
 
