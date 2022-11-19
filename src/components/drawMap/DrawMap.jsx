@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
+//clases
+import { Map } from '../../classes/map';
+
 //image
 import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
+import { setMapObj, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
 import { setCurrentUser } from '../../features/portalSlice';
 
 //components
@@ -25,15 +28,16 @@ const DrawMap = () => {
   const dispatch = useDispatch();
 
   const mapObj = useSelector(state=>state.drawMap.mapObj);
-  const mapName = useSelector(state=>state.drawMap.mapName);
-  const shape = useSelector(state=>state.drawMap.shape);
+  const mapName = useSelector(state=>state.drawMap.mapObj.name);
+  const shape = useSelector(state=>state.drawMap.mapObj.shape);
   const dimension = useSelector(state=>state.drawMap.dimension);
-  const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
+  const maxPlayers = useSelector(state=>state.drawMap.mapObj.maxPlayers);
+
+
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
   const startPosLeft = useSelector(state=>state.drawMap.startPosLeft);
-
 
   const currentUser = useSelector(state=>state.portal.currentUser);
 
@@ -41,7 +45,7 @@ const DrawMap = () => {
   const [ errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
-    updateMap(generateMap(mapName, dimension, shape))
+    updateMap(generateMap(mapObj.name, dimension, mapObj.shape))
     // eslint-disable-next-line
   }, [
     dispatch,
@@ -50,20 +54,19 @@ const DrawMap = () => {
     reset,
   ]);
 
+  useEffect(()=>{
+    localStorage.setItem("portal", JSON.stringify(currentUser));
+  },[currentUser]);
+
+  const changeData = (e) => {
+    dispatch(setMapObj({...mapObj, [e.target.name]:e.target.value}))
+  }
   const updateMap = (map) => {
     const upDtatedPlayableTiles = setPlayableTiles(map);
     dispatch(setMapObj(upDtatedPlayableTiles));
     setErrMsg("")
   }
   
-  const shapeHandler = () => {
-    if(shape === "sq"){
-      dispatch(setShape("hx"));
-    }else if(shape === "hx"){
-      dispatch(setShape("sq"));
-    }
-  }
-
   const dimensionHandler = (e) => {
     const [x, y] = dimension.split("x");
      if (e.target.name === "width"){
@@ -117,7 +120,6 @@ const DrawMap = () => {
       dispatch(setBrush(null))
       setErrMsg("No Brush selected");
     }
-
   }
 
   const clickTileHandler = (e) => {
@@ -137,6 +139,7 @@ const DrawMap = () => {
         }
         newNestedArr.push(newRow);
       }
+      
       updateMap({...mapObj, "map":newNestedArr});
     }else if(brush === "del"){//clck with brusH del
       for (let row of mapObj.map){
@@ -167,22 +170,16 @@ const DrawMap = () => {
         newNestedArr.push(newRow);
         
       }
-      console.log(newNestedArr)
+      //console.log(newNestedArr)
       updateMap({...mapObj, "map":newNestedArr});
     }
     //click with no selected brush
   }
   
   const resetHandler = () => {
-     dispatch(setReset());
-     dispatch(setReset(setStartPosLeft()))
-     setErrMsg("");
-  }
-
-  const nameHandler = (e) => {
-     dispatch(setMapName(e.target.value));
-     updateMap({...mapObj, "name": mapName})
-     setErrMsg("");
+   
+    updateMap(generateMap(mapObj.name, dimension, mapObj.shape));
+    setErrMsg("");
   }
 
   const changeNameOkButton = () => {
@@ -195,8 +192,8 @@ const DrawMap = () => {
   }
 
   const cancelHandler = () => {
-        dispatch(setMapName("Name Undefined"));
-        dispatch(setShape("sq"));
+        
+        
         dispatch(setDimension("min"));
         dispatch(setMaxPlayers(2));
         dispatch(setTileSize(30));
@@ -251,20 +248,21 @@ const DrawMap = () => {
       if(nameValidator() && mapValidator()){
         
         dispatch(setCurrentUser({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]}));
-        console.log({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]})
+
         setErrMsg("Map has been saved!");
        
-        localStorage.setItem("portal", JSON.stringify(currentUser));
+        
 
         //resetValues:
         resetHandler();
-        dispatch(setMapName("Name Undefined"));
+        setMapObj(new Map("Name", "Undefined", "min", []))
         setChangingName(false);
 
       }else{
         setErrMsg("Invalid Map");
       }
   }
+
   return (
     <div className='drawmap view'>
         <div>
@@ -277,7 +275,7 @@ const DrawMap = () => {
             {
             changingName ? 
               <div>
-                <input type="text" onChange={nameHandler}/>
+                <input type="text" name="name" onChange={changeData}/>
                 <button onClick={changeNameOkButton}>ok</button>
               </div> : 
               <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapName)}"</p>
@@ -325,8 +323,8 @@ const DrawMap = () => {
                   <option value="13">13</option>
               </select>
             }
-              <button className='appButton' onClick={shapeHandler} >shape</button>
-              <button onClick={resetHandler} className='appButton'>reset</button>
+              <button onClick={changeData} name="shape" value={shape === "sq" ? "hx" : "sq"} className='appButton'>shape</button>
+              <button onClick={resetHandler} name="shape" className='appButton'>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">
