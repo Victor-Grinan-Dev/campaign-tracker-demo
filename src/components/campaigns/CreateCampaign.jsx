@@ -18,6 +18,10 @@ import { available_maps } from './dummy_availableMaps';
 
 //images
 import defaultBanner from '../../assets/banners/banner.png';
+import water from '../../assets/backgrounds/sea_sprite.jpg';
+import MapReader from '../drawMap/MapReader';
+
+const tileSize = 20
 const CreateCampaign = () => {
     const nameRef = useRef(null);
     const armySizeRef = useRef(null);
@@ -34,6 +38,7 @@ const CreateCampaign = () => {
     const user = useSelector(state=> state.portal.currentUser);
     const robotSays = useSelector(state=>state.portal.robotSays)
     const campaignObj = useSelector(state => state.campaign.campaignObj);
+    const mapObj = useSelector(state => state.campaign.campaignObj.map);
     const choiceMap = useSelector(state => state.campaign.campaignObj.map);
     const userMaps = useSelector(state => state.portal.currentUser.createdMaps);
 
@@ -84,9 +89,7 @@ const CreateCampaign = () => {
             campaignObj.banner ? <img className='campaignBanner' alt='banner' src={campaignObj.banner} /> :
             <img className='campaignBanner' alt='banner' src={defaultBanner} />
         }
-        <div className="subSection">          
-            <Link to="/drawmap">🗺️ Draw a map in blank canvas</Link> 
-        </div>
+
         <p>🤖: {robotSays}</p>
 
 
@@ -134,60 +137,74 @@ const CreateCampaign = () => {
             </select>
         </div>
 
-        <div className="flexRow mapSection section">
-        
-            <div className="flexRow section subSection mapSelect">
-
-                <label className="sectionName">Available maps: </label>
-                <select ref={mapRef} onChange={changeData} name="map">  
-                    <option value="" hidden>Choose</option>    
-                        {
-                            available_maps.map((map, i) => (
-                                <option value={JSON.stringify(map)} key={i} >{map.name}</option>
-                            ))
-                        }   
-
-                        {
-                            userMaps && userMaps.map((map,i) => (
-                                <option value={JSON.stringify(map)} key={i} >{capitalStart(map.name)}</option>
-                            ))
-                        }                    
-                </select > 
+        <div className="flexColumn subSection">
+            <p>Banner (Optional):</p>
+            <div>
+                <input ref={imgRef} type="text" name="banner" onChange={changeData} placeholder="Image url" />
+                <button onClick={()=>{imgRef.current.value = ""}}>Erase</button><button name="banner" value={undefined} onClick={changeData}>reset</button>
             </div>
+        </div>
+                        
+        <div className="flexColumn subSection">
+            <p>Rules (Optional):</p>
+            <textarea  ref={rulesRef} type="text" name="rules" onChange={changeData}
+                placeholder="Specify rules for this campaign..."
+                />
+        </div>
 
-            <div className="flexColumn subSection ">
+        <div className="flexRow section mapSelect">
+
+            <label className="">Available maps: </label>
+            <select ref={mapRef} onChange={changeData} name="map">  
+            <option value="" hidden>Choose</option>    
+                {
+                    available_maps.map((map, i) => (
+                        <option value={JSON.stringify(map)} key={i} >{map.name}</option>
+                    ))
+                }   
+
+                {
+                    userMaps && userMaps.map((map,i) => (
+                        <option value={JSON.stringify(map)} key={i} >{capitalStart(map.name)}</option>
+                    ))
+                }
+
+            </select > 
+        </div>
+    
+        <div className="flexRow subSection">
+            <div className="displayMap"
+                style={{
+                backgroundImage:`url(${water})`,
+                }}
+                >
+                {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} /> }
+                
+            </div> 
+            <div className="flexColumn">
+                <button>details</button>
+                <button>edit</button>
+                <button>delete</button>
+            </div>
+            </div>
+        <div className="subSection">          
+            <Link to="/drawmap">🗺️ Draw a map in blank canvas</Link> 
+        </div>
+        <div className="flexColumn subSection ">
                 
                 <p>Map name: {choiceMap.name ? <>"{capitalStart(choiceMap.name)}"</> : "undefined" }</p>
                 <p>Shape: {choiceMap ? choiceMap.shape : "undefined" }</p>
                 <p>Dimensions: {choiceMap ? choiceMap.dimensions : "undefined" }</p>
                 <p>max players: {choiceMap ? choiceMap.maxPlayers : "undefined" }</p>
-                
-            </div>
-
-            <div className="flexColumn subSection">
-                <p className="sectionName">Display Map:</p> 
-                    ⚠️ Upcoming feature   
-            </div>
-
-            <div className="flexColumn subSection">
-                <p>Banner (Optional):</p>
-                <input ref={imgRef} type="text" name="banner" onChange={changeData} placeholder="Image url" />
-            </div>
                         
-            <div className="flexColumn subSection">
-                <p>Rules (Optional):</p>
-                <textarea  ref={rulesRef} type="text" name="rules" onChange={changeData}
-                placeholder="Specify rules for this campaign..."
-                />
             </div>
 
-    </div>
-    
         <div className="section">
             <button onClick={saveCampaignData}>create campaign</button> 
             <input ref={isPublishedRef} type="checkbox" name="isPublished" onChange={changeData}/>
             <button> cancel </button>
         </div>
+
     </div>
   )
 };

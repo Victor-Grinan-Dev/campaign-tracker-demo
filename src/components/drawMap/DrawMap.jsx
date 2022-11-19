@@ -351,7 +351,8 @@ const DrawMap = () => {
         </div>
         <div className="screen"
         style={{
-          backgroundColor:`url(${water})`,
+          backgroundImage:`url(${water})`,
+          backgroundSize:`${tileSize}px`
         }}
         >
         {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} action={clickTileHandler}/> }
