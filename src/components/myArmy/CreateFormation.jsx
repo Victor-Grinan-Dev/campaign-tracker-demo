@@ -59,15 +59,15 @@ const CreateFormation = () => {
 
     }else{
       if(!creatingFormation.name){
-       dispatch(setRobotSay("Formations needs a name"))     
+       dispatch(setRobotSay("Formations needs a name ⛔"))     
       }else if(creatingFormation.name === "-"){
-       dispatch(setRobotSay("Incorrect name of formation"))       
+       dispatch(setRobotSay("Incorrect name of formation ⛔"))       
       }else if(!creatingFormation.faction){
-       dispatch(setRobotSay("A faction is required"))     
+       dispatch(setRobotSay("A faction is required ⛔"))     
       }else if(!creatingFormation.description){
-       dispatch(setRobotSay("Write a short description"))     
+       dispatch(setRobotSay("Write a short description ⛔"))     
       }else if(creatingFormation.composition.length <= 0){
-        dispatch(setRobotSay("a formation needs at least one unit"))    
+        dispatch(setRobotSay("a formation needs at least one unit ⛔"))    
       }
     }
   }
