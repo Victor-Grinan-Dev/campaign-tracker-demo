@@ -50,7 +50,7 @@ import { useEffect } from 'react';
 import { setCurrentUser, setIsLogged } from './features/portalSlice';
 
 //test
-//import { testUser } from './components/views/login/Login';
+import { testUser } from './components/views/login/Login';
 
 //device
 import {isMobile} from 'react-device-detect';
@@ -88,7 +88,7 @@ function App() {
           dispatch(setCurrentUser(JSON.parse(localStorage.getItem("portal"))))
           console.log("read from localStorage")
         }else{
-          //localStorage.setItem("portal", testUser); //this comes from the database?
+          localStorage.setItem("portal", JSON.stringify(testUser)); //this comes from the database?
           console.log("get data from database?")
         }
       }

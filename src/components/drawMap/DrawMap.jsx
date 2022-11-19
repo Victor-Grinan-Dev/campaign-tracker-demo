@@ -41,7 +41,7 @@ const DrawMap = () => {
   const [ errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
-    updateMap(generateMap(mapName, dimension, shape))
+    updateMap(generateMap(mapName, dimension, shape))//mapObj.name
     // eslint-disable-next-line
   }, [
     dispatch,
@@ -49,6 +49,15 @@ const DrawMap = () => {
     dimension,
     reset,
   ]);
+
+  useEffect(()=>{
+    localStorage.setItem("portal", JSON.stringify(currentUser));
+  },[currentUser]);
+
+  const changeData = (e) => {
+    dispatch(setMapObj({...mapObj, [e.target.name]:e.target.value}));
+    setErrMsg("");
+  }
 
   const updateMap = (map) => {
     const upDtatedPlayableTiles = setPlayableTiles(map);
@@ -117,7 +126,6 @@ const DrawMap = () => {
       dispatch(setBrush(null))
       setErrMsg("No Brush selected");
     }
-
   }
 
   const clickTileHandler = (e) => {
@@ -137,6 +145,7 @@ const DrawMap = () => {
         }
         newNestedArr.push(newRow);
       }
+      
       updateMap({...mapObj, "map":newNestedArr});
     }else if(brush === "del"){//clck with brusH del
       for (let row of mapObj.map){
@@ -167,7 +176,7 @@ const DrawMap = () => {
         newNestedArr.push(newRow);
         
       }
-      console.log(newNestedArr)
+      //console.log(newNestedArr)
       updateMap({...mapObj, "map":newNestedArr});
     }
     //click with no selected brush
@@ -179,11 +188,6 @@ const DrawMap = () => {
      setErrMsg("");
   }
 
-  const nameHandler = (e) => {
-     dispatch(setMapName(e.target.value));
-     updateMap({...mapObj, "name": mapName})
-     setErrMsg("");
-  }
 
   const changeNameOkButton = () => {
     setChangingName(false);
@@ -251,10 +255,10 @@ const DrawMap = () => {
       if(nameValidator() && mapValidator()){
         
         dispatch(setCurrentUser({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]}));
-        console.log({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]})
+
         setErrMsg("Map has been saved!");
        
-        localStorage.setItem("portal", JSON.stringify(currentUser));
+        
 
         //resetValues:
         resetHandler();
@@ -265,6 +269,7 @@ const DrawMap = () => {
         setErrMsg("Invalid Map");
       }
   }
+
   return (
     <div className='drawmap view'>
         <div>
@@ -277,7 +282,7 @@ const DrawMap = () => {
             {
             changingName ? 
               <div>
-                <input type="text" onChange={nameHandler}/>
+                <input type="text" name="name" onChange={changeData}/>
                 <button onClick={changeNameOkButton}>ok</button>
               </div> : 
               <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapName)}"</p>
@@ -326,7 +331,7 @@ const DrawMap = () => {
               </select>
             }
               <button className='appButton' onClick={shapeHandler} >shape</button>
-              <button onClick={resetHandler} className='appButton'>reset</button>
+              <button onClick={changeData} name="shape" value={shape === "sq" ? "hx" : "sq"} className='appButton'>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">

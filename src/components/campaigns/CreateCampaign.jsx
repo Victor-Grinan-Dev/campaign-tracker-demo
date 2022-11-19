@@ -2,18 +2,18 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Campaign } from '../../classes/campaign';
-import { setChoiceMap, setCreatingCampaign } from '../../features/portalSlice';
+//import { setChoiceMap, setCreatingCampaign } from '../../features/portalSlice';
 import { capitalStart } from '../../functions/capitalStart';
 import { genId } from '../../functions/genId';
 import { available_maps } from './dummy_availableMaps';
 
 const CreateCampaign = () => {
     const dispatch = useDispatch();
-    const creatingCampaign = useSelector(state => state.portal.creatingCampaign)
-    const choiceMap = useSelector(state => state.portal.choiceMap)
-
+    const creatingCampaign = useSelector(state => state.portal.creatingCampaign);
+    const choiceMap = useSelector(state => state.portal.choiceMap);
+    const userMaps = useSelector(state => state.portal.currentUser.createdMaps);
     const handleMap = (e) => {
-        dispatch(setChoiceMap(JSON.parse(e.target.value)));
+        //dispatch(setChoiceMap(JSON.parse(e.target.value)));
     }
 
     const changeData = (e) => {
@@ -30,7 +30,7 @@ const CreateCampaign = () => {
             //console.log(item)
            //dispatch(setChoiceMap(item[0]))
         }
-        dispatch(setCreatingCampaign({ ...creatingCampaign, [e.target.name]: e.target.value }));
+        //dispatch(setCreatingCampaign({ ...creatingCampaign, [e.target.name]: e.target.value }));
     };
 
     const saveCampaignData = (e) => {
@@ -105,7 +105,13 @@ const CreateCampaign = () => {
                             available_maps.map((map, i) => (
                                 <option value={JSON.stringify(map)} key={i} >{map.name}</option>
                             ))
-                        }                        
+                        }   
+
+                        {
+                            userMaps && userMaps.map((map,i) => (
+                                <option value={JSON.stringify(map)} key={i} >{capitalStart(map.name)}</option>
+                            ))
+                        }                    
                 </select > 
             </div>
 

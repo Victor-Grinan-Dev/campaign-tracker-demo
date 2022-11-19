@@ -14,12 +14,14 @@ export const portalSlice = createSlice({
         isLoading:true,
         robotSay:"",
 
-        //create:
+        /*
+                //create:
         creatingUnit:{},
         creatingFormation:{},
         creatingCampaign:{},
         creatingMapObj:{},
         creatingMapArr:[],
+        */
 
         choiceMap:{},
 
@@ -46,7 +48,8 @@ export const portalSlice = createSlice({
             state.robotSay = action.payload;
         },
 
-
+        /*
+        
         //unit:
         setCreatingUnit(state, action){
             state.creatingUnit = action.payload;
@@ -71,6 +74,7 @@ export const portalSlice = createSlice({
         setChoiceMap(state, action){
             state.choiceMap = action.payload;
         }
+        */
     }
 });
 
@@ -81,12 +85,14 @@ export const {
     setSearch,
     setRobotSay,
 
+    /*
     setCreatingUnit,
     setCreatingFormation,
     setCreatingCampaign,
     setCreatingMapObj,
     setCreatingMapArr,
     setChoiceMap,
+    */
 
 } = portalSlice.actions;
 

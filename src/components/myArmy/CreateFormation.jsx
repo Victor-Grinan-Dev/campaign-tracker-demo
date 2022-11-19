@@ -20,6 +20,10 @@ const CreateFormation = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    localStorage.setItem("portal", JSON.stringify(user));
+  }, []);
+
+  useEffect(() => {
     const newFormation = new Formation(creatingFormation.name, composition, faction);
     dispatch(setFormationObj(newFormation));
     // eslint-disable-next-line
