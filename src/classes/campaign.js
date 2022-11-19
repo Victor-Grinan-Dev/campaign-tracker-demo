@@ -8,7 +8,6 @@ export class Campaign {
     phase = 'deploy'; //result( at initiative ) - reaction_orders - solve - consecuences
     initialMap = []; //initial map in case of comparison
     banner = undefined;
-
     actionPool = [] //[ timestamp, armyName, action ]
 
     constructor(campaignId, name, armySize, map, rounds=4, timeLapse="weeks") {

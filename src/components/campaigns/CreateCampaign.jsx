@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 //redux:
 import { useDispatch, useSelector } from 'react-redux';
 import { setCampaignObj } from '../../features/campaignSlice';
-
+import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //classes
 import { Campaign } from '../../classes/campaign';
@@ -16,18 +16,38 @@ import { genId } from '../../functions/genId';
 //data
 import { available_maps } from './dummy_availableMaps';
 
+//images
+import defaultBanner from '../../assets/banners/banner.png';
 const CreateCampaign = () => {
+    const nameRef = useRef(null);
+    const armySizeRef = useRef(null);
+    const roundsRef = useRef(null);
+    const timeLapseRef = useRef(null);
+    const mapRef = useRef(null);
+    const imgRef = useRef(null);
+    const rulesRef = useRef(null);
+    const isPublishedRef = useRef(null);
+    //const imgRef = useRef(null);
+    
     const dispatch = useDispatch();
+
+    const user = useSelector(state=> state.portal.currentUser);
+    const robotSays = useSelector(state=>state.portal.robotSays)
     const campaignObj = useSelector(state => state.campaign.campaignObj);
     const choiceMap = useSelector(state => state.campaign.campaignObj.map);
     const userMaps = useSelector(state => state.portal.currentUser.createdMaps);
 
+    useEffect(() => {
+        localStorage.setItem("portal", JSON.stringify(user));
+    }, [user]);
 
     const changeData = (e) => {
         //console.log(e.target.name, e.target.value)
         let data = e.target.value;
         if(e.target.name === "map"){
-            console.log(JSON.parse(e.target.value));
+            data = JSON.parse(e.target.value);
+        }else if(e.target.name === "isPublished"){
+            data = e.target.checked;
         }
         console.log({...campaignObj,[e.target.name]:data})
         dispatch(setCampaignObj({...campaignObj,[e.target.name]:data}))
@@ -35,28 +55,50 @@ const CreateCampaign = () => {
 
     const saveCampaignData = (e) => {
         e.preventDefault()
-        
-        if(campaignObj.name && campaignObj.armySize && campaignObj.map){
-            const toSaveCampaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, JSON.parse(campaignObj.map), campaignObj.rounds, campaignObj.timeLapse);
+
+        if(campaignObj.name !== "undefined" && campaignObj.armySize > 0 && campaignObj.map.playableTiles > 35){
+            const toSaveCampaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, campaignObj.map, campaignObj.rounds, campaignObj.timeLapse);
 
             console.log(toSaveCampaign)
+            //dispatch(setCurrentUser({...user, "createdCampaigns": [...user.createdCampaigns, campaignObj]}))
+
+            //reset fields
+            nameRef.current.value = "";
+            armySizeRef.current.value = "";
+            roundsRef.current.value = "";
+            timeLapseRef.current.value = "";
+            mapRef.current.value = "";
+            rulesRef.current.value = "";
+            isPublishedRef.current.checked = false;
+        }else{
+            dispatch(setRobotSay("Error ⛔"))
         }
+        isPublishedRef.current.checked = false;
         //write to the data base the new campaign as a new object
     };
 
   return (
     <div className='createCampaign view'>
-        <h3>Create Campaign</h3>
+        <h3>Create Campaign </h3>
+        {
+            campaignObj.banner ? <img className='campaignBanner' alt='banner' src={campaignObj.banner} /> :
+            <img className='campaignBanner' alt='banner' src={defaultBanner} />
+        }
+        <div className="subSection">          
+            <Link to="/drawmap">🗺️ Draw a map in blank canvas</Link> 
+        </div>
+        <p>🤖: {robotSays}</p>
+
 
         <div className="section">
             <p className="sectionName"> Campaing Name: </p>
-            <input type="text" name="name" className='textImput' onChange={changeData} placeholder="Write a name..." />
+            <input ref={nameRef} type="text" name="name" className='textImput' onChange={changeData} placeholder="Write a name..." />
         </div>
 
         <div className="section">
             
             <p className="sectionName">Army size:</p>      
-            <select name="armySize" defaultValue="100" onChange={changeData}>
+            <select ref={armySizeRef} name="armySize" defaultValue="100" onChange={changeData}>
 
                 <option value="" hidden>Choose</option>
                 <option value="100" >100pts</option>
@@ -73,17 +115,15 @@ const CreateCampaign = () => {
 
             </select>
 
-            <input type="number" name="armySize" className='numInput' placeholder='Write a num'/>
-        
         </div>
         
-        <div className="section" >
+        <div className="flexRow section" >
             <p className="sectionName" >Rounds:</p> 
                 
-            <input type="number" name="rounds" placeholder="Rounds..." onChange={changeData} min="4" className="numInput"/>
+            <input ref={roundsRef} type="number" name="rounds" placeholder="Rounds..." onChange={changeData} min="4" className="numInput"/>
                         
             <p className="sectionName"  >Duration:</p>
-            <select name="timeLapse" onChange={changeData}>
+            <select ref={timeLapseRef} name="timeLapse" onChange={changeData}>
 
                 <option value="" hidden>Choose</option>
                 <option value="hours">hour(s)</option>
@@ -94,12 +134,12 @@ const CreateCampaign = () => {
             </select>
         </div>
 
-        <div className="mapSection section">
+        <div className="flexRow mapSection section">
         
-            <div className="flexRow subSection mapSelect">
+            <div className="flexRow section subSection mapSelect">
 
                 <label className="sectionName">Available maps: </label>
-                <select onChange={changeData} name="map">  
+                <select ref={mapRef} onChange={changeData} name="map">  
                     <option value="" hidden>Choose</option>    
                         {
                             available_maps.map((map, i) => (
@@ -125,24 +165,27 @@ const CreateCampaign = () => {
             </div>
 
             <div className="flexColumn subSection">
-                
-                    <p className="sectionName">Display Map:</p> 
+                <p className="sectionName">Display Map:</p> 
                     ⚠️ Upcoming feature   
-                
             </div>
-    
-            <div className="subSection">
-                
-                 <Link to="/drawmap"> Draw a map in blank canvas </Link> 
+
+            <div className="flexColumn subSection">
+                <p>Banner (Optional):</p>
+                <input ref={imgRef} type="text" name="banner" onChange={changeData} placeholder="Image url" />
+            </div>
+                        
+            <div className="flexColumn subSection">
+                <p>Rules (Optional):</p>
+                <textarea  ref={rulesRef} type="text" name="rules" onChange={changeData}
+                placeholder="Specify rules for this campaign..."
+                />
             </div>
 
     </div>
     
-                    
-       
-
         <div className="section">
             <button onClick={saveCampaignData}>create campaign</button> 
+            <input ref={isPublishedRef} type="checkbox" name="isPublished" onChange={changeData}/>
             <button> cancel </button>
         </div>
     </div>
