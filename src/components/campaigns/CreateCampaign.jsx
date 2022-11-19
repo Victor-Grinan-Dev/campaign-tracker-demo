@@ -1,43 +1,43 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
+
+//redux:
+import { useDispatch, useSelector } from 'react-redux';
+import { setCampaignObj } from '../../features/campaignSlice';
+
+
+//classes
 import { Campaign } from '../../classes/campaign';
-//import { setChoiceMap, setCreatingCampaign } from '../../features/portalSlice';
+
+//functions
 import { capitalStart } from '../../functions/capitalStart';
 import { genId } from '../../functions/genId';
+
+//data
 import { available_maps } from './dummy_availableMaps';
 
 const CreateCampaign = () => {
     const dispatch = useDispatch();
-    const creatingCampaign = useSelector(state => state.portal.creatingCampaign);
-    const choiceMap = useSelector(state => state.portal.choiceMap);
+    const campaignObj = useSelector(state => state.campaign.campaignObj);
+    const choiceMap = useSelector(state => state.campaign.campaignObj.map);
     const userMaps = useSelector(state => state.portal.currentUser.createdMaps);
-    const handleMap = (e) => {
-        //dispatch(setChoiceMap(JSON.parse(e.target.value)));
-    }
+
 
     const changeData = (e) => {
+        //console.log(e.target.name, e.target.value)
+        let data = e.target.value;
         if(e.target.name === "map"){
-            
-            console.log( available_maps.filter(item => {
-                return item.name === JSON.parse(e.target.name)
-            }))
- /*
-            const item = available_maps.filter(map => {
-                return map.name === e.target.name;
-            })
- */
-            //console.log(item)
-           //dispatch(setChoiceMap(item[0]))
+            console.log(JSON.parse(e.target.value));
         }
-        //dispatch(setCreatingCampaign({ ...creatingCampaign, [e.target.name]: e.target.value }));
+        console.log({...campaignObj,[e.target.name]:data})
+        dispatch(setCampaignObj({...campaignObj,[e.target.name]:data}))
     };
 
     const saveCampaignData = (e) => {
         e.preventDefault()
         
-        if(creatingCampaign.name && creatingCampaign.armySize && creatingCampaign.map){
-            const toSaveCampaign = new Campaign(genId(), creatingCampaign.name, creatingCampaign.armySize, JSON.parse(creatingCampaign.map), creatingCampaign.rounds, creatingCampaign.timeLapse);
+        if(campaignObj.name && campaignObj.armySize && campaignObj.map){
+            const toSaveCampaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, JSON.parse(campaignObj.map), campaignObj.rounds, campaignObj.timeLapse);
 
             console.log(toSaveCampaign)
         }
@@ -82,10 +82,10 @@ const CreateCampaign = () => {
                 
             <input type="number" name="rounds" placeholder="Rounds..." onChange={changeData} min="4" className="numInput"/>
                         
-            <p className="sectionName" >Duration:</p>
-            <select name="timeLapse" id="">
+            <p className="sectionName"  >Duration:</p>
+            <select name="timeLapse" onChange={changeData}>
 
-                <option value="null">Choose</option>
+                <option value="" hidden>Choose</option>
                 <option value="hours">hour(s)</option>
                 <option value="days">day(s)</option>
                 <option value="weeks">week(s)</option>
@@ -99,7 +99,7 @@ const CreateCampaign = () => {
             <div className="flexRow subSection mapSelect">
 
                 <label className="sectionName">Available maps: </label>
-                <select onChange={handleMap} name="map">  
+                <select onChange={changeData} name="map">  
                     <option value="" hidden>Choose</option>    
                         {
                             available_maps.map((map, i) => (
