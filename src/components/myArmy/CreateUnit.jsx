@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { skills_by_unit_type } from '../../data/skillsByUnitType';
 import { capitalStart } from '../../functions/capitalStart';
@@ -15,6 +15,10 @@ import { genId } from '../../functions/genId';
 
 
 const CreateUnit = () => {
+
+  const unitNameRef = useRef(null);
+  const unitModelsRef = useRef(null);
+  const unitPointsRef = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -54,7 +58,9 @@ const CreateUnit = () => {
       const id = genId();
       dispatch(setComposition([...composition, new Unit(id, unitName, models, pointCost, skills_by_unit_type[type])]));
       //clear fields
-      //"document.getElementById('myInput').value = ''"
+      unitNameRef.current.value = "";
+      unitModelsRef.current.value = "";
+      unitPointsRef.current.value = "";
     }else{
       console.log(composition.length === 9)
       if(composition.length === 9){
@@ -100,14 +106,14 @@ const CreateUnit = () => {
               fontSize:"10px",
             }}>{capitalStart(skills_by_unit_type[type].description)}</p>
             <div className="inputsUnit">
-              <div className='inputLittleSection'><label>Name: </label><input type="text" className='unitNameInput' onChange={nameHandler}/></div>
+              <div className='inputLittleSection'><label>Name: </label><input ref={unitNameRef} type="text" className='unitNameInput' onChange={nameHandler}/></div>
               <div className='inputLittleSection'>
                 <label>Models: </label>
-                <input type="number" className='unitInput' onChange={modelsHandler}/>
+                <input ref={unitModelsRef} type="number" className='unitInput' onChange={modelsHandler}/>
               </div>
               <div className='inputLittleSection'>
                 <label>Point const:</label>
-                <input type="number" className='unitInput' onChange={poitCostHandler}/>
+                <input ref={unitPointsRef} type="number" className='unitInput' onChange={poitCostHandler}/>
               </div>
             </div>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formation } from '../../classes/formation';
@@ -10,6 +10,11 @@ import { factionsArr } from '../../data/factions';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 const CreateFormation = () => {
+
+  const formationNameRef = useRef(null);
+  const factioRef = useRef(null);
+  const descriptionRef = useRef(null);
+
   const user = useSelector(state=>state.portal.currentUser);
   const robotSay = useSelector(state=> state.portal.robotSay);
 
@@ -55,19 +60,21 @@ const CreateFormation = () => {
       dispatch(setCurrentUser({...user,"formations":[...user.formations, creatingFormation]}));
       dispatch(setRobotSay("saved formation"));
       //reset all inputs:
-
+      formationNameRef.current.value = "";
+      factioRef.current.value = "";
+      descriptionRef.current.value = "";
 
     }else{
       if(!creatingFormation.name){
-       dispatch(setRobotSay("Formations needs a name"))     
+       dispatch(setRobotSay("Formations needs a name ⛔"))     
       }else if(creatingFormation.name === "-"){
-       dispatch(setRobotSay("Incorrect name of formation"))       
+       dispatch(setRobotSay("Incorrect name of formation ⛔"))       
       }else if(!creatingFormation.faction){
-       dispatch(setRobotSay("A faction is required"))     
+       dispatch(setRobotSay("A faction is required ⛔"))     
       }else if(!creatingFormation.description){
-       dispatch(setRobotSay("Write a short description"))     
+       dispatch(setRobotSay("Write a short description ⛔"))     
       }else if(creatingFormation.composition.length <= 0){
-        dispatch(setRobotSay("a formation needs at least one unit"))    
+        dispatch(setRobotSay("a formation needs at least one unit ⛔"))    
       }
     }
   }
@@ -81,8 +88,8 @@ const CreateFormation = () => {
               <div>
                 <p>🤖: {robotSay}</p>
                 <button onClick={addFormation}>Add</button>
-                  <input type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
-                  <select name="faction" onChange={updateFaction}>
+                  <input ref={formationNameRef} type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
+                  <select ref={factioRef} name="faction" onChange={updateFaction}>
                     <option value="" hidden>Choose...</option>
                     {
                       factionsArr.map((f,i)=>(
@@ -91,7 +98,7 @@ const CreateFormation = () => {
                     }
                   </select>
 
-                  <textarea name="description" id="" cols="30" rows="3" placeholder='Short description...' onChange={updateFormation}/>
+                  <textarea ref={descriptionRef} name="description" id="" cols="30" rows="3" placeholder='Short description...' onChange={updateFormation}/>
                   
               </div>
               <div className="sideData">

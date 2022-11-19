@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 //clases
@@ -26,6 +26,10 @@ const DrawMap = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const dimensionRef = useRef(null);
+  const setAllRef = useRef(null);
+
 
   const mapObj = useSelector(state=>state.drawMap.mapObj);
   const mapName = useSelector(state=>state.drawMap.mapObj.name);
@@ -257,6 +261,8 @@ const DrawMap = () => {
         resetHandler();
         setMapObj(new Map("Name", "Undefined", "min", []))
         setChangingName(false);
+        dimensionRef.current.value = "";
+        setAllRef.current.value = "";
 
       }else{
         setErrMsg("Invalid Map");
@@ -286,12 +292,12 @@ const DrawMap = () => {
               <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
             </div>
           </div>
-            
+          
             <div className="midTopPanel panelSection">
             new canvas: 
             {
               shape === "sq" ? <div className="dimensionArea"> 
-                <select name="width" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton">
                 <option value="" hidden>width</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -302,7 +308,7 @@ const DrawMap = () => {
                   <option value="23">23</option>
                   <option value="25">25</option>
                 </select> 
-                <select name="heigth" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="heigth" onChange={dimensionHandler} className="appButton">
                 <option value="" hidden>heigth</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -314,7 +320,7 @@ const DrawMap = () => {
                   <option value="25">25</option>
                 </select>
               </div> :
-              <select name="hexSide" onChange={dimensionHandler} className="appButton">
+              <select ref={dimensionRef} name="hexSide" onChange={dimensionHandler} className="appButton">
                   <option value="" hidden>Dimension</option>
                   <option value="5">5</option>
                   <option value="7">7</option>
@@ -333,7 +339,7 @@ const DrawMap = () => {
              <>zoom</> 
           <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
 
-            <select onChange={setAllHandler} className='appButton'>
+            <select ref={setAllRef} onChange={setAllHandler} className='appButton'>
               <option value="" hidden>set all tiles</option>
               <option value="blank" >blank</option>
               <option value="plains" >plains</option>
