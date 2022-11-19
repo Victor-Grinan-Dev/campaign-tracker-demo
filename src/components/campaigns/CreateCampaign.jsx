@@ -1,62 +1,107 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+
+//redux:
+import { useDispatch, useSelector } from 'react-redux';
+import { setCampaignObj } from '../../features/campaignSlice';
+import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
+
+//classes
 import { Campaign } from '../../classes/campaign';
-//import { setChoiceMap, setCreatingCampaign } from '../../features/portalSlice';
+
+//functions
 import { capitalStart } from '../../functions/capitalStart';
 import { genId } from '../../functions/genId';
+
+//data
 import { available_maps } from './dummy_availableMaps';
 
+//images
+import defaultBanner from '../../assets/banners/banner.png';
+import water from '../../assets/backgrounds/sea_sprite.jpg';
+import MapReader from '../drawMap/MapReader';
+
+const tileSize = 20
 const CreateCampaign = () => {
+    const nameRef = useRef(null);
+    const armySizeRef = useRef(null);
+    const roundsRef = useRef(null);
+    const timeLapseRef = useRef(null);
+    const mapRef = useRef(null);
+    const imgRef = useRef(null);
+    const rulesRef = useRef(null);
+    const isPublishedRef = useRef(null);
+    //const imgRef = useRef(null);
+    
     const dispatch = useDispatch();
-    const creatingCampaign = useSelector(state => state.portal.creatingCampaign);
-    const choiceMap = useSelector(state => state.portal.choiceMap);
+
+    const user = useSelector(state=> state.portal.currentUser);
+    const robotSays = useSelector(state=>state.portal.robotSays)
+    const campaignObj = useSelector(state => state.campaign.campaignObj);
+    const mapObj = useSelector(state => state.campaign.campaignObj.map);
+    const choiceMap = useSelector(state => state.campaign.campaignObj.map);
     const userMaps = useSelector(state => state.portal.currentUser.createdMaps);
-    const handleMap = (e) => {
-        //dispatch(setChoiceMap(JSON.parse(e.target.value)));
-    }
+
+    useEffect(() => {
+        localStorage.setItem("portal", JSON.stringify(user));
+    }, [user]);
 
     const changeData = (e) => {
+        //console.log(e.target.name, e.target.value)
+        let data = e.target.value;
         if(e.target.name === "map"){
-            
-            console.log( available_maps.filter(item => {
-                return item.name === JSON.parse(e.target.name)
-            }))
- /*
-            const item = available_maps.filter(map => {
-                return map.name === e.target.name;
-            })
- */
-            //console.log(item)
-           //dispatch(setChoiceMap(item[0]))
+            data = JSON.parse(e.target.value);
+        }else if(e.target.name === "isPublished"){
+            data = e.target.checked;
         }
-        //dispatch(setCreatingCampaign({ ...creatingCampaign, [e.target.name]: e.target.value }));
+        console.log({...campaignObj,[e.target.name]:data})
+        dispatch(setCampaignObj({...campaignObj,[e.target.name]:data}))
     };
 
     const saveCampaignData = (e) => {
         e.preventDefault()
-        
-        if(creatingCampaign.name && creatingCampaign.armySize && creatingCampaign.map){
-            const toSaveCampaign = new Campaign(genId(), creatingCampaign.name, creatingCampaign.armySize, JSON.parse(creatingCampaign.map), creatingCampaign.rounds, creatingCampaign.timeLapse);
+
+        if(campaignObj.name !== "undefined" && campaignObj.armySize > 0 && campaignObj.map.playableTiles > 35){
+            const toSaveCampaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, campaignObj.map, campaignObj.rounds, campaignObj.timeLapse);
 
             console.log(toSaveCampaign)
+            //dispatch(setCurrentUser({...user, "createdCampaigns": [...user.createdCampaigns, campaignObj]}))
+
+            //reset fields
+            nameRef.current.value = "";
+            armySizeRef.current.value = "";
+            roundsRef.current.value = "";
+            timeLapseRef.current.value = "";
+            mapRef.current.value = "";
+            rulesRef.current.value = "";
+            isPublishedRef.current.checked = false;
+        }else{
+            dispatch(setRobotSay("Error ⛔"))
         }
+        isPublishedRef.current.checked = false;
         //write to the data base the new campaign as a new object
     };
 
   return (
     <div className='createCampaign view'>
-        <h3>Create Campaign</h3>
+        <h3>Create Campaign </h3>
+        {
+            campaignObj.banner ? <img className='campaignBanner' alt='banner' src={campaignObj.banner} /> :
+            <img className='campaignBanner' alt='banner' src={defaultBanner} />
+        }
+
+        <p>🤖: {robotSays}</p>
+
 
         <div className="section">
             <p className="sectionName"> Campaing Name: </p>
-            <input type="text" name="name" className='textImput' onChange={changeData} placeholder="Write a name..." />
+            <input ref={nameRef} type="text" name="name" className='textImput' onChange={changeData} placeholder="Write a name..." />
         </div>
 
         <div className="section">
             
             <p className="sectionName">Army size:</p>      
-            <select name="armySize" defaultValue="100" onChange={changeData}>
+            <select ref={armySizeRef} name="armySize" defaultValue="100" onChange={changeData}>
 
                 <option value="" hidden>Choose</option>
                 <option value="100" >100pts</option>
@@ -73,19 +118,17 @@ const CreateCampaign = () => {
 
             </select>
 
-            <input type="number" name="armySize" className='numInput' placeholder='Write a num'/>
-        
         </div>
         
-        <div className="section" >
+        <div className="flexRow section" >
             <p className="sectionName" >Rounds:</p> 
                 
-            <input type="number" name="rounds" placeholder="Rounds..." onChange={changeData} min="4" className="numInput"/>
+            <input ref={roundsRef} type="number" name="rounds" placeholder="Rounds..." onChange={changeData} min="4" className="numInput"/>
                         
-            <p className="sectionName" >Duration:</p>
-            <select name="timeLapse" id="">
+            <p className="sectionName"  >Duration:</p>
+            <select ref={timeLapseRef} name="timeLapse" onChange={changeData}>
 
-                <option value="null">Choose</option>
+                <option value="" hidden>Choose</option>
                 <option value="hours">hour(s)</option>
                 <option value="days">day(s)</option>
                 <option value="weeks">week(s)</option>
@@ -94,57 +137,74 @@ const CreateCampaign = () => {
             </select>
         </div>
 
-        <div className="mapSection section">
-        
-            <div className="flexRow subSection mapSelect">
-
-                <label className="sectionName">Available maps: </label>
-                <select onChange={handleMap} name="map">  
-                    <option value="" hidden>Choose</option>    
-                        {
-                            available_maps.map((map, i) => (
-                                <option value={JSON.stringify(map)} key={i} >{map.name}</option>
-                            ))
-                        }   
-
-                        {
-                            userMaps && userMaps.map((map,i) => (
-                                <option value={JSON.stringify(map)} key={i} >{capitalStart(map.name)}</option>
-                            ))
-                        }                    
-                </select > 
+        <div className="flexColumn subSection">
+            <p>Banner (Optional):</p>
+            <div>
+                <input ref={imgRef} type="text" name="banner" onChange={changeData} placeholder="Image url" />
+                <button onClick={()=>{imgRef.current.value = ""}}>Erase</button><button name="banner" value={undefined} onClick={changeData}>reset</button>
             </div>
+        </div>
+                        
+        <div className="flexColumn subSection">
+            <p>Rules (Optional):</p>
+            <textarea  ref={rulesRef} type="text" name="rules" onChange={changeData}
+                placeholder="Specify rules for this campaign..."
+                />
+        </div>
 
-            <div className="flexColumn subSection ">
+        <div className="flexRow section mapSelect">
+
+            <label className="">Available maps: </label>
+            <select ref={mapRef} onChange={changeData} name="map">  
+            <option value="" hidden>Choose</option>    
+                {
+                    available_maps.map((map, i) => (
+                        <option value={JSON.stringify(map)} key={i} >{map.name}</option>
+                    ))
+                }   
+
+                {
+                    userMaps && userMaps.map((map,i) => (
+                        <option value={JSON.stringify(map)} key={i} >{capitalStart(map.name)}</option>
+                    ))
+                }
+
+            </select > 
+        </div>
+    
+        <div className="flexRow subSection">
+            <div className="displayMap"
+                style={{
+                backgroundImage:`url(${water})`,
+                }}
+                >
+                {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} /> }
+                
+            </div> 
+            <div className="flexColumn">
+                <button>details</button>
+                <button>edit</button>
+                <button>delete</button>
+            </div>
+            </div>
+        <div className="subSection">          
+            <Link to="/drawmap">🗺️ Draw a map in blank canvas</Link> 
+        </div>
+        <div className="flexColumn subSection ">
                 
                 <p>Map name: {choiceMap.name ? <>"{capitalStart(choiceMap.name)}"</> : "undefined" }</p>
                 <p>Shape: {choiceMap ? choiceMap.shape : "undefined" }</p>
                 <p>Dimensions: {choiceMap ? choiceMap.dimensions : "undefined" }</p>
                 <p>max players: {choiceMap ? choiceMap.maxPlayers : "undefined" }</p>
-                
+                        
             </div>
-
-            <div className="flexColumn subSection">
-                
-                    <p className="sectionName">Display Map:</p> 
-                    ⚠️ Upcoming feature   
-                
-            </div>
-    
-            <div className="subSection">
-                
-                 <Link to="/drawmap"> Draw a map in blank canvas </Link> 
-            </div>
-
-    </div>
-    
-                    
-       
 
         <div className="section">
             <button onClick={saveCampaignData}>create campaign</button> 
+            <input ref={isPublishedRef} type="checkbox" name="isPublished" onChange={changeData}/>
             <button> cancel </button>
         </div>
+
     </div>
   )
 };

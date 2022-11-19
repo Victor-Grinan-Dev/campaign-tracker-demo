@@ -10,7 +10,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setMapObj, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
-import { setCurrentUser } from '../../features/portalSlice';
+import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //components
 import MapReader from './MapReader';
@@ -24,12 +24,11 @@ import { terrainTypes } from '../../data/terrainTypes.js'
 
 const DrawMap = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
+  
+  const robotSay = useSelector(state => state.portal.robotSay)
   const dimensionRef = useRef(null);
   const setAllRef = useRef(null);
-
 
   const mapObj = useSelector(state=>state.drawMap.mapObj);
   const mapName = useSelector(state=>state.drawMap.mapObj.name);
@@ -46,10 +45,10 @@ const DrawMap = () => {
   const currentUser = useSelector(state=>state.portal.currentUser);
 
   const [changingName, setChangingName] = useState(false);
-  const [ errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
-    updateMap(generateMap(mapObj.name, dimension, mapObj.shape))
+    updateMap(generateMap(mapObj.name, dimension, mapObj.shape));
+    dispatch(setRobotSay(""))
     // eslint-disable-next-line
   }, [
     dispatch,
@@ -60,15 +59,17 @@ const DrawMap = () => {
 
   useEffect(()=>{
     localStorage.setItem("portal", JSON.stringify(currentUser));
+    dispatch(setRobotSay(""))
   },[currentUser]);
 
   const changeData = (e) => {
-    dispatch(setMapObj({...mapObj, [e.target.name]:e.target.value}))
+    dispatch(setMapObj({...mapObj, [e.target.name]:e.target.value}));
+    dispatch(setRobotSay(""));
   }
   const updateMap = (map) => {
     const upDtatedPlayableTiles = setPlayableTiles(map);
     dispatch(setMapObj(upDtatedPlayableTiles));
-    setErrMsg("")
+    dispatch(setRobotSay(""))
   }
   
   const dimensionHandler = (e) => {
@@ -80,6 +81,7 @@ const DrawMap = () => {
      }else{
       dispatch(setDimension(`${parseInt(e.target.value, 10)}`))
      }
+     dispatch(setRobotSay(""));
   }
 
   const tileSizeHandler = (e) => {
@@ -89,6 +91,7 @@ const DrawMap = () => {
     else if (e.target.name === "-" && tileSize >= 15){
       dispatch(setTileSize(tileSize - 5));
     }
+    dispatch(setRobotSay(""))
   }
 
   const setAllHandler = (e) => {
@@ -107,24 +110,26 @@ const DrawMap = () => {
       newArr.push(newRow);
     }
     updateMap({...mapObj, "map": newArr})
+    dispatch(setRobotSay(""))
     
   }
 
   const randomizeHandler = () => {
     updateMap({...mapObj, "map": mapRandomizer(mapObj.map) });
+    dispatch(setRobotSay(""))
   }
 
   const brushHandler = (e) => {
     if(terrainTypes[e.target.name]){
       dispatch(setBrush(terrainTypes[e.target.name]))
-      setErrMsg("");
+      setRobotSay("");
     }else if(e.target.name === "del"){
       dispatch(setBrush(e.target.name))
     }else{
       dispatch(setBrush(null))
-      setErrMsg("No Brush selected");
+      setRobotSay("No Brush selected");
     }
-  }
+  };
 
   const clickTileHandler = (e) => {
     
@@ -183,12 +188,12 @@ const DrawMap = () => {
   const resetHandler = () => {
    
     updateMap(generateMap(mapObj.name, dimension, mapObj.shape));
-    setErrMsg("");
+    setRobotSay("");
   }
 
   const changeNameOkButton = () => {
     setChangingName(false);
-    setErrMsg("");
+    setRobotSay("");
   }
 
   const setStartsHandler = () => {
@@ -196,11 +201,10 @@ const DrawMap = () => {
   }
 
   const cancelHandler = () => {
-        
-        
         dispatch(setDimension("min"));
         dispatch(setMaxPlayers(2));
         dispatch(setTileSize(30));
+        dispatch(setRobotSay(""))
         navigate("/createcampaign");
   }
 
@@ -222,7 +226,7 @@ const DrawMap = () => {
     if(mapObj.playableTiles / mapObj.totalTiles * 100 > 50){
       result = true;
     }else{
-      console.log("playable tiles: ", mapObj.playableTiles / mapObj.totalTiles * 100)
+      dispatch(setRobotSay("Insuficient playable tiles ⛔"))
     }
     return result;
   }
@@ -237,10 +241,10 @@ const DrawMap = () => {
         result = true;
       }else{
         if(mapName === "Name Undefined"){
-          console.log("map needs a name")
+          dispatch(setRobotSay("Map needs a name ⛔"))
         }
         if(mapName.replace(/\s/g, '')){
-          console.log("empty map name", mapObj.name.replace(/\s/g, ''))
+          dispatch(setRobotSay("Empty map name ⛔"))
         }
       }
     
@@ -249,14 +253,9 @@ const DrawMap = () => {
 
   const saveMapHandler = () => {
     
-      if(nameValidator() && mapValidator()){
-        
+      if(nameValidator() && mapValidator()){   
         dispatch(setCurrentUser({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]}));
-
-        setErrMsg("Map has been saved!");
-       
-        
-
+        setRobotSay("Map has been saved!");
         //resetValues:
         resetHandler();
         setMapObj(new Map("Name", "Undefined", "min", []))
@@ -265,14 +264,14 @@ const DrawMap = () => {
         setAllRef.current.value = "";
 
       }else{
-        setErrMsg("Invalid Map");
+        setRobotSay("Invalid Map ⛔");
       }
   }
 
   return (
     <div className='drawmap view'>
         <div>
-          <p>🤖: {errMsg}</p>
+          <p>🤖: {robotSay}</p>
         </div>
         
         <div className="topPanel">
@@ -357,7 +356,8 @@ const DrawMap = () => {
         </div>
         <div className="screen"
         style={{
-          backgroundColor:`url(${water})`,
+          backgroundImage:`url(${water})`,
+          backgroundSize:`${tileSize}px`
         }}
         >
         {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} action={clickTileHandler}/> }

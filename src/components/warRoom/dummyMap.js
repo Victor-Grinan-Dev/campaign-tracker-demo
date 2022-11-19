@@ -80,4 +80,4 @@ const map = [
   ],
 ];
 
-export const hexTestMap = new Map("Devil's Arena", "hx", "4x4x4", map);
+export const hexTestMap = new Map("Hex Test Map", "hx", "4x4x4", map);

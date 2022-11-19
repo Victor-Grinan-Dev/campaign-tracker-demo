@@ -34,6 +34,7 @@
     background-color: rgb(17, 15, 15);
     border-radius: 10px;
     position: relative;
+    background-repeat: repeat;
 }
 .canvas{
     position: relative;
