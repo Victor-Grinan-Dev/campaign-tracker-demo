@@ -12,7 +12,7 @@ import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 const CreateFormation = () => {
   const user = useSelector(state=>state.portal.currentUser);
   const robotSay = useSelector(state=> state.portal.robotSay);
-  
+
   const composition = useSelector(state => state.formation.composition);
   const creatingFormation = useSelector(state => state.formation.formationObj);
 
@@ -52,18 +52,11 @@ const CreateFormation = () => {
   const addFormation = () => {
 
     if (creatingFormation.name && creatingFormation.name !== "-" && creatingFormation.faction && creatingFormation.description && creatingFormation.composition.length > 0){
-      //console.log(JSON.parse(
       dispatch(setCurrentUser({...user,"formations":[...user.formations, creatingFormation]}));
-      
-      localStorage.setItem("portal", JSON.stringify(user));
       dispatch(setRobotSay("saved formation"));
-     /*
-      if(JSON.stringify(localStorage.getItem("portal", JSON.stringify(user))).formations.includes(creatingFormation)){
-        
-      }else{
-        dispatch(setRobotSay("try again something went wrong"));
-      }
-     */
+      //reset all inputs:
+
+
     }else{
       if(!creatingFormation.name){
        dispatch(setRobotSay("Formations needs a name"))     
