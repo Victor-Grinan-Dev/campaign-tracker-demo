@@ -1,32 +1,34 @@
 //react
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 //cookies
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser, setIsLogged } from '../features/portalSlice';
-
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser, setIsLogged } from "../features/portalSlice";
 
 const SideBar = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const isLogged = useSelector(state => state.portal.isLogged);
-    const user = useSelector(state =>state.portal.currentUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLogged = useSelector((state) => state.portal.isLogged);
+  const user = useSelector((state) => state.portal.currentUser);
 
-    const logout = () => {
-      navigate("/")
-      Cookies.remove("portalLog", { path: '/' });
-      
-      dispatch(setCurrentUser({}));
-      dispatch(setIsLogged(false));
-      //dispatch()
-   }
+  const logout = () => {
+    navigate("/");
+    Cookies.remove("portalLog", { path: "/" });
+
+    dispatch(setCurrentUser({}));
+    dispatch(setIsLogged(false));
+    localStorage.removeItem("loginToken");
+    localStorage.removeItem("portal");
+    //dispatch()
+  };
 
   return (
-    isLogged && <div className='sidebarContainer'>
+    isLogged && (
+      <div className="sidebarContainer">
         <p></p>
         <Link to="/">🏠</Link>
         <Link to="/profile">👤</Link>
@@ -37,8 +39,9 @@ const SideBar = () => {
         <Link to="/contact">☎️</Link>
         <Link to="/settings">⚙️</Link>
         <p onClick={logout}>👉🚪</p>
-    </div>
-  )
-}
+      </div>
+    )
+  );
+};
 
 export default SideBar;
