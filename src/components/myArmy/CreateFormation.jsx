@@ -11,13 +11,11 @@ import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 import { genId } from '../../functions/genId';
 
 const CreateFormation = () => {
-
   const formationNameRef = useRef(null);
   const factioRef = useRef(null);
   const descriptionRef = useRef(null);
 
   const user = useSelector(state=>state.portal.currentUser);
-  const robotSay = useSelector(state=> state.portal.robotSay);
 
   const composition = useSelector(state => state.formation.composition);
   const creatingFormation = useSelector(state => state.formation.formationObj);

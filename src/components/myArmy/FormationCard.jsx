@@ -1,8 +1,8 @@
 import React from 'react';
 
 //redux
-import { useDispatch } from 'react-redux';
-import { setRobotSay } from '../../features/portalSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //component
 import Token from '../token/Token';
@@ -11,6 +11,10 @@ const FormationCard = ({formation, fn}) => {
 
   const dispatch = useDispatch();
 
+  const user = useSelector(state=>state.portal.currentUser);
+  const army = useSelector(state=>state.portal.currentUser.armyList);
+
+
   const delForm = () => {
     dispatch(setRobotSay("Deleted!"));
   }
@@ -18,10 +22,12 @@ const FormationCard = ({formation, fn}) => {
     if(e.target.attributes[0].nodeValue === "selected"){
       e.target.attributes[0].nodeValue = "deselected";
       dispatch(setRobotSay("deleted from army"))
+
     }else{
       e.target.attributes[0].nodeValue = "selected";
       console.log(formation)
-      dispatch(setRobotSay("added to army"))
+      dispatch(setRobotSay("added to army"));
+      //dispatch(setCurrentUser({...user, "armyList": [...user.armyList]}))
     }
     
   }
