@@ -7,8 +7,9 @@ import { setCurrentUser, setIsLogged } from "../../../features/portalSlice";
 import { User } from "../../../classes/user";
 import Cookies from "js-cookie";
 import { UserContext } from "../../LoginComponents/UserContext";
+import NextPage from "./NextPage";
 
-export const testUser = new User("Victor", "Victor123");
+export const testUser = new User("bantoros", "01928374");
 testUser.type = "admin";
 
 const Login = () => {
@@ -38,7 +39,7 @@ const Login = () => {
     });
   };
   const submitForm = async (e) => {
-    console.log("from submitForm");
+    // console.log("from submitForm");
     e.preventDefault();
 
     if (!Object.values(formData).every((val) => val.trim() !== "")) {
@@ -48,15 +49,15 @@ const Login = () => {
 
     const data = await loginUser(formData);
     if (data.success) {
-      console.log(data);
+      // console.log(data);
       // e.target.reset();
       setRedirect("Redirecting...");
-      console.log("go to loggedIncheck");
+      // console.log("go to loggedIncheck");
       const ret = await loggedInCheck();
-      console.log(user.name);
+      // console.log(user.name);
       // dispatch(setIsLogged(true));
       // console.log(formData.email);
-      console.log(user);
+      // console.log(user);
       // console.log(formData.password);
       // dispatch(changeUserName(user.name));
       // dispatch(changeUserIndex(user.id));
@@ -98,7 +99,11 @@ const Login = () => {
           <HOTWButton caption={"Login"} action={submitForm} />
         </form>
         <br />
-        <p>More...</p>
+        {/* <p>More...</p> */}
+        <p>
+          Want to enlist for battle? <br />
+        </p>
+        <NextPage pageUrl="/signup" pageName="Sign Up" />
       </div>
     </div>
   );
