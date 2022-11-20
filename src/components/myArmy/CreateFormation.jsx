@@ -39,6 +39,7 @@ const CreateFormation = () => {
 
   const updateFormation = (e) => {
     dispatch(setFormationObj({...creatingFormation, [e.target.name]: e.target.value}))
+    dispatch(setRobotSay(""))
   }
   const updateFaction = (e) => {
     const key = e.target.value.split("The ")[1].replace(" ","_").toLowerCase();
@@ -88,7 +89,6 @@ const CreateFormation = () => {
             
             <div className="namingSection" style={{overflow:'scroll'}}>
               <div>
-                <p>🤖: {robotSay}</p>
                 <button onClick={addFormation}>Add</button>
                   <input ref={formationNameRef} type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
                   <select ref={factioRef} name="faction" onChange={updateFaction}>

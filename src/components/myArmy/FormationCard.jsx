@@ -1,17 +1,27 @@
 import React from 'react';
+
+//redux
+import { useDispatch } from 'react-redux';
+import { setRobotSay } from '../../features/portalSlice';
+
+//component
 import Token from '../token/Token';
 
 const FormationCard = ({formation, fn}) => {
 
+  const dispatch = useDispatch();
+
   const delForm = () => {
-    console.log("deleted!");
+    dispatch(setRobotSay("Deleted!"));
   }
   const addToArmyHandler = (e) => {
     if(e.target.attributes[0].nodeValue === "selected"){
       e.target.attributes[0].nodeValue = "deselected";
+      dispatch(setRobotSay("deleted from army"))
     }else{
       e.target.attributes[0].nodeValue = "selected";
       console.log(formation)
+      dispatch(setRobotSay("added to army"))
     }
     
   }
