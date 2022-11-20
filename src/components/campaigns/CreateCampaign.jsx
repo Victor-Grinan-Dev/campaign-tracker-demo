@@ -176,13 +176,7 @@ const CreateCampaign = () => {
                 }}
                 >
                 {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} /> }
-                
             </div> 
-            <div className="flexColumn">
-                <button>details</button>
-                <button>edit</button>
-                <button>delete</button>
-            </div>
             </div>
         <div className="subSection">          
             <Link to="/drawmap">🗺️ Draw a map in blank canvas</Link> 
