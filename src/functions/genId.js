@@ -21,7 +21,7 @@ export const getRandomIndex = () => {
    return Math.floor(Math.random() * max);
 };
 
-export const genId = (amount = 12) => {
+export const genId = (amount = 24) => {
     const id = []
     for (let len = 0; len < amount; len++){
         id.push(allowedChars[getRandomIndex()])
