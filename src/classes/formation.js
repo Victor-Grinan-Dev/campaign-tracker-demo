@@ -1,6 +1,7 @@
 import { factions } from "../data/factions";
 
 export class Formation {
+    id=null
     damage = 0
     defense = 0
     vision = 1

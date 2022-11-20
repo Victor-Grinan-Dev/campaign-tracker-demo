@@ -8,15 +8,14 @@ import FormationCard from './FormationCard';
 import { factions } from '../../data/factions';
 import { factionsArr } from '../../data/factions';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
+import { genId } from '../../functions/genId';
 
 const CreateFormation = () => {
-
   const formationNameRef = useRef(null);
   const factioRef = useRef(null);
   const descriptionRef = useRef(null);
 
   const user = useSelector(state=>state.portal.currentUser);
-  const robotSay = useSelector(state=> state.portal.robotSay);
 
   const composition = useSelector(state => state.formation.composition);
   const creatingFormation = useSelector(state => state.formation.formationObj);
@@ -31,12 +30,14 @@ const CreateFormation = () => {
 
   useEffect(() => {
     const newFormation = new Formation(creatingFormation.name, composition, faction);
+    newFormation.id = genId(24);
     dispatch(setFormationObj(newFormation));
     // eslint-disable-next-line
   }, [composition, faction]);
 
   const updateFormation = (e) => {
     dispatch(setFormationObj({...creatingFormation, [e.target.name]: e.target.value}))
+    dispatch(setRobotSay(""))
   }
   const updateFaction = (e) => {
     const key = e.target.value.split("The ")[1].replace(" ","_").toLowerCase();
@@ -86,7 +87,6 @@ const CreateFormation = () => {
             
             <div className="namingSection" style={{overflow:'scroll'}}>
               <div>
-                <p>🤖: {robotSay}</p>
                 <button onClick={addFormation}>Add</button>
                   <input ref={formationNameRef} type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
                   <select ref={factioRef} name="faction" onChange={updateFaction}>

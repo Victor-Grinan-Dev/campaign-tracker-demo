@@ -36,7 +36,6 @@ const CreateCampaign = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state=> state.portal.currentUser);
-    const robotSays = useSelector(state=>state.portal.robotSays)
     const campaignObj = useSelector(state => state.campaign.campaignObj);
     const mapObj = useSelector(state => state.campaign.campaignObj.map);
     const choiceMap = useSelector(state => state.campaign.campaignObj.map);
@@ -89,8 +88,6 @@ const CreateCampaign = () => {
             campaignObj.banner ? <img className='campaignBanner' alt='banner' src={campaignObj.banner} /> :
             <img className='campaignBanner' alt='banner' src={defaultBanner} />
         }
-
-        <p>🤖: {robotSays}</p>
 
 
         <div className="section">
