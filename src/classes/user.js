@@ -17,8 +17,7 @@ export class User {
   avatars = ["conscript_red", "conscript_blue", "conscript_green", "conscript_yellow"];
   inGame = null;
 
-  constructor(username, password=""){
+  constructor(username){
       this.username = username;
-      this.password = password;
   }
 }
