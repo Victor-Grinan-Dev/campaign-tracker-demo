@@ -70,7 +70,6 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const loggedInCheck = async () => {
-
     const loginToken = localStorage.getItem("loginToken");
     Axios.defaults.headers.common["Authorization"] = "Bearer " + loginToken;
     if (loginToken) {
@@ -79,13 +78,16 @@ export const UserContextProvider = ({ children }) => {
       // console.log(data);
       if (data.success && data.user) {
         dispatch(setIsLogged(true));
-        if (!data.user.lostordata){
+        if (!data.user.lostordata) {
           const newUser = new User(data.user.username);
-          newUser.email = data.user.email; 
+          newUser.email = data.user.email;
           dispatch(setCurrentUser(newUser));
           return;
         }
-        dispatch(setCurrentUser(data.user.lostordata))
+        const fetdata = JSON.parse(data.user.lostordata);
+        // console.log(fetdata);
+        // console.log(JSON.parse(data.user.lostordata));
+        dispatch(setCurrentUser(fetdata));
         return;
       }
       dispatch(setCurrentUser({}));
