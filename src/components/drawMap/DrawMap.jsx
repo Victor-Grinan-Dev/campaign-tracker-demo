@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+
+//clases
+import { Map } from '../../classes/map';
 
 //image
 import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setMapName, setShape, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
-import { setCurrentUser } from '../../features/portalSlice';
+import { setMapObj, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
+import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //components
 import MapReader from './MapReader';
@@ -21,27 +24,31 @@ import { terrainTypes } from '../../data/terrainTypes.js'
 
 const DrawMap = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+  
+  const robotSay = useSelector(state => state.portal.robotSay)
+  const dimensionRef = useRef(null);
+  const setAllRef = useRef(null);
 
   const mapObj = useSelector(state=>state.drawMap.mapObj);
-  const mapName = useSelector(state=>state.drawMap.mapName);
-  const shape = useSelector(state=>state.drawMap.shape);
+  const mapName = useSelector(state=>state.drawMap.mapObj.name);
+  const shape = useSelector(state=>state.drawMap.mapObj.shape);
   const dimension = useSelector(state=>state.drawMap.dimension);
-  const maxPlayers = useSelector(state=>state.drawMap.maxPlayers);
+  const maxPlayers = useSelector(state=>state.drawMap.mapObj.maxPlayers);
+
+
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
   const startPosLeft = useSelector(state=>state.drawMap.startPosLeft);
 
-
   const currentUser = useSelector(state=>state.portal.currentUser);
 
   const [changingName, setChangingName] = useState(false);
-  const [ errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
-    updateMap(generateMap(mapName, dimension, shape))
+    updateMap(generateMap(mapObj.name, dimension, mapObj.shape));
+    dispatch(setRobotSay(""))
     // eslint-disable-next-line
   }, [
     dispatch,
@@ -50,20 +57,21 @@ const DrawMap = () => {
     reset,
   ]);
 
+  useEffect(()=>{
+    localStorage.setItem("portal", JSON.stringify(currentUser));
+    dispatch(setRobotSay(""))
+  },[currentUser]);
+
+  const changeData = (e) => {
+    dispatch(setMapObj({...mapObj, [e.target.name]:e.target.value}));
+    dispatch(setRobotSay(""));
+  }
   const updateMap = (map) => {
     const upDtatedPlayableTiles = setPlayableTiles(map);
     dispatch(setMapObj(upDtatedPlayableTiles));
-    setErrMsg("")
+    dispatch(setRobotSay(""))
   }
   
-  const shapeHandler = () => {
-    if(shape === "sq"){
-      dispatch(setShape("hx"));
-    }else if(shape === "hx"){
-      dispatch(setShape("sq"));
-    }
-  }
-
   const dimensionHandler = (e) => {
     const [x, y] = dimension.split("x");
      if (e.target.name === "width"){
@@ -73,6 +81,7 @@ const DrawMap = () => {
      }else{
       dispatch(setDimension(`${parseInt(e.target.value, 10)}`))
      }
+     dispatch(setRobotSay(""));
   }
 
   const tileSizeHandler = (e) => {
@@ -82,6 +91,7 @@ const DrawMap = () => {
     else if (e.target.name === "-" && tileSize >= 15){
       dispatch(setTileSize(tileSize - 5));
     }
+    dispatch(setRobotSay(""))
   }
 
   const setAllHandler = (e) => {
@@ -100,25 +110,26 @@ const DrawMap = () => {
       newArr.push(newRow);
     }
     updateMap({...mapObj, "map": newArr})
+    dispatch(setRobotSay(""))
     
   }
 
   const randomizeHandler = () => {
     updateMap({...mapObj, "map": mapRandomizer(mapObj.map) });
+    dispatch(setRobotSay(""))
   }
 
   const brushHandler = (e) => {
     if(terrainTypes[e.target.name]){
       dispatch(setBrush(terrainTypes[e.target.name]))
-      setErrMsg("");
+      setRobotSay("");
     }else if(e.target.name === "del"){
       dispatch(setBrush(e.target.name))
     }else{
       dispatch(setBrush(null))
-      setErrMsg("No Brush selected");
+      setRobotSay("No Brush selected");
     }
-
-  }
+  };
 
   const clickTileHandler = (e) => {
     
@@ -137,6 +148,7 @@ const DrawMap = () => {
         }
         newNestedArr.push(newRow);
       }
+      
       updateMap({...mapObj, "map":newNestedArr});
     }else if(brush === "del"){//clck with brusH del
       for (let row of mapObj.map){
@@ -167,27 +179,21 @@ const DrawMap = () => {
         newNestedArr.push(newRow);
         
       }
-      console.log(newNestedArr)
+      //console.log(newNestedArr)
       updateMap({...mapObj, "map":newNestedArr});
     }
     //click with no selected brush
   }
   
   const resetHandler = () => {
-     dispatch(setReset());
-     dispatch(setReset(setStartPosLeft()))
-     setErrMsg("");
-  }
-
-  const nameHandler = (e) => {
-     dispatch(setMapName(e.target.value));
-     updateMap({...mapObj, "name": mapName})
-     setErrMsg("");
+   
+    updateMap(generateMap(mapObj.name, dimension, mapObj.shape));
+    setRobotSay("");
   }
 
   const changeNameOkButton = () => {
     setChangingName(false);
-    setErrMsg("");
+    setRobotSay("");
   }
 
   const setStartsHandler = () => {
@@ -195,11 +201,10 @@ const DrawMap = () => {
   }
 
   const cancelHandler = () => {
-        dispatch(setMapName("Name Undefined"));
-        dispatch(setShape("sq"));
         dispatch(setDimension("min"));
         dispatch(setMaxPlayers(2));
         dispatch(setTileSize(30));
+        dispatch(setRobotSay(""))
         navigate("/createcampaign");
   }
 
@@ -221,7 +226,7 @@ const DrawMap = () => {
     if(mapObj.playableTiles / mapObj.totalTiles * 100 > 50){
       result = true;
     }else{
-      console.log("playable tiles: ", mapObj.playableTiles / mapObj.totalTiles * 100)
+      dispatch(setRobotSay("Insuficient playable tiles ⛔"))
     }
     return result;
   }
@@ -236,10 +241,10 @@ const DrawMap = () => {
         result = true;
       }else{
         if(mapName === "Name Undefined"){
-          console.log("map needs a name")
+          dispatch(setRobotSay("Map needs a name ⛔"))
         }
         if(mapName.replace(/\s/g, '')){
-          console.log("empty map name", mapObj.name.replace(/\s/g, ''))
+          dispatch(setRobotSay("Empty map name ⛔"))
         }
       }
     
@@ -248,27 +253,25 @@ const DrawMap = () => {
 
   const saveMapHandler = () => {
     
-      if(nameValidator() && mapValidator()){
-        
+      if(nameValidator() && mapValidator()){   
         dispatch(setCurrentUser({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]}));
-        console.log({...currentUser, "createdMaps":[...currentUser.createdMaps, mapObj]})
-        setErrMsg("Map has been saved!");
-       
-        localStorage.setItem("portal", JSON.stringify(currentUser));
-
+        setRobotSay("Map has been saved!");
         //resetValues:
         resetHandler();
-        dispatch(setMapName("Name Undefined"));
+        setMapObj(new Map("Name", "Undefined", "min", []))
         setChangingName(false);
+        dimensionRef.current.value = "";
+        setAllRef.current.value = "";
 
       }else{
-        setErrMsg("Invalid Map");
+        setRobotSay("Invalid Map ⛔");
       }
   }
+
   return (
     <div className='drawmap view'>
         <div>
-          <p>🤖: {errMsg}</p>
+          <p>🤖: {robotSay}</p>
         </div>
         
         <div className="topPanel">
@@ -277,7 +280,7 @@ const DrawMap = () => {
             {
             changingName ? 
               <div>
-                <input type="text" onChange={nameHandler}/>
+                <input type="text" name="name" onChange={changeData}/>
                 <button onClick={changeNameOkButton}>ok</button>
               </div> : 
               <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapName)}"</p>
@@ -288,12 +291,12 @@ const DrawMap = () => {
               <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
             </div>
           </div>
-            
+          
             <div className="midTopPanel panelSection">
             new canvas: 
             {
               shape === "sq" ? <div className="dimensionArea"> 
-                <select name="width" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton">
                 <option value="" hidden>width</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -304,7 +307,7 @@ const DrawMap = () => {
                   <option value="23">23</option>
                   <option value="25">25</option>
                 </select> 
-                <select name="heigth" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="heigth" onChange={dimensionHandler} className="appButton">
                 <option value="" hidden>heigth</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -316,7 +319,7 @@ const DrawMap = () => {
                   <option value="25">25</option>
                 </select>
               </div> :
-              <select name="hexSide" onChange={dimensionHandler} className="appButton">
+              <select ref={dimensionRef} name="hexSide" onChange={dimensionHandler} className="appButton">
                   <option value="" hidden>Dimension</option>
                   <option value="5">5</option>
                   <option value="7">7</option>
@@ -325,8 +328,8 @@ const DrawMap = () => {
                   <option value="13">13</option>
               </select>
             }
-              <button className='appButton' onClick={shapeHandler} >shape</button>
-              <button onClick={resetHandler} className='appButton'>reset</button>
+              <button onClick={changeData} name="shape" value={shape === "sq" ? "hx" : "sq"} className='appButton'>shape</button>
+              <button onClick={resetHandler} name="shape" className='appButton'>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">
@@ -335,7 +338,7 @@ const DrawMap = () => {
              <>zoom</> 
           <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
 
-            <select onChange={setAllHandler} className='appButton'>
+            <select ref={setAllRef} onChange={setAllHandler} className='appButton'>
               <option value="" hidden>set all tiles</option>
               <option value="blank" >blank</option>
               <option value="plains" >plains</option>
@@ -353,7 +356,8 @@ const DrawMap = () => {
         </div>
         <div className="screen"
         style={{
-          backgroundColor:`url(${water})`,
+          backgroundImage:`url(${water})`,
+          backgroundSize:`${tileSize}px`
         }}
         >
         {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} action={clickTileHandler}/> }

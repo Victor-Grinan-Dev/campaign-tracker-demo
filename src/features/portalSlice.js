@@ -14,23 +14,14 @@ export const portalSlice = createSlice({
         isLoading:true,
         robotSay:"",
 
-        //create:
-        creatingUnit:{},
-        creatingFormation:{},
-        creatingCampaign:{},
-        creatingMapObj:{},
-        creatingMapArr:[],
-
-        choiceMap:{},
-
     },
 
     reducers:{
-        //logged:
         setCurrentUser:(state, action) => {
             state.currentUser = action.payload;
         },
 
+        //temp:
         setIsLogged: (state, action) => {
             state.isLogged = action.payload;
         },
@@ -45,49 +36,17 @@ export const portalSlice = createSlice({
         setRobotSay(state, action){
             state.robotSay = action.payload;
         },
-
-
-        //unit:
-        setCreatingUnit(state, action){
-            state.creatingUnit = action.payload;
-        },
-        //formation
-        setCreatingFormation(state, action){
-            state.creatingFormation = action.payload;
-        },
-        //army:
-
-        //campaign:
-        setCreatingCampaign(state, action){
-            state.creatingCampaign = action.payload;
-        },
-        //map
-        setCreatingMapObj(state, action){
-            state.creatingMapObj = action.payload;
-        },
-        setCreatingMapArr(state, action){
-            state.creatingMapArr = action.payload;
-        },
-        setChoiceMap(state, action){
-            state.choiceMap = action.payload;
-        }
     }
 });
 
 export const { 
     setCurrentUser,
+
+    //temp:
     setIsLogged,
     setIsLoading,
     setSearch,
     setRobotSay,
-
-    setCreatingUnit,
-    setCreatingFormation,
-    setCreatingCampaign,
-    setCreatingMapObj,
-    setCreatingMapArr,
-    setChoiceMap,
-
 } = portalSlice.actions;
 
 export default portalSlice.reducer;

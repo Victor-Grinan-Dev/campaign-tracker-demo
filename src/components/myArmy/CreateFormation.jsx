@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formation } from '../../classes/formation';
@@ -8,10 +8,15 @@ import FormationCard from './FormationCard';
 import { factions } from '../../data/factions';
 import { factionsArr } from '../../data/factions';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
+import { genId } from '../../functions/genId';
 
 const CreateFormation = () => {
-  const user = useSelector(state=>state.portal.currentUser)
-  const robotSay = useSelector(state=> state.portal.robotSay)
+  const formationNameRef = useRef(null);
+  const factioRef = useRef(null);
+  const descriptionRef = useRef(null);
+
+  const user = useSelector(state=>state.portal.currentUser);
+
   const composition = useSelector(state => state.formation.composition);
   const creatingFormation = useSelector(state => state.formation.formationObj);
 
@@ -20,13 +25,19 @@ const CreateFormation = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    localStorage.setItem("portal", JSON.stringify(user));
+  }, [user]);
+
+  useEffect(() => {
     const newFormation = new Formation(creatingFormation.name, composition, faction);
+    newFormation.id = genId(24);
     dispatch(setFormationObj(newFormation));
     // eslint-disable-next-line
   }, [composition, faction]);
 
   const updateFormation = (e) => {
     dispatch(setFormationObj({...creatingFormation, [e.target.name]: e.target.value}))
+    dispatch(setRobotSay(""))
   }
   const updateFaction = (e) => {
     const key = e.target.value.split("The ")[1].replace(" ","_").toLowerCase();
@@ -47,29 +58,24 @@ const CreateFormation = () => {
   const addFormation = () => {
 
     if (creatingFormation.name && creatingFormation.name !== "-" && creatingFormation.faction && creatingFormation.description && creatingFormation.composition.length > 0){
-      //console.log(JSON.parse(
       dispatch(setCurrentUser({...user,"formations":[...user.formations, creatingFormation]}));
-      
-      localStorage.setItem("portal", JSON.stringify(user));
       dispatch(setRobotSay("saved formation"));
-     /*
-      if(JSON.stringify(localStorage.getItem("portal", JSON.stringify(user))).formations.includes(creatingFormation)){
-        
-      }else{
-        dispatch(setRobotSay("try again something went wrong"));
-      }
-     */
+      //reset all inputs:
+      formationNameRef.current.value = "";
+      factioRef.current.value = "";
+      descriptionRef.current.value = "";
+
     }else{
       if(!creatingFormation.name){
-       dispatch(setRobotSay("Formations needs a name"))     
+       dispatch(setRobotSay("Formations needs a name ⛔"))     
       }else if(creatingFormation.name === "-"){
-       dispatch(setRobotSay("Incorrect name of formation"))       
+       dispatch(setRobotSay("Incorrect name of formation ⛔"))       
       }else if(!creatingFormation.faction){
-       dispatch(setRobotSay("A faction is required"))     
+       dispatch(setRobotSay("A faction is required ⛔"))     
       }else if(!creatingFormation.description){
-       dispatch(setRobotSay("Write a short description"))     
+       dispatch(setRobotSay("Write a short description ⛔"))     
       }else if(creatingFormation.composition.length <= 0){
-        dispatch(setRobotSay("a formation needs at least one unit"))    
+        dispatch(setRobotSay("a formation needs at least one unit ⛔"))    
       }
     }
   }
@@ -81,10 +87,9 @@ const CreateFormation = () => {
             
             <div className="namingSection" style={{overflow:'scroll'}}>
               <div>
-                <p>🤖: {robotSay}</p>
                 <button onClick={addFormation}>Add</button>
-                  <input type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
-                  <select name="faction" onChange={updateFaction}>
+                  <input ref={formationNameRef} type="text" className='unitNameInput' name='name' placeholder={creatingFormation.name === '-' ? 'Name...' : creatingFormation.name} onChange={updateFormation}/>
+                  <select ref={factioRef} name="faction" onChange={updateFaction}>
                     <option value="" hidden>Choose...</option>
                     {
                       factionsArr.map((f,i)=>(
@@ -93,7 +98,7 @@ const CreateFormation = () => {
                     }
                   </select>
 
-                  <textarea name="description" id="" cols="30" rows="3" placeholder='Short description...' onChange={updateFormation}/>
+                  <textarea ref={descriptionRef} name="description" id="" cols="30" rows="3" placeholder='Short description...' onChange={updateFormation}/>
                   
               </div>
               <div className="sideData">
