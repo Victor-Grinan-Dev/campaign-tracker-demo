@@ -2,7 +2,7 @@
 import React from "react";
 //hooks:
 
-// import { Link, useNavigate } from "react-router-dom";
+//import { Link, useNavigate } from "react-router-dom";
 //redux:
 import { useDispatch } from "react-redux";
 // import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/globalState/globalStateSlice";
@@ -11,6 +11,7 @@ import { changeUserName, changeUserType, changeUserIndex, setCurrentUser, setIsL
 
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { User } from "../../classes/user";
 export const UserContext = createContext();
 
 export const Axios = axios.create({
@@ -23,7 +24,7 @@ export const UserContextProvider = ({ children }) => {
   const [wait, setWait] = useState(false);
   // added from Game
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  //const navigate = useNavigate();
   // **********
 
   const registerUser = async ({ username, email, password }) => {
@@ -69,6 +70,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const loggedInCheck = async () => {
+
     const loginToken = localStorage.getItem("loginToken");
     Axios.defaults.headers.common["Authorization"] = "Bearer " + loginToken;
     if (loginToken) {
@@ -76,20 +78,16 @@ export const UserContextProvider = ({ children }) => {
       const { data } = await Axios.get("getUser.php");
       // console.log(data);
       if (data.success && data.user) {
-        // console.log(data.user);
-        // dispatch(changeUserName(data.user.name));
-        // dispatch(changeUserIndex(data.user.id));
-        // dispatch(setCurrentUser(data.user.name));
-        // dispatch(setCurrentUser(data.user.id));
-        dispatch(setCurrentUser(data.user));
         dispatch(setIsLogged(true));
-        // setUser(data.user);
-        // console.log(theUser);
+        if (!data.user.lostordata){
+          const newUser = new User(data.user.username);
+          newUser.email = data.user.email; 
+          dispatch(setCurrentUser(newUser));
+          return;
+        }
+        dispatch(setCurrentUser(data.user.lostordata))
         return;
-        // return setUser(data.user);
       }
-
-      // setUser(null);
       dispatch(setCurrentUser({}));
     }
   };
@@ -104,12 +102,9 @@ export const UserContextProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("loginToken");
     dispatch(setCurrentUser({}));
-    // setUser(null);
-    // added from Game
-    // dispatch(setIsLogged(false));
-    // dispatch(changeUserType(undefined));
-    // dispatch(changeUserName(undefined));
-    // navigate("/");
+    dispatch(setIsLogged(false));
+    //TRANSFER LOCAL STORAGE TO DB
+    //navigate("/");
   };
 
   // return <UserContext.Provider value={{ registerUser, loginUser, wait, user: theUser, loggedInCheck, logout }}>{children}</UserContext.Provider>;

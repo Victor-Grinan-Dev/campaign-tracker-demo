@@ -55,8 +55,10 @@ import { testUser } from "./components/views/login/Login";
 
 //device
 import { isMobile } from "react-device-detect";
+import { User } from "./classes/user";
 
 const protectedViews = () => {
+  
   return (
     <>
       <Route path="/profile" element={<Profile />} />
@@ -79,7 +81,7 @@ function App() {
   const dispatch = useDispatch();
 
   const isLogged = useSelector(state => state.portal.isLogged);
-  //const currentUser = useSelector(state => state.portal.currentUser);
+  const username = useSelector(state => state.portal.currentUser.username);
 
   useEffect(() => {
     if (Cookies.get("portalLog")) {
@@ -89,12 +91,13 @@ function App() {
       if (cookie === "true") {
         dispatch(setIsLogged(true));
 
-        if (localStorage.getItem("portal")) {
-          dispatch(setCurrentUser(JSON.parse(localStorage.getItem("portal"))));
+        if (localStorage.getItem("lostordata")) {
+          dispatch(setCurrentUser(JSON.parse(localStorage.getItem("lostordata"))));
           console.log("read from localStorage");
         } else {
           // localStorage.setItem("portal", JSON.stringify(testUser));
-          localStorage.setItem("portal", "portal string");
+          new User(username)
+          localStorage.setItem("lostordata", );
           //this comes from the database?
           console.log("get data from database?");
         }
