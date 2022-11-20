@@ -24,3 +24,15 @@
 .mapSelect{
     align-items: center;
 }
+
+.displayMap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+    background-color: rgb(17, 15, 15);
+    border-radius: 10px;
+    position: relative;
+    background-repeat: repeat;
+    background-size: 25px;
+}

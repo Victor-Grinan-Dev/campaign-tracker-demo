@@ -1,90 +1,61 @@
+import { factions } from "../data/factions";
+
 export class Formation {
-    action_points = 1 //amount of actions a formation can do in a turn.
-    work_force = 0 //points to complete the an action.
+    id=null
     damage = 0
     defense = 0
-    model_count = 0
     vision = 1
     Xp = 0
     actions=[]
     intelligence = 1
-    level = 0
-    benefits=[]//this benefits come from the formation type if there is one 
-    badges=[]//this are archievements as formation
+    level = 0 
     movement = 0
     maxMovement = 0
-    type = undefined //this comes from the composition of the formation (old 40k formations rules)
-    dedication=[] //this are enancements assigned to the formation by user
     color='white' //faction related
     subColor='white' //user choice
     is_listed = false
-    point_cost = 0  
-    carry_capacity = 0 //from the units
+    model_count = 0
     infantry_count = 0
     isBeen = false
     isMoved = false
     owner = undefined //army that owns it
+    point_cost = 0 
 
-    constructor(name, composition, s_description="", l_description="", image="", faction="", subfaction=""){
-      this.name = name
-      this.composition = composition
-      this.s_description = s_description
-      this.l_description = l_description
-      this.image = image
-      this.faction = faction
-      this.subfaction = subfaction
+    /**** future features ****/
+    //action_points = 1 //amount of actions a formation can do in a turn.
+    //work_force = 0 //points to complete the an action.
+    //benefits=[]//this benefits come from the formation type if there is one
+    //badges=[]//this are archievements as formation
+    //dedication=[] //this are enancements assigned to the formation by user
+    //carry_capacity = 0 //from the units
+    //type = undefined //this comes from the composition of the formation (old 40k formations rules)
+
+    constructor(name, composition, faction=null, subfaction="", description=""){
+      this.name = name;
+      this.composition = composition;
+      this.description = description;
+      this.faction = faction;
+      this.subfaction = subfaction;
+      this.color = faction ? faction.color : "white";
       if (this.composition){
-        this.setPointCost() 
-        this.setDamage()
-        this.setMovement()
-        this.setWorkForce()
-        this.setModelCount()
-        this.setMaxVision()
-        this.setFaction()
-        this.setActions()
+        this.setPointCost() ;
+        this.setDamage();
+        this.setMovement();
+        this.setModelCount();
+        //this.setFaction();
       }
       //action points?
       }
 
-      getValue = (skill) => {
-        let divider;
-        if(skill.includes('+')){
-          divider = '+';
-        }else if(skill.includes('-')){
-          divider = '-';
-        }else{
-          console.log("no divider found");
-          return;
-        }
-        return parseInt(skill.split(divider)[1], 10);
-      }
       setPointCost(){ // checked  
         this.composition.forEach(unit =>{
-        this.point_const += unit.point_const
+        this.point_cost += unit.point_cost
         });
       }
       setDamage(){ //checked
-          this.damage = Math.floor(this.point_const / 10)
+          this.damage = Math.floor(this.point_cost / 10)
       }
-      setWorkForce(){ //checked
-        let apply_bonus = false;
-        let bonus = 0;
-        for (let unit of this.composition){
-          if(unit?.skills?.type.includes("infantry")){
-            this.work_force += unit.point_const;
-          }
-          // eslint-disable-next-line
-          unit?.skills?.passive.forEach(skill =>{
-            if(skill.includes("work_force")){
-              apply_bonus = true;
-              bonus = (parseInt(skill.split('+')[1], 10)/100);
-            }
-          });
-        }
-        if(apply_bonus){
-          this.work_force += this.work_force * bonus;
-        }
-      }
+      
       setMovement(){ //checked
         // eslint-disable-next-line
         
@@ -130,7 +101,69 @@ export class Formation {
             this.model_count += unit.models;
           });
       }
-      setMaxVision(){ //checked
+      
+
+      setFaction(){
+        /*
+        if(this.faction){
+          switch (this.faction.name) {
+            case "The Justice Aliance":
+              this.defense = 5;
+              this.color = "#309abb";
+              break;
+            case "damage%+10":
+              this.damage += this.damage * 0.1;
+              this.color = "#830202";
+              break;
+            case "The Death Machines":
+              this.work_force *= 0.1;
+              this.color = "#1fc778";
+              //regeneration while still?
+              break;
+            case "The Beast Hordes":
+              this.movement += 1;
+              this.color = "#395B64";
+              //less intelligent?
+              break;
+            case "The Advanced Humanoids":
+              this.intelligence += 0.1;
+              this.color = "#0F3D3E";
+              break;
+            case "The Infestation Bugs":
+              for (let unit in this.units){
+                unit.skills.passive.push('claim-tile');
+              }
+              this.color = "#D1512D";
+              //low defence?
+              break;
+          
+            default:
+              break;
+          }
+        }
+        */
+      }
+      increaseXP(increase){
+        this.Xp += increase * this.intelligence;
+      }
+
+  };
+
+  /*
+
+  getValue = (skill) => {
+        let divider;
+        if(skill.includes('+')){
+          divider = '+';
+        }else if(skill.includes('-')){
+          divider = '-';
+        }else{
+          console.log("no divider found");
+          return;
+        }
+        return parseInt(skill.split(divider)[1], 10);
+      }
+setMaxVision(){ //checked
         let bonusVision = 0;
         let tempBonus = 0;
         this.composition.forEach(unit => {//ok
@@ -145,6 +178,7 @@ export class Formation {
           this.vision += bonusVision;
         });
       };
+
       setActions(){
         for(let unit of this.composition){
           if (unit.skills.active){
@@ -156,44 +190,25 @@ export class Formation {
           }         
         }
       }
-      setFaction(){
-        switch (this.faction.name) {
-          case "The Justice Aliance":
-            this.defense = 10;
-            this.color = "#309abb";
-            break;
-          case "damage%+10":
-            this.damage += this.damage * 0.1;
-            this.color = "#830202";
-            break;
-          case "The Death Machines":
-            this.work_force *= 0.1;
-            this.color = "#1fc778";
-            //regeneration while still?
-            break;
-          case "The Beast Hordes":
-            this.movement += 1;
-            this.color = "#395B64";
-            //less intelligent?
-            break;
-          case "The Advanced Humanoids":
-            this.intelligence += 0.1;
-            this.color = "#0F3D3E";
-            break;
-          case "The Infestation Bugs":
-            for (let unit in this.units){
-              unit.skills.passive.push('claim-tile');
+
+  setWorkForce(){ //checked
+        let apply_bonus = false;
+        let bonus = 0;
+        for (let unit of this.composition){
+          if(unit?.skills?.type.includes("infantry")){
+            this.work_force += unit.point_const;
+          }
+          // eslint-disable-next-line
+          unit?.skills?.passive.forEach(skill =>{
+            if(skill.includes("work_force")){
+              apply_bonus = true;
+              bonus = (parseInt(skill.split('+')[1], 10)/100);
             }
-            this.color = "#D1512D";
-            //low defence?
-            break;
-        
-          default:
-            break;
+          });
+        }
+        if(apply_bonus){
+          this.work_force += this.work_force * bonus;
         }
       }
-      increaseXP(increase){
-        this.Xp += increase * this.intelligence;
-      }
-
-  };
+  
+  */

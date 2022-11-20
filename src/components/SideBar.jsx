@@ -31,8 +31,14 @@ const SideBar = () => {
       <div className="sidebarContainer">
         <p></p>
         <Link to="/">🏠</Link>
+        <p>❤️</p>{/* support us */}
+        <p>🔗</p>{/* share the app */}
+        <p>🧮</p>{/* MathHammer app */}
+        <p>🎲</p>{/* diceRoller app */} 
+        <p>🏈</p>{/* blood bowl app */} 
         <Link to="/profile">👤</Link>
         <Link to="/chat">💬</Link>
+        
         {user.type === "admin" && <Link to="/adduser">+👤</Link>}
         {user.type === "admin" && <Link to="/post">✍️</Link>}
         <Link to="/about">📜</Link>

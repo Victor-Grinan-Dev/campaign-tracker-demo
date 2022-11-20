@@ -12,7 +12,7 @@ const Profile = () => {
         <div className="userDatasection" ><p>User type: {user.type}</p><button>✏️</button></div>
         <div className="userDatasection" ><p>Player level: {user.level}</p><button>✏️</button></div>
         <div className="userDatasection" ><p>Rank: {user.rank}</p><button>✏️</button></div>
-        <div className="userDatasection" ><p>Badges earned: {user.badges.length}</p><button>✏️</button></div>
+        {/* <div className="userDatasection" ><p>Badges earned: {user.badges.length}</p><button>✏️</button></div> */}
         <div className="userDatasection" ><p>battles: {user.battles}</p><button>✏️</button></div>
         <div className="userDatasection" ><p>winRate: {user.winRate}</p><button>✏️</button></div>
         <div className="userDatasection" ><p>formations: {user.formations.length}</p><button>✏️</button></div>

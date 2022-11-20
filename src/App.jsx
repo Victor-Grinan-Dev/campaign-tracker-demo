@@ -77,8 +77,9 @@ const protectedViews = () => {
 
 function App() {
   const dispatch = useDispatch();
-  const isLogged = useSelector((state) => state.portal.isLogged);
-  const currentUser = useSelector((state) => state.portal.currentUser);
+
+  const isLogged = useSelector(state => state.portal.isLogged);
+  //const currentUser = useSelector(state => state.portal.currentUser);
 
   useEffect(() => {
     if (Cookies.get("portalLog")) {
@@ -87,6 +88,7 @@ function App() {
       const cookie = Cookies.get("portalLog");
       if (cookie === "true") {
         dispatch(setIsLogged(true));
+
         if (localStorage.getItem("portal")) {
           dispatch(setCurrentUser(JSON.parse(localStorage.getItem("portal"))));
           console.log("read from localStorage");

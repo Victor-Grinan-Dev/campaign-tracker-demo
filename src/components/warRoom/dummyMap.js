@@ -1,4 +1,4 @@
-import { Tile } from "../../classes/t_ile";
+import { Tile } from "../../classes/tile";
 import { terrainTypes } from "../../data/terrainTypes";
 import { Map } from "../../classes/map";
 
@@ -80,4 +80,4 @@ const map = [
   ],
 ];
 
-export const hexTestMap = new Map("Devil's Arena", "hx", "4x4x4", map);
+export const hexTestMap = new Map("Hex Test Map", "hx", "4x4x4", map);

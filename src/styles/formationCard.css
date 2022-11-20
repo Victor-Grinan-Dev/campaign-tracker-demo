@@ -1,6 +1,6 @@
 .cardFormation{
-    width: 125px;
-    height: 175px;
+    width: 135px;
+    height: 200px;
     background-color: rgb(55, 54, 54);
     margin: 10px;
     border-radius: 10px;
@@ -34,11 +34,20 @@
     text-shadow: 0 0 10px black;
 }
 
-.selected{
+.deselected{
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background-color: rgb(29, 31, 31);
+    box-shadow: inset;
+}
+
+.selected{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(65, 238, 71);
+    box-shadow: 0 0 5px black inset;
 }
 
 .imgBox{
