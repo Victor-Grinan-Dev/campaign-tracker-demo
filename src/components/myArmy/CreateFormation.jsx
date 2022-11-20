@@ -131,7 +131,7 @@ const CreateFormation = () => {
               */}
 
                 {/* 
-                ⚔️🥾🗡️🎯💥☠️🛡️🔭🎓📚📈🧮🏴󠁧󠁢󠁥󠁮󠁧󠁿🚩📊🎁🏅
+                ⚔️🥾🗡️🎯💥☠️🛡️🔭🎓📚📈🧮🏴󠁧󠁢󠁥󠁮󠁧󠁿🚩📊🎁🏅🪐 🌎
                 faction(pin):""
                 color(pin):"white"
 
