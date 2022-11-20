@@ -8,6 +8,7 @@ import FormationCard from './FormationCard';
 import { factions } from '../../data/factions';
 import { factionsArr } from '../../data/factions';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
+import { genId } from '../../functions/genId';
 
 const CreateFormation = () => {
 
@@ -31,6 +32,7 @@ const CreateFormation = () => {
 
   useEffect(() => {
     const newFormation = new Formation(creatingFormation.name, composition, faction);
+    newFormation.id = genId(24);
     dispatch(setFormationObj(newFormation));
     // eslint-disable-next-line
   }, [composition, faction]);

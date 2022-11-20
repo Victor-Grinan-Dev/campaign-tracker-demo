@@ -2,6 +2,19 @@ import React from 'react';
 import Token from '../token/Token';
 
 const FormationCard = ({formation, fn}) => {
+
+  const delForm = () => {
+    console.log("deleted!");
+  }
+  const addToArmyHandler = (e) => {
+    if(e.target.attributes[0].nodeValue === "selected"){
+      e.target.attributes[0].nodeValue = "deselected";
+    }else{
+      e.target.attributes[0].nodeValue = "selected";
+      console.log(formation)
+    }
+    
+  }
   return (
     <div className='cardFormation'>
       
@@ -9,7 +22,9 @@ const FormationCard = ({formation, fn}) => {
 
         <div className="titleArea">
           <p className='cardFormName'>{formation.name} </p>
-          <div className="selected" />
+
+          <div className="selected" onClick={addToArmyHandler}/>
+
         </div>
 
         <div className="imgBox">
@@ -30,13 +45,13 @@ const FormationCard = ({formation, fn}) => {
             <p className='formCardDetail'>{formation.point_cost}</p>
             <p className='formCardDetail'>{formation.damage}</p>
             <p className='formCardDetail'>{formation.defense}</p>
-            <p className='formCardDetail'>{formation.movement}</p>
+            <p className='formCardDetail'>{formation.movement === 100 ? 0 : formation.movement }</p>
             
           </div>
           
         </div>
         <div>
-          <p style={{fontSize:"10px"}}>❌</p>
+          <p style={{fontSize:"10px"}} onClick={delForm} >❌</p>
         </div>
       </div>
     </div>
