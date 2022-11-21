@@ -10,7 +10,6 @@ import { UserContext } from "../../../components/LoginComponents/UserContext";
 
 //components:
 import NextPage from "./NextPage";
-import Button from "./Button";
 import BackTo from "./BackTo";
 import { User } from "../../../classes/user";
 // import { User } from "../../functions/Objects";
@@ -74,7 +73,7 @@ function SignUp() {
 
   return (
     <>
-      <h1>test</h1>
+      <h1 className="signup_header">test</h1>
       <div
         style={{
           display: "grid",
@@ -82,11 +81,12 @@ function SignUp() {
         }}
       >
         <img
+          className="signup_img"
           src={userImage}
           alt="user Image"
           style={{
             filter: "grayscale(100%)",
-            height: "50vh",
+            height: "40vh",
           }}
         />
         {success ? (
@@ -98,15 +98,34 @@ function SignUp() {
         ) : (
           <section style={{ width: "300px" }}>
             <h2>Enlist soldier, dutty calls... </h2>
-            <form>
+            <form className="signup_form">
               <label htmlFor="username">Username:</label>
-              <input type="text" name="username" placeholder="Username..." onChange={onChangeInput} id="name" value={formData.username} required />
+              <input
+                className="signup_input"
+                type="text"
+                name="username"
+                placeholder="Username..."
+                onChange={onChangeInput}
+                id="name"
+                value={formData.username}
+                required
+              />
               <br />
               <label htmlFor="email">Email:</label>
-              <input type="email" name="email" onChange={onChangeInput} placeholder="Your email" id="email" value={formData.email} required />
+              <input
+                className="signup_input"
+                type="email"
+                name="email"
+                onChange={onChangeInput}
+                placeholder="Your email"
+                id="email"
+                value={formData.email}
+                required
+              />
               <br />
               <label htmlFor="password">Password:</label>
               <input
+                className="signup_input"
                 type="password"
                 name="password"
                 placeholder="Password..."
@@ -118,8 +137,13 @@ function SignUp() {
               <br />
               {successMsg && <div className="success-msg">{successMsg}</div>}
               {errMsg && <div className="err-msg">{errMsg}</div>}
-
-              <Button caption="Sign Up" action={submitForm} />
+              <button
+                caption="Sign Up"
+                action={submitForm}
+                className="signup_btn"
+              >
+                SIGN UP
+              </button>
             </form>
             <p>
               Are you already enlisted? <br />
