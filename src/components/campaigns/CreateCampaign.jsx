@@ -63,10 +63,10 @@ const CreateCampaign = () => {
         e.preventDefault()
 
         if(campaignObj.name !== "undefined" && campaignObj.armySize > 0 && campaignObj.map.playableTiles >= 35){
-            const toSaveCampaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, campaignObj.map, campaignObj.rounds, campaignObj.timeLapse);
+            const campaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, campaignObj.map, campaignObj.rounds, campaignObj.timeLapse);
 
-            dispatch(setCurrentUser({...user, "createdCampaign":  toSaveCampaign}))
-
+            dispatch(setCurrentUser({...user, "createdCampaign":  campaign}))
+            dispatch(setRobotSay("Campaing created!"))
             //reset fields
             nameRef.current.value = "";
             armySizeRef.current.value = "";
@@ -74,7 +74,6 @@ const CreateCampaign = () => {
             timeLapseRef.current.value = "";
             mapRef.current.value = "";
             rulesRef.current.value = "";
-            isPublishedRef.current.checked = false;
 
             dispatch(setCampaignObj(new Campaign(null, "undefined", 0, available_maps[0], 0, "undefined"),))
         }else{
@@ -88,7 +87,6 @@ const CreateCampaign = () => {
                 dispatch(setRobotSay("Tiles in map are too few ⛔"))
             }
         }
-        isPublishedRef.current.checked = false;
         //write to the data base the new campaign as a new object
     };
 

@@ -9,6 +9,7 @@ export class Campaign {
     initialMap = []; //initial map in case of comparison
     banner = undefined;
     actionPool = [] //[ timestamp, armyName, action ]
+    camapignMaster = undefined;
 
     constructor(campaignId, name, armySize, map, rounds=4, timeLapse="weeks") {
         this.campaignId = campaignId;

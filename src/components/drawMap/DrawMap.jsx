@@ -22,6 +22,10 @@ import { generateMap, mapRandomizer} from '../../functions/mapGenerator';
 //data
 import { terrainTypes } from '../../data/terrainTypes.js'
 
+const fontSize = {
+  fontSize:"12px"
+};
+
 const DrawMap = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -277,23 +281,23 @@ const DrawMap = () => {
             {
             changingName ? 
               <div>
-                <input type="text" name="name" onChange={changeData}/>
-                <button onClick={changeNameOkButton}>ok</button>
+                <input type="text" name="name" onChange={changeData} style={fontSize}/>
+                <button onClick={changeNameOkButton} style={fontSize}>ok</button>
               </div> : 
-              <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapName)}"</p>
+              <p onClick={()=>setChangingName(true)} style={fontSize}>Name: "{capitalStart(mapName)}"</p>
             }
             
             <div className="mainButtons">
-              <button className='appButtonGreen' onClick={saveMapHandler}>save</button>
-              <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
+              <button className='appButtonGreen' onClick={saveMapHandler}style={fontSize}>Save</button>
+              <button onClick={cancelHandler} className="appButtonDanger" style={fontSize}>Go back</button>
             </div>
           </div>
           
-            <div className="midTopPanel panelSection">
+            <div className="midTopPanel panelSection" style={fontSize}>
             new canvas: 
             {
               shape === "sq" ? <div className="dimensionArea"> 
-                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton" >
                 <option value="" hidden>width</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -332,7 +336,7 @@ const DrawMap = () => {
         <div className="bottomTopPanel panelSection">
   
           <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
-             <>zoom</> 
+             <p style={fontSize}>zoom</p> 
           <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
 
             <select ref={setAllRef} onChange={setAllHandler} className='appButton'>
@@ -360,7 +364,7 @@ const DrawMap = () => {
         {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} action={clickTileHandler}/> }
         </div>
         <div className="bottomPanel">
-          <p>Brush:</p>
+          <p style={fontSize}>Brush:</p>
           <div className="topPanelButtons">
             <div className="terrainButtons">
               
@@ -399,8 +403,6 @@ const DrawMap = () => {
               */}
         
           </div>
-
-          
         </div>
     </div>
   )
