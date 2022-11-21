@@ -10,7 +10,7 @@ export class User {
   winRate = 0;
   formations = [];
   createdMaps = [];
-  createdCampaigns = [] ;
+  createdCampaigns = null;
   armyList = new ArmyList()//players can have only one army list;
   email = "";
   avatar = "conscript_red";

@@ -21,6 +21,8 @@ import defaultBanner from '../../assets/banners/banner.png';
 import water from '../../assets/backgrounds/sea_sprite.jpg';
 import MapReader from '../drawMap/MapReader';
 
+
+
 const tileSize = 20
 const CreateCampaign = () => {
     const nameRef = useRef(null);
@@ -60,11 +62,10 @@ const CreateCampaign = () => {
     const saveCampaignData = (e) => {
         e.preventDefault()
 
-        if(campaignObj.name !== "undefined" && campaignObj.armySize > 0 && campaignObj.map.playableTiles > 35){
+        if(campaignObj.name !== "undefined" && campaignObj.armySize > 0 && campaignObj.map.playableTiles >= 35){
             const toSaveCampaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, campaignObj.map, campaignObj.rounds, campaignObj.timeLapse);
 
-            console.log(toSaveCampaign)
-            //dispatch(setCurrentUser({...user, "createdCampaigns": [...user.createdCampaigns, campaignObj]}))
+            dispatch(setCurrentUser({...user, "createdCampaign":  toSaveCampaign}))
 
             //reset fields
             nameRef.current.value = "";
@@ -74,8 +75,18 @@ const CreateCampaign = () => {
             mapRef.current.value = "";
             rulesRef.current.value = "";
             isPublishedRef.current.checked = false;
+
+            dispatch(setCampaignObj(new Campaign(null, "undefined", 0, available_maps[0], 0, "undefined"),))
         }else{
-            dispatch(setRobotSay("Error ⛔"))
+            if(campaignObj.name === "undefined"){
+                dispatch(setRobotSay("We need a name ⛔"))
+            }else if(campaignObj.name === ""){
+                dispatch(setRobotSay("Name field cant be empty ⛔"))
+            }else if(campaignObj.armySize === 0){
+                dispatch(setRobotSay("Define an army size ⛔"))
+            }else if(campaignObj.map.playableTiles < 35){
+                dispatch(setRobotSay("Tiles in map are too few ⛔"))
+            }
         }
         isPublishedRef.current.checked = false;
         //write to the data base the new campaign as a new object
@@ -187,12 +198,16 @@ const CreateCampaign = () => {
                 <p>Shape: {choiceMap ? choiceMap.shape : "undefined" }</p>
                 <p>Dimensions: {choiceMap ? choiceMap.dimensions : "undefined" }</p>
                 <p>max players: {choiceMap ? choiceMap.maxPlayers : "undefined" }</p>
-                        
             </div>
 
         <div className="section">
+            
+            {/*
+            <p>Publish it:</p>
+            <input ref={isPublishedRef} type="checkbox" name="isPublished" onChange={changeData} />
+            */}
             <button onClick={saveCampaignData}>create campaign</button> 
-            <input ref={isPublishedRef} type="checkbox" name="isPublished" onChange={changeData}/>
+            
             <button> cancel </button>
         </div>
 

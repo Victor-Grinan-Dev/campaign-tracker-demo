@@ -9,7 +9,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
+import { setMapObj, setDimension, setTileSize, setBrush, setMaxPlayers, countDownStartPosLeft } from '../../features/drawMapSlice';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //components
@@ -199,7 +199,7 @@ const DrawMap = () => {
   const setStartsHandler = () => {
     dispatch(setBrush("startingPos"))
   }
-
+      
   const cancelHandler = () => {
         dispatch(setDimension("min"));
         dispatch(setMaxPlayers(2));
@@ -270,9 +270,6 @@ const DrawMap = () => {
 
   return (
     <div className='drawmap view'>
-        <div>
-          <p>🤖: {robotSay}</p>
-        </div>
         
         <div className="topPanel">
           <div className="topArea panelSection">
@@ -382,8 +379,9 @@ const DrawMap = () => {
             </div>
 
             <div className="featuresButton">
-              <button onClick={setStartsHandler}>start</button>
-              <button>flag</button>
+              <button onClick={setStartsHandler} className='appButton'>start</button>
+              
+              <button className='appButton'>flag</button>
 
               {/*
               <button> building 1 </button>
