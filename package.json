@@ -17,8 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "json-server -p8010 --w db.json"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +38,5 @@
     ]
   },
   "devDependencies": {
-    "json-serve": "^0.1.0"
   }
 }
