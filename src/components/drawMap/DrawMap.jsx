@@ -9,7 +9,7 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
+import { setMapObj, setDimension, setTileSize, setBrush, setMaxPlayers, countDownStartPosLeft } from '../../features/drawMapSlice';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //components
@@ -21,6 +21,10 @@ import { generateMap, mapRandomizer} from '../../functions/mapGenerator';
 
 //data
 import { terrainTypes } from '../../data/terrainTypes.js'
+
+const fontSize = {
+  fontSize:"12px"
+};
 
 const DrawMap = () => {
   const navigate = useNavigate();
@@ -199,7 +203,7 @@ const DrawMap = () => {
   const setStartsHandler = () => {
     dispatch(setBrush("startingPos"))
   }
-
+      
   const cancelHandler = () => {
         dispatch(setDimension("min"));
         dispatch(setMaxPlayers(2));
@@ -270,9 +274,6 @@ const DrawMap = () => {
 
   return (
     <div className='drawmap view'>
-        <div>
-          <p>🤖: {robotSay}</p>
-        </div>
         
         <div className="topPanel">
           <div className="topArea panelSection">
@@ -280,23 +281,23 @@ const DrawMap = () => {
             {
             changingName ? 
               <div>
-                <input type="text" name="name" onChange={changeData}/>
-                <button onClick={changeNameOkButton}>ok</button>
+                <input type="text" name="name" onChange={changeData} style={fontSize}/>
+                <button onClick={changeNameOkButton} style={fontSize}>ok</button>
               </div> : 
-              <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapName)}"</p>
+              <p onClick={()=>setChangingName(true)} style={fontSize}>Name: "{capitalStart(mapName)}"</p>
             }
             
             <div className="mainButtons">
-              <button className='appButtonGreen' onClick={saveMapHandler}>save</button>
-              <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
+              <button className='appButtonGreen' onClick={saveMapHandler}style={fontSize}>Save</button>
+              <button onClick={cancelHandler} className="appButtonDanger" style={fontSize}>Go back</button>
             </div>
           </div>
           
-            <div className="midTopPanel panelSection">
+            <div className="midTopPanel panelSection" style={fontSize}>
             new canvas: 
             {
               shape === "sq" ? <div className="dimensionArea"> 
-                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton" >
                 <option value="" hidden>width</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -335,7 +336,7 @@ const DrawMap = () => {
         <div className="bottomTopPanel panelSection">
   
           <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
-             <>zoom</> 
+             <p style={fontSize}>zoom</p> 
           <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
 
             <select ref={setAllRef} onChange={setAllHandler} className='appButton'>
@@ -363,7 +364,7 @@ const DrawMap = () => {
         {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} action={clickTileHandler}/> }
         </div>
         <div className="bottomPanel">
-          <p>Brush:</p>
+          <p style={fontSize}>Brush:</p>
           <div className="topPanelButtons">
             <div className="terrainButtons">
               
@@ -382,8 +383,9 @@ const DrawMap = () => {
             </div>
 
             <div className="featuresButton">
-              <button onClick={setStartsHandler}>start</button>
-              <button>flag</button>
+              <button onClick={setStartsHandler} className='appButton'>start</button>
+              
+              <button className='appButton'>flag</button>
 
               {/*
               <button> building 1 </button>
@@ -401,8 +403,6 @@ const DrawMap = () => {
               */}
         
           </div>
-
-          
         </div>
     </div>
   )

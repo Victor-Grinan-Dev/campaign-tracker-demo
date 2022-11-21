@@ -146,6 +146,7 @@ a:hover{
   color: rgb(0, 0, 0);
   background-color: burlywood;
   text-shadow: 0 0 10px rgb(246, 246, 246);
+  font-size: 12px;
 }
 
 .appButtonDanger{
