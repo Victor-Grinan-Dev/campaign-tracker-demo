@@ -13,14 +13,10 @@ const MyArmy = () => {
       
       <div className="panel">
          <button>🪖✅</button>
-        <Link to="/createformation"><button>+🪖</button></Link>
+          <Link to="/createformation"><button>+🪖</button></Link>
 
-        <div className="searchArea">
-          {
-            /* robotSay ? <p>🤖: {robotSay}</p> :  */<input type="text" placeholder='Search...' className='searchInput'/>
-          }
-          
-        </div>
+        <input type="text" placeholder='Search...' className='searchInput'/>
+        
         
       </div>
       <Formations />
