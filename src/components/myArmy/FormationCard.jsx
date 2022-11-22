@@ -62,12 +62,15 @@ const FormationCard = ({formation, fn}) => {
             <p className='formCardDetail'>{formation.damage}</p>
             <p className='formCardDetail'>{formation.defense}</p>
             <p className='formCardDetail'>{formation.movement === 100 ? 0 : formation.movement }</p>
-            
           </div>
           
         </div>
-        <div>
-          <p style={{fontSize:"10px"}} onClick={delForm} >❌</p>
+        <div className="cardButtons">
+          
+          <button style={{fontSize:"10px", margin:"0", padding:"0"}} onClick={delForm} >
+            ℹ️
+          </button>
+          
         </div>
       </div>
     </div>

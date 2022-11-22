@@ -80,3 +80,9 @@
     font-size: 10px;
     text-shadow: 0 0 10px black;
 }
+
+.cardButtons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}

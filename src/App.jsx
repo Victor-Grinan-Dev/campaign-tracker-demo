@@ -39,6 +39,7 @@ import MyArmy from "./components/myArmy/MyArmy";
 import CreateFormation from "./components/myArmy/CreateFormation";
 import CreateCampaign from "./components/campaigns/CreateCampaign";
 import DrawMap from "./components/drawMap/DrawMap";
+import FormationSingle from "./components/myArmy/FormationSingle";
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -61,18 +62,19 @@ import { User } from "./classes/user";
 const protectedViews = () => {
   return (
     <>
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/adduser" element={<AddUser />} />
-      <Route path="/post" element={<Post />} />
-      <Route path="/chat" element={<Chat />} />
-      <Route path="/warroom" element={<WarRoom />} />
-      <Route path="/myarmy" element={<MyArmy />} />
-      <Route path="/createformation" element={<CreateFormation />} />
-      <Route path="/createcampaign" element={<CreateCampaign />} />
-      <Route path="/drawmap" element={<DrawMap />} />
+      <Route path="profile" element={<Profile />} />
+      <Route path="about" element={<About />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="settings" element={<Settings />} />
+      <Route path="adduser" element={<AddUser />} />
+      <Route path="post" element={<Post />} />
+      <Route path="chat" element={<Chat />} />
+      <Route path="warroom" element={<WarRoom />} />
+      <Route path="myarmy" element={<MyArmy />} />
+      <Route path="createformation" element={<CreateFormation />} />
+      <Route path="createcampaign" element={<CreateCampaign />} />
+      <Route path="drawmap" element={<DrawMap />} />
+      <Route path="myarmy/:formation" element={<DrawMap />} />
     </>
   );
 };
@@ -115,9 +117,9 @@ function App() {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/*" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="signup" element={<SignUp />} />
             {isLogged && protectedViews()}
           </Route>
         </Routes>
