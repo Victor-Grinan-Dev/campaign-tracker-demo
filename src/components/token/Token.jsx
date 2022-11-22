@@ -1,70 +1,50 @@
 
 import { unitsImages } from '../../images/units';
 
-function Token({formation, fn}) {
+function Token({formation, fn=null, tokenSize=70}) {
   let unitCount = formation?.composition?.length;
-
-  let size;
-
-  switch (unitCount) {
-    case 1:
-      size = 60;
-      break;
-    case 2:
-      size=40;
-      break;
-    case 3 || 4:
-      size=30;
-      break;
-    case 5 || 6:
-      size=20;
-      break;
-    case 7 || 8 || 9:
-      size=15;
-      break;
+  const base = tokenSize * 0.857;
   
-    default:
-      break;
+  let size;
+  
+  if (unitCount === 1){
+    size = base;
+  }else if(unitCount === 2) {
+    size = tokenSize * 0.500;
+  }else if(unitCount === 3 || unitCount === 4 ) {
+    size = tokenSize * 0.400;
+  }else if(unitCount === 5 || unitCount === 6 ) {
+    size = (base / 2.7);
+  }else if(unitCount === 7 || unitCount === 8 || unitCount === 9 ) {
+    size = (base / 3);
   }
 
-  /* 
-      const [color, setColor] = useState();
-      const [subColor, setSubColor] = useState();
-      const [name, setName]= useState();
-      const [points, setPoints]= useState();
-      const [units, setUnits] = useState();
-      const [unitCount, setUnitCount] = useState();
-
-    useEffect(() => {
-      setColor(formation.color);
-      setSubColor(formation.subColor);
-      setName(formation.name);
-      setPoints(formation.points);
-      setUnits(formation.composition);
-      setUnitCount(formation.composition?.length);
-  }, []);
-  */
   
+  console.log("base:", base);
+  console.log("size:", size);
+
   const isBeen = formation.isBeen ? "grayscale(1)" : "grayscale(0)";
-
-
 
   return (
     <div className="factionColor token"
       style={{
-        backgroundColor: `${formation.color}`
+        backgroundColor: `${formation.color}`,
+        width:`${tokenSize}px`,
+        height:`${tokenSize}px`
       }}
       >
       <div 
         className="token"
         name="token"
         style={{
-          backgroundColor: `${formation.subColor}`
+          backgroundColor: `${formation.subColor}`,
+          width:`${base}px`,
+          height:`${base}px`
           }}
         >
           {
             formation.composition ?
-            formation.composition.map((unit,i) => {
+            formation.composition.map((unit) => {
               return <div 
                 id={unit.id}
                 name={unit.name} 

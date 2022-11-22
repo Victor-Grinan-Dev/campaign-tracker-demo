@@ -2,6 +2,7 @@ import React from 'react';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //component
@@ -67,10 +68,11 @@ const FormationCard = ({formation, fn}) => {
         </div>
         <div className="cardButtons">
           
-          <button style={{fontSize:"10px", margin:"0", padding:"0"}} onClick={delForm} >
-            ℹ️
-          </button>
           
+          <button style={{fontSize:"10px", margin:"0", padding:"0"}} onClick={delForm} >
+            <Link to={`${formation.name}`} state={formation}>ℹ️</Link>
+          </button>
+
         </div>
       </div>
     </div>

@@ -10,18 +10,18 @@ const Fromations = () => {
      console.log(e.target.name)
   }
   const formations = useSelector(state => state.portal.currentUser.formations);
-  console.log(formations)
+  
   return (
     <div className='browseArea'>
       {
         testFormArr.map((f,i) => (
-          <FormationCard formation={f} key={i} fn={addToArmy}/>
+          <FormationCard formation={f} key={i} fn={addToArmy} tokensize={50}/>
         )) 
 
       }
       {formations.length > 0 &&
         formations.map((f,i) => (
-          <FormationCard formation={f} key={i} fn={addToArmy}/>
+          <FormationCard formation={f} key={i} fn={addToArmy} tokensize={80}/>
         )) 
       }
     </div>
