@@ -20,6 +20,7 @@ import "./styles/campaignCard.css";
 import "./styles/createCampaign.css";
 import "./styles/drawMap.css";
 import "./styles/tile.css";
+import "./styles/signup.css";
 
 //components:
 import Layout from "./pages/Layout";
@@ -58,7 +59,6 @@ import { isMobile } from "react-device-detect";
 import { User } from "./classes/user";
 
 const protectedViews = () => {
-  
   return (
     <>
       <Route path="/profile" element={<Profile />} />
@@ -80,9 +80,10 @@ const protectedViews = () => {
 function App() {
   const dispatch = useDispatch();
 
-  const isLogged = useSelector(state => state.portal.isLogged);
-  const user = useSelector(state => state.portal.currentUser);
-  const username = useSelector(state => state.portal.currentUser.username);
+
+  const isLogged = useSelector((state) => state.portal.isLogged);
+  const username = useSelector((state) => state.portal.currentUser.username);
+
 
   useEffect(() => {
     if (Cookies.get("portalLog")) {
@@ -90,13 +91,18 @@ function App() {
       if (cookie === "true") {
         dispatch(setIsLogged(true));
 
-        if (localStorage.getItem("portal")) {
-          dispatch(setCurrentUser(JSON.parse(localStorage.getItem("portal"))));
+
+        if (localStorage.getItem("lostordata")) {
+          dispatch(
+            setCurrentUser(JSON.parse(localStorage.getItem("lostordata")))
+          );
+          console.log("read from localStorage");
         } else {
           // localStorage.setItem("portal", JSON.stringify(testUser));
-        
-          localStorage.setItem( "portal", JSON.stringify(user) );
-          
+          new User(username);
+          localStorage.setItem("lostordata");
+          //this comes from the database?
+
           console.log("get data from database?");
         }
       }

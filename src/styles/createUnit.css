@@ -1,64 +1,77 @@
-.panelCreateUnit{
-    width: 100%;
-    display: flex;
+.panelCreateUnit {
+  width: 100%;
+  display: flex;
 }
 
-.units{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 300px;
-    overflow-y: scroll;
+.units {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 300px;
+  overflow-y: scroll;
 }
 
-.unitArea{/* little add unit card */
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(64, 62, 58); 
-    margin: 1px;
+.unitArea {
+  /* little add unit card */
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(64, 62, 58);
+  margin: 1px;
 }
 
-.theUnit{
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+.theUnit {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
-.iconTheUnit{
-    background-size: 40px;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    width: 45px;
-    height: 45px;
-}
-
-.inputsUnit{
-    display: flex;
-    flex-direction: column;
+.iconTheUnit {
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  width: 45px;
+  height: 45px;
 }
 
-.inputLittleSection{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.inputsUnit {
+  display: flex;
+  flex-direction: column;
 }
 
-.unitNameInput{
-    width: 75px;
-}
-.unitInput{
-    width: 40px;
+.inputsUnit div {
+  display: flex;
+  flex-direction: column;
 }
 
-.icon{
-    background-repeat:no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size:80%;
-    width:25px;
-    height:25px;
+.inputLittleSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.unitNameInput {
+  width: 95%;
+}
+.unitInput {
+  width: 95%;
+}
+
+.icon {
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 80%;
+  width: 25px;
+  height: 25px;
+}
+
+.theUnit button {
+  background-color: var(--base_color);
+  width: 80% !important;
+  color: #ffa500;
+  border: 2px solid #ffa500;
 }
