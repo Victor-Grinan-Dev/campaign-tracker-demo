@@ -53,7 +53,7 @@ import { useEffect } from "react";
 import { setCurrentUser, setIsLogged } from "./features/portalSlice";
 
 //test
-import { testUser } from "./components/views/login/Login";
+//import { testUser } from "./components/views/login/Login";
 
 //device
 import { isMobile } from "react-device-detect";
@@ -74,7 +74,7 @@ const protectedViews = () => {
       <Route path="createformation" element={<CreateFormation />} />
       <Route path="createcampaign" element={<CreateCampaign />} />
       <Route path="drawmap" element={<DrawMap />} />
-      <Route path="myarmy/:formation" element={<DrawMap />} />
+      <Route path="myarmy/:formation" element={<FormationSingle />} />
     </>
   );
 };
