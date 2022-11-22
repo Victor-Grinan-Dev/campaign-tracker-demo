@@ -40,7 +40,6 @@ const DrawMap = () => {
   const dimension = useSelector(state=>state.drawMap.dimension);
   const maxPlayers = useSelector(state=>state.drawMap.mapObj.maxPlayers);
 
-
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
   const reset = useSelector(state=>state.drawMap.reset);
@@ -297,14 +296,9 @@ const DrawMap = () => {
         <div className="topPanel">
           <div className="topArea panelSection">
     
-            {
-            changingName ? 
-              <div>
-                <input type="text" name="name" onChange={changeData} style={fontSize}/>
-                <button onClick={changeNameOkButton} style={fontSize}>ok</button>
-              </div> : 
-              <p onClick={()=>setChangingName(true)} style={fontSize}>Name: "{capitalStart(mapName)}"</p>
-            }
+ 
+            <input type="text" name="name" onChange={changeData} style={fontSize} placeholder="name"/> 
+    
             
             <div className="mainButtons">
               <button className='appButtonGreen' onClick={saveMapHandler}style={fontSize}>Save</button>

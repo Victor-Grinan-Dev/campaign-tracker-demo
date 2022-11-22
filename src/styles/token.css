@@ -1,7 +1,5 @@
 .token{ /* round base */
     color: black; /* subfaction color */
-    width: 60px;
-    height: 60px;
     border-radius: 50%;
     z-index: 3;
     font-size: 8px;
@@ -16,15 +14,12 @@
 .factionColor{ /* border around base */
     background-color: rgb(114, 31, 31);
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .tokenContent{
-    padding-top: 2px;
     color: rgb(254, 254, 254);
     position: relative;
     display: flex;
@@ -34,7 +29,6 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-
 
 .tokenIcon,
 .tokenPoints {
