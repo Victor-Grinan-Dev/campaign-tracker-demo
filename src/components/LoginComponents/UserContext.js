@@ -6,7 +6,7 @@ import React from "react";
 //redux:
 import { useDispatch } from "react-redux";
 // import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/globalState/globalStateSlice";
-import { changeUserName, changeUserType, changeUserIndex, setCurrentUser, setIsLogged } from "../../features/portalSlice";
+import { changeUserName, changeUserType, changeUserIndex, setCurrentUser, setIsLogged, setCurrentUserID } from "../../features/portalSlice";
 // **********
 
 import { createContext, useState, useEffect } from "react";
@@ -69,15 +69,45 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  const updateUser = async (userportdata, useridtodb) => {
+    console.log(userportdata, useridtodb);
+    // const updateUser = async (useridtodb) => {
+    //   console.log(useridtodb);
+
+    setWait(true);
+    // console.log("from before 111 loggedInCheck");
+    // console.log(email, password);
+    // console.log("from loginUser");
+
+    try {
+      const { data } = await Axios.post("suportal.php", {
+        userportdata,
+        useridtodb,
+      });
+      // console.log(data);
+      if (data.success) {
+        setWait(false);
+        return { success: 1 };
+      }
+      setWait(false);
+      // console.log(data.message);
+      return { success: 0, message: data.message };
+    } catch (err) {
+      setWait(false);
+      return { success: 0, message: "Server Error!" };
+    }
+  };
+
   const loggedInCheck = async () => {
     const loginToken = localStorage.getItem("loginToken");
     Axios.defaults.headers.common["Authorization"] = "Bearer " + loginToken;
     if (loginToken) {
       // const { data } = await Axios.get("getUser.php");
       const { data } = await Axios.get("getUser.php");
-      // console.log(data);
+      console.log(data);
       if (data.success && data.user) {
         dispatch(setIsLogged(true));
+        dispatch(setCurrentUserID(data.user.id));
         if (!data.user.lostordata) {
           const newUser = new User(data.user.username);
           newUser.email = data.user.email;
@@ -110,7 +140,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   // return <UserContext.Provider value={{ registerUser, loginUser, wait, user: theUser, loggedInCheck, logout }}>{children}</UserContext.Provider>;
-  return <UserContext.Provider value={{ registerUser, loginUser, wait, loggedInCheck, logout }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ registerUser, loginUser, wait, loggedInCheck, logout, updateUser }}>{children}</UserContext.Provider>;
 };
 
 export default UserContextProvider;

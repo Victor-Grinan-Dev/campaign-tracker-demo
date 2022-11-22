@@ -1,8 +1,7 @@
 import { genId } from "../functions/genId";
 import { ArmyList } from "./army";
 
-export class User {
-  
+export class User {  
   id=genId();
   type = "user";
   level = 0;
@@ -12,6 +11,7 @@ export class User {
   winRate = 0;
   formations = [];
   createdMaps = [];
+
   createdCampaign = null;
   armyList = new ArmyList()//players can have only one army list;
   email = "";
@@ -20,7 +20,7 @@ export class User {
   inGame = null;
   email = undefined;
 
-  constructor(username){
-      this.username = username;
+  constructor(username) {
+    this.username = username;
   }
 }
