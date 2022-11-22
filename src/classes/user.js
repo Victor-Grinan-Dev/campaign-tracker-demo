@@ -1,6 +1,8 @@
+import { genId } from "../functions/genId";
 import { ArmyList } from "./army";
 
-export class User {
+export class User {  
+  id=genId();
   type = "user";
   level = 0;
   rank = "Conscript";
@@ -9,8 +11,9 @@ export class User {
   winRate = 0;
   formations = [];
   createdMaps = [];
-  createdCampaigns = [];
-  armyList = new ArmyList(); //players can have only one army list;
+
+  createdCampaign = null;
+  armyList = new ArmyList()//players can have only one army list;
   email = "";
   avatar = "conscript_red";
   avatars = ["conscript_red", "conscript_blue", "conscript_green", "conscript_yellow"];

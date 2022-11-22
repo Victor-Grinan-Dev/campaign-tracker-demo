@@ -81,6 +81,7 @@ const Login = () => {
           <div>
             {/* <input type="text" name="username" placeholder="Username..." /> */}
             <input
+              className="login_input"
               type="text"
               name="email"
               placeholder="Username..."
@@ -93,10 +94,18 @@ const Login = () => {
           </div>
           <div>
             {/* <input type="text" name="password" placeholder="Password..." /> */}
-            <input type="password" name="password" placeholder="Password..." onChange={onChangeInput} value={formData.password} required />
+            <input
+              className="login_input"
+              type="password"
+              name="password"
+              placeholder="Password..."
+              onChange={onChangeInput}
+              value={formData.password}
+              required
+            />
           </div>
           {/* <HOTWButton caption={"Login"} action={handleSubmit} /> */}
-          <HOTWButton caption={"Login"} action={submitForm} />
+          <HOTWButton caption={"LOGIN"} action={submitForm} />
         </form>
         <br />
         {/* <p>More...</p> */}
