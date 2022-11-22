@@ -139,7 +139,7 @@ function SignUp() {
               {errMsg && <div className="err-msg">{errMsg}</div>}
               <button
                 caption="Sign Up"
-                action={submitForm}
+                onClick={submitForm}
                 className="signup_btn"
               >
                 SIGN UP
