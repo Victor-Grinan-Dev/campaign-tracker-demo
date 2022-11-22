@@ -69,7 +69,7 @@ function SignUp() {
 
   return (
     <>
-      <h1 className="signup_header">test</h1>
+      
       <div
         style={{
           display: "grid",

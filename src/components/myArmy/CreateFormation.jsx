@@ -139,7 +139,7 @@ const CreateFormation = () => {
               id=""
               cols="30"
               rows="3"
-              placeholder="Short description..."
+              placeholder="Description..."
               onChange={updateFormation}
             />
           </div>
