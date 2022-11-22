@@ -212,6 +212,23 @@ const DrawMap = () => {
         navigate("/createcampaign");
   }
 
+  const setMaxPlayers = (mapObj) => {
+    const minPlayers = 2;
+    const maxPlayers = 8;
+
+    if(mapObj.totalTiles, mapObj.totalTiles / 50 > maxPlayers){
+      return maxPlayers;
+    }else if(mapObj.totalTiles / 50 < minPlayers){
+      return minPlayers;
+    }else{
+      let result = Math.floor(mapObj.totalTiles / 50);
+      if (result % 2 !== 0){
+        result = result + 1;
+      }
+      return result;
+    }
+  }
+
   const setPlayableTiles = (mapObj) => {
     let playableTiles = 0;
     for(let row of mapObj.map){
@@ -221,7 +238,9 @@ const DrawMap = () => {
         }
       }
     }
-    return {...mapObj,"playableTiles": playableTiles}
+    const maxPlayer = setMaxPlayers(mapObj);
+    console.log(setMaxPlayers(mapObj))
+    return {...mapObj,"playableTiles": playableTiles, "maxPlayers": maxPlayer};
   }
 
   const mapValidator = () => {

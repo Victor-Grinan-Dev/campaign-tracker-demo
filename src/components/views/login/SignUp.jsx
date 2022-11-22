@@ -55,11 +55,7 @@ function SignUp() {
     const data = await registerUser(formData);
     console.log(formData);
     if (data.success) {
-      //   e.target.reset();
-
       const data = new User(formData.username, formData.password);
-      console.log(data);
-      console.log(JSON.stringify(data));
       localStorage.setItem("portal", JSON.stringify(data));
       setSuccessMsg("You have successfully registered.");
       setErrMsg(false);

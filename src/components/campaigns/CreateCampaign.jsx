@@ -32,7 +32,6 @@ const CreateCampaign = () => {
     const mapRef = useRef(null);
     const imgRef = useRef(null);
     const rulesRef = useRef(null);
-    const isPublishedRef = useRef(null);
     //const imgRef = useRef(null);
     
     const dispatch = useDispatch();
@@ -48,14 +47,12 @@ const CreateCampaign = () => {
     }, [user]);
 
     const changeData = (e) => {
-        //console.log(e.target.name, e.target.value)
         let data = e.target.value;
         if(e.target.name === "map"){
             data = JSON.parse(e.target.value);
         }else if(e.target.name === "isPublished"){
             data = e.target.checked;
         }
-        console.log({...campaignObj,[e.target.name]:data})
         dispatch(setCampaignObj({...campaignObj,[e.target.name]:data}))
     };
 
@@ -64,7 +61,7 @@ const CreateCampaign = () => {
 
         if(campaignObj.name !== "undefined" && campaignObj.armySize > 0 && campaignObj.map.playableTiles >= 35){
             const campaign = new Campaign(genId(), campaignObj.name, campaignObj.armySize, campaignObj.map, campaignObj.rounds, campaignObj.timeLapse);
-
+            campaign.camapignMaster = user.username;
             dispatch(setCurrentUser({...user, "createdCampaign":  campaign}))
             dispatch(setRobotSay("Campaing created!"))
             //reset fields
@@ -76,6 +73,9 @@ const CreateCampaign = () => {
             rulesRef.current.value = "";
 
             dispatch(setCampaignObj(new Campaign(null, "undefined", 0, available_maps[0], 0, "undefined"),))
+
+
+
         }else{
             if(campaignObj.name === "undefined"){
                 dispatch(setRobotSay("We need a name ⛔"))

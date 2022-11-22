@@ -1,7 +1,9 @@
+import { genId } from "../functions/genId";
 import { ArmyList } from "./army";
 
 export class User {
   
+  id=genId();
   type = "user";
   level = 0;
   rank = "Conscript";
