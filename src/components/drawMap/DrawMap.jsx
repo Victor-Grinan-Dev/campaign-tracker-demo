@@ -281,26 +281,26 @@ const DrawMap = () => {
   }
 
   return (
-    <div className='drawmap view'>
+    <div className='view'>
         
         <div className="topPanel">
-          <div className="topArea panelSection">
+          <div className="panelSection">
     
  
-            <input type="text" name="name" onChange={changeData} style={fontSize} placeholder="name"/> 
+            <input type="text" name="name" className='mapNameInput' onChange={changeData} style={fontSize} placeholder="name"/> 
     
             
             <div className="mainButtons">
-              <button className='appButtonGreen' onClick={saveMapHandler}style={fontSize}>Save</button>
-              <button onClick={cancelHandler} className="appButtonDanger" style={fontSize}>Go back</button>
+              <button className='smallButton' onClick={saveMapHandler}style={fontSize}>Save</button>
+              <button onClick={cancelHandler} className="smallButton" style={fontSize}>Go back</button>
             </div>
           </div>
           
-            <div className="midTopPanel panelSection" style={fontSize}>
+            <div className="panelSection" style={fontSize}>
             new canvas: 
             {
               shape === "sq" ? <div className="dimensionArea"> 
-                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton" >
+                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="smallButton" >
                 <option value="" hidden>width</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -311,7 +311,7 @@ const DrawMap = () => {
                   <option value="23">23</option>
                   <option value="25">25</option>
                 </select> 
-                <select ref={dimensionRef} name="heigth" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="heigth" onChange={dimensionHandler} className="smallButton">
                 <option value="" hidden>heigth</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -323,7 +323,7 @@ const DrawMap = () => {
                   <option value="25">25</option>
                 </select>
               </div> :
-              <select ref={dimensionRef} name="hexSide" onChange={dimensionHandler} className="appButton">
+              <select ref={dimensionRef} name="hexSide" onChange={dimensionHandler} className="smallButton">
                   <option value="" hidden>Dimension</option>
                   <option value="5">5</option>
                   <option value="7">7</option>
@@ -332,17 +332,17 @@ const DrawMap = () => {
                   <option value="13">13</option>
               </select>
             }
-              <button onClick={changeData} name="shape" value={shape === "sq" ? "hx" : "sq"} className='appButton'>shape</button>
-              <button onClick={resetHandler} name="shape" className='appButton'>reset</button>
+              <button onClick={changeData} name="shape" value={shape === "sq" ? "hx" : "sq"} className='smallButton'>shape</button>
+              <button onClick={resetHandler} name="shape" className='smallButton'>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">
   
-          <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
+          <button name="-" onClick={tileSizeHandler} className="smallButton">-</button>
              <p style={fontSize}>zoom</p> 
-          <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
+          <button name="+" onClick={tileSizeHandler} className="smallButton">+</button>
 
-            <select ref={setAllRef} onChange={setAllHandler} className='appButton'>
+            <select ref={setAllRef} onChange={setAllHandler} className='smallButton'>
               <option value="" hidden>set all tiles</option>
               <option value="blank" >blank</option>
               <option value="plains" >plains</option>
@@ -352,7 +352,7 @@ const DrawMap = () => {
               <option value="mountains" >mountain</option>
               <option value="city" >city</option>
               </select>
-            <button onClick={randomizeHandler} className='appButton' >randomize</button>
+            <button onClick={randomizeHandler} className='smallButton' >randomize</button>
 
           
         </div>
@@ -368,27 +368,27 @@ const DrawMap = () => {
         </div>
         <div className="bottomPanel">
           <p style={fontSize}>Brush:</p>
-          <div className="topPanelButtons">
-            <div className="terrainButtons">
+          <div className="panelSection">
+            <div className="panelSection">
               
-              <button name="plains" onClick={brushHandler} className='appButton' >plains</button>
-              <button name="hills" onClick={brushHandler} className='appButton' >hills</button>
-              <button name="forest" onClick={brushHandler} className='appButton' >forest</button>
-              <button name="swamp" onClick={brushHandler} className='appButton' >swamp</button>
-              <button name="city" onClick={brushHandler} className='appButton' >city</button>
-              <button name="mountains" onClick={brushHandler} className='appButton' >mountain</button>
+              <button name="plains" onClick={brushHandler} className='smallButton' >plains</button>
+              <button name="hills" onClick={brushHandler} className='smallButton' >hills</button>
+              <button name="forest" onClick={brushHandler} className='smallButton' >forest</button>
+              <button name="swamp" onClick={brushHandler} className='smallButton' >swamp</button>
+              <button name="city" onClick={brushHandler} className='smallButton' >city</button>
+              <button name="mountains" onClick={brushHandler} className='smallButton' >mountain</button>
 
               <div>
-                <button name="blank" onClick={brushHandler} className='appButton' >blank</button>
-                <button name="del" onClick={brushHandler} className='appButton' >delete</button>
+                <button name="blank" onClick={brushHandler} className='smallButton' >blank</button>
+                <button name="del" onClick={brushHandler} className='smallButton' >delete</button>
               </div>
 
             </div>
 
             <div className="featuresButton">
-              <button onClick={setStartsHandler} className='appButton'>start</button>
+              <button onClick={setStartsHandler} className='smallButton'>start</button>
               
-              <button className='appButton'>flag</button>
+              <button className='smallButton'>flag</button>
 
               {/*
               <button> building 1 </button>
