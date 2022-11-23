@@ -233,7 +233,7 @@ const CreateCampaign = () => {
         </div>
       </div>
       <div className="subSection">
-        <Link to="/drawmap">🗺️ Draw a map in blank canvas</Link>
+        <button><Link to="/drawmap">🗺️ Draw a new map from a blank canvas</Link></button>
       </div>
       <div className="flexColumn subSection ">
         <p>

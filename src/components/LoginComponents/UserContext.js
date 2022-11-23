@@ -104,7 +104,7 @@ export const UserContextProvider = ({ children }) => {
     if (loginToken) {
       // const { data } = await Axios.get("getUser.php");
       const { data } = await Axios.get("getUser.php");
-      console.log(data);
+      //console.log(data);
       if (data.success && data.user) {
         dispatch(setIsLogged(true));
         dispatch(setCurrentUserID(data.user.id));
