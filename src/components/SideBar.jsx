@@ -55,7 +55,7 @@ const SideBar = () => {
         {/* blood bowl app */}
         <Link to="/profile">👤</Link>
         <Link to="/chat">💬</Link>
-
+        <a href="https://victor-grinan-dev.github.io/the_game/">🎮</a>
         {user.type === "admin" && <Link to="/adduser">+👤</Link>}
         {user.type === "admin" && <Link to="/post">✍️</Link>}
         <Link to="/about">📜</Link>
