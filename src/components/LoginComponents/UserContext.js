@@ -6,7 +6,7 @@ import React from "react";
 //redux:
 import { useDispatch } from "react-redux";
 // import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/globalState/globalStateSlice";
-import { changeUserName, changeUserType, changeUserIndex, setCurrentUser, setIsLogged, setCurrentUserID } from "../../features/portalSlice";
+import { setCurrentUser, setIsLogged, setCurrentUserID } from "../../features/portalSlice";
 // **********
 
 import { createContext, useState, useEffect } from "react";
@@ -129,6 +129,7 @@ export const UserContextProvider = ({ children }) => {
       await loggedInCheck();
     }
     asyncCall();
+    // eslint-disable-next-line
   }, []);
 
   const logout = () => {

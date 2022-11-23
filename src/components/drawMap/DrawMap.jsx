@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 
 //clases
@@ -9,14 +9,14 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setDimension, setTileSize, setBrush, setMaxPlayers, countDownStartPosLeft } from '../../features/drawMapSlice';
+import { setMapObj, setDimension, setTileSize, setBrush, countDownStartPosLeft } from '../../features/drawMapSlice';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //components
 import MapReader from './MapReader';
 
 //functions
-import {capitalStart} from '../../functions/capitalStart.js'
+//import {capitalStart} from '../../functions/capitalStart.js'
 import { generateMap, mapRandomizer} from '../../functions/mapGenerator';
 
 //data
@@ -30,7 +30,6 @@ const DrawMap = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-  const robotSay = useSelector(state => state.portal.robotSay)
   const dimensionRef = useRef(null);
   const setAllRef = useRef(null);
 
@@ -38,7 +37,6 @@ const DrawMap = () => {
   const mapName = useSelector(state=>state.drawMap.mapObj.name);
   const shape = useSelector(state=>state.drawMap.mapObj.shape);
   const dimension = useSelector(state=>state.drawMap.dimension);
-  const maxPlayers = useSelector(state=>state.drawMap.mapObj.maxPlayers);
 
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
@@ -46,8 +44,6 @@ const DrawMap = () => {
   const startPosLeft = useSelector(state=>state.drawMap.startPosLeft);
 
   const currentUser = useSelector(state=>state.portal.currentUser);
-
-  const [changingName, setChangingName] = useState(false);
 
   useEffect(() => {
     updateMap(generateMap(mapObj.name, dimension, mapObj.shape));
@@ -63,7 +59,7 @@ const DrawMap = () => {
   useEffect(()=>{
     localStorage.setItem("portal", JSON.stringify(currentUser));
     dispatch(setRobotSay(""))
-  },[currentUser]);
+  },[currentUser, dispatch]);
 
   const changeData = (e) => {
     dispatch(setMapObj({...mapObj, [e.target.name]:e.target.value}));
@@ -194,11 +190,6 @@ const DrawMap = () => {
     setRobotSay("");
   }
 
-  const changeNameOkButton = () => {
-    setChangingName(false);
-    setRobotSay("");
-  }
-
   const setStartsHandler = () => {
     dispatch(setBrush("startingPos"))
   }
@@ -215,7 +206,7 @@ const DrawMap = () => {
     const minPlayers = 2;
     const maxPlayers = 8;
 
-    if(mapObj.totalTiles, mapObj.totalTiles / 50 > maxPlayers){
+    if(mapObj.totalTiles && mapObj.totalTiles / 50 > maxPlayers){
       return maxPlayers;
     }else if(mapObj.totalTiles / 50 < minPlayers){
       return minPlayers;
@@ -281,7 +272,6 @@ const DrawMap = () => {
         //resetValues:
         resetHandler();
         setMapObj(new Map("Name", "Undefined", "min", []))
-        setChangingName(false);
         dimensionRef.current.value = "";
         setAllRef.current.value = "";
 
