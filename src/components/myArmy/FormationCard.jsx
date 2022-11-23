@@ -1,9 +1,9 @@
 import React from 'react';
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
+import { setRobotSay } from '../../features/portalSlice';
 
 //component
 import Token from '../token/Token';
@@ -11,10 +11,6 @@ import Token from '../token/Token';
 const FormationCard = ({formation, fn}) => {
 
   const dispatch = useDispatch();
-
-  const user = useSelector(state=>state.portal.currentUser);
-  const army = useSelector(state=>state.portal.currentUser.armyList);
-
 
   const delForm = () => {
     dispatch(setRobotSay("Deleted!"));
