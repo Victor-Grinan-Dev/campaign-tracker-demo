@@ -281,7 +281,7 @@ const DrawMap = () => {
   }
 
   return (
-    <div className='view'>
+    <div className='view drawmap'>
         
         <div className="topPanel">
           <div className="panelSection">

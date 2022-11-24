@@ -79,7 +79,7 @@ const protectedViews = () => {
       <Route path="createcampaign" element={<CreateCampaign />} />
       <Route path="drawmap" element={<DrawMap />} />
       <Route path="myarmy/:formation" element={<FormationSingle />} />
-      <Route path="/showlove" element={<ShowUsLove />} />
+      <Route path="showlove" element={<ShowUsLove />} />
 
     </>
   );
