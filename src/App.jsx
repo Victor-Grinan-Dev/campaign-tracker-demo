@@ -31,6 +31,7 @@ import Settings from './components/views/settings/Settings';
 import AddUser from './components/views/addUser/AddUser';
 import Post from './components/views/post/Post';
 import Chat from './components/views/chat/Chat';
+import ShowUsLove from './components/views/showUsLove/ShowUsLove';
 
 import WarRoom from './components/warRoom/WarRoom';
 import MyArmy from './components/myArmy/MyArmy';
@@ -70,6 +71,7 @@ const protectedViews = () => {
       <Route path="/createformation" element={<CreateFormation />} />
       <Route path="/createcampaign" element={<CreateCampaign />} />
       <Route path="/drawmap" element={<DrawMap />} />
+      <Route path="/showlove" element={<ShowUsLove />} />
     </>
   )
 }
@@ -77,8 +79,8 @@ const protectedViews = () => {
 function App() {
   const dispatch = useDispatch();
   const isLogged = useSelector(state => state.portal.isLogged);
+  localStorage.setItem("portal", JSON.stringify(testUser));
   //const currentUser = useSelector(state => state.portal.currentUser);
-
   useEffect(() => {
     if(Cookies.get("portalLog")){
       const cookie = Cookies.get("portalLog");
