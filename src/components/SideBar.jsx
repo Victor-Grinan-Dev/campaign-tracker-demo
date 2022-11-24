@@ -43,13 +43,11 @@ const SideBar = () => {
       <div className="sidebarContainer">
         <p></p>
         <Link to="/">🏠</Link>
-        <p>❤️</p>
         {/* support us */}
         <p>🔗</p>
         {/* share the app */}
-
-        <Link to="/showlove">❤️</Link>
-        {/* share the app  <p>🔗</p> */}
+        <Link to="/showlove"><p>❤️</p></Link>
+        
         <a href="https://github.com/Victor-Grinan-Dev/MathHammer">🧮</a>{/* MathHammer app */}
         <a href="https://victor-grinan-dev.github.io/diceRoller/">🎲</a>
         <a href="https://victor-grinan-dev.github.io/blood_bowl_turn_timer/">🏈</a>
