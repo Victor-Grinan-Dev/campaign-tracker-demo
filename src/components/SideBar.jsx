@@ -47,12 +47,14 @@ const SideBar = () => {
         {/* support us */}
         <p>🔗</p>
         {/* share the app */}
-        <p>🧮</p>
-        {/* MathHammer app */}
-        <p>🎲</p>
-        {/* diceRoller app */}
-        <p>🏈</p>
-        {/* blood bowl app */}
+
+        <Link to="/showlove">❤️</Link>
+        {/* share the app  <p>🔗</p> */}
+        <a href="https://github.com/Victor-Grinan-Dev/MathHammer">🧮</a>{/* MathHammer app */}
+        <a href="https://victor-grinan-dev.github.io/diceRoller/">🎲</a>
+        <a href="https://victor-grinan-dev.github.io/blood_bowl_turn_timer/">🏈</a>
+        {/* https://github.com/Victor-Grinan-Dev/chess */}
+
         <Link to="/profile">👤</Link>
         <Link to="/chat">💬</Link>
         <a href="https://victor-grinan-dev.github.io/the_game/">🎮</a>

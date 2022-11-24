@@ -23,6 +23,7 @@ import "./styles/tile.css";
 import "./styles/signup.css";
 
 //components:
+
 import Layout from "./pages/Layout";
 import Home from "./components/views/home/Home";
 import Profile from "./components/views/profile/Profile";
@@ -33,6 +34,7 @@ import AddUser from "./components/views/addUser/AddUser";
 import Post from "./components/views/post/Post";
 import Chat from "./components/views/chat/Chat";
 import SignUp from "./components/views/login/SignUp";
+import ShowUsLove from './components/views/showUsLove/ShowUsLove';
 
 import WarRoom from "./components/warRoom/WarRoom";
 import MyArmy from "./components/myArmy/MyArmy";
@@ -40,6 +42,7 @@ import CreateFormation from "./components/myArmy/CreateFormation";
 import CreateCampaign from "./components/campaigns/CreateCampaign";
 import DrawMap from "./components/drawMap/DrawMap";
 import FormationSingle from "./components/myArmy/FormationSingle";
+
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -62,6 +65,7 @@ import { User } from "./classes/user";
 const protectedViews = () => {
   return (
     <>
+
       <Route path="profile" element={<Profile />} />
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
@@ -75,6 +79,8 @@ const protectedViews = () => {
       <Route path="createcampaign" element={<CreateCampaign />} />
       <Route path="drawmap" element={<DrawMap />} />
       <Route path="myarmy/:formation" element={<FormationSingle />} />
+      <Route path="/showlove" element={<ShowUsLove />} />
+
     </>
   );
 };
@@ -82,10 +88,8 @@ const protectedViews = () => {
 function App() {
   const dispatch = useDispatch();
 
-
   const isLogged = useSelector((state) => state.portal.isLogged);
   const username = useSelector((state) => state.portal.currentUser.username);
-
 
   useEffect(() => {
     if (Cookies.get("portalLog")) {
