@@ -1,7 +1,33 @@
 import React from 'react';
+
+//redux
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setRobotSay } from '../../features/portalSlice';
+
+//component
 import Token from '../token/Token';
 
 const FormationCard = ({formation, fn}) => {
+
+  const dispatch = useDispatch();
+
+  const delForm = () => {
+    dispatch(setRobotSay("Deleted!"));
+  }
+  const addToArmyHandler = (e) => {
+    if(e.target.attributes[0].nodeValue === "selected"){
+      e.target.attributes[0].nodeValue = "deselected";
+      dispatch(setRobotSay("deleted from army"))
+
+    }else{
+      e.target.attributes[0].nodeValue = "selected";
+      console.log(formation)
+      dispatch(setRobotSay("added to army"));
+      //dispatch(setCurrentUser({...user, "armyList": [...user.armyList]}))
+    }
+    
+  }
   return (
     <div className='cardFormation'>
       
@@ -9,7 +35,9 @@ const FormationCard = ({formation, fn}) => {
 
         <div className="titleArea">
           <p className='cardFormName'>{formation.name} </p>
-          <div className="selected" />
+
+          <div className="selected" onClick={addToArmyHandler}/>
+
         </div>
 
         <div className="imgBox">
@@ -30,13 +58,17 @@ const FormationCard = ({formation, fn}) => {
             <p className='formCardDetail'>{formation.point_cost}</p>
             <p className='formCardDetail'>{formation.damage}</p>
             <p className='formCardDetail'>{formation.defense}</p>
-            <p className='formCardDetail'>{formation.movement}</p>
-            
+            <p className='formCardDetail'>{formation.movement === 100 ? 0 : formation.movement }</p>
           </div>
           
         </div>
-        <div>
-          <p style={{fontSize:"10px"}}>❌</p>
+        <div className="cardButtons">
+          
+          
+          <button style={{fontSize:"10px", margin:"0", padding:"0"}} onClick={delForm} >
+            <Link to={`${formation.name}`} state={formation}>ℹ️</Link>
+          </button>
+
         </div>
       </div>
     </div>

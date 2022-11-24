@@ -1,119 +1,136 @@
 //styles:
-import './styles/appMain.css';
-import './styles/login.css';
-import './styles/logo.css';
-import './styles/button.css';
-import './styles/navBar.css';
-import './styles/sideBar.css';
-import './styles/userData.css';
-import './styles/profile.css';
-import './styles/contact.css';
-import './styles/chat.css';
-import './styles/myArmy.css'
-import './styles/formations.css'
-import './styles/formationCard.css';
-import './styles/token.css';
-import './styles/createFormation.css'
-import './styles/createUnit.css';
-import './styles/warRoom.css';
-import './styles/campaignCard.css';
-import './styles/createCampaign.css';
-import './styles/drawMap.css';
-import './styles/tile.css';
+import "./styles/appMain.css";
+import "./styles/login.css";
+import "./styles/logo.css";
+import "./styles/button.css";
+import "./styles/navBar.css";
+import "./styles/sideBar.css";
+import "./styles/userData.css";
+import "./styles/profile.css";
+import "./styles/contact.css";
+import "./styles/chat.css";
+import "./styles/myArmy.css";
+import "./styles/formations.css";
+import "./styles/formationCard.css";
+import "./styles/token.css";
+import "./styles/createFormation.css";
+import "./styles/createUnit.css";
+import "./styles/warRoom.css";
+import "./styles/campaignCard.css";
+import "./styles/createCampaign.css";
+import "./styles/drawMap.css";
+import "./styles/tile.css";
+import "./styles/signup.css";
 
 //components:
-import Layout from './pages/Layout';
-import Home from './components/views/home/Home';
-import Profile from './components/views/profile/Profile';
-import About from './components/views/about/About';
-import Contact from './components/views/contact/Contact';
-import Settings from './components/views/settings/Settings';
-import AddUser from './components/views/addUser/AddUser';
-import Post from './components/views/post/Post';
-import Chat from './components/views/chat/Chat';
+
+import Layout from "./pages/Layout";
+import Home from "./components/views/home/Home";
+import Profile from "./components/views/profile/Profile";
+import About from "./components/views/about/About";
+import Contact from "./components/views/contact/Contact";
+import Settings from "./components/views/settings/Settings";
+import AddUser from "./components/views/addUser/AddUser";
+import Post from "./components/views/post/Post";
+import Chat from "./components/views/chat/Chat";
+import SignUp from "./components/views/login/SignUp";
 import ShowUsLove from './components/views/showUsLove/ShowUsLove';
 
-import WarRoom from './components/warRoom/WarRoom';
-import MyArmy from './components/myArmy/MyArmy';
-import CreateFormation from './components/myArmy/CreateFormation';
-import CreateCampaign from './components/campaigns/CreateCampaign';
-import DrawMap from './components/drawMap/DrawMap';
+import WarRoom from "./components/warRoom/WarRoom";
+import MyArmy from "./components/myArmy/MyArmy";
+import CreateFormation from "./components/myArmy/CreateFormation";
+import CreateCampaign from "./components/campaigns/CreateCampaign";
+import DrawMap from "./components/drawMap/DrawMap";
+import FormationSingle from "./components/myArmy/FormationSingle";
+
 
 //react:
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //redux
-import {  useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 //cookies
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
-import { setCurrentUser, setIsLogged } from './features/portalSlice';
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { setCurrentUser, setIsLogged } from "./features/portalSlice";
 
 //test
-import { testUser } from './components/views/login/Login';
+//import { testUser } from "./components/views/login/Login";
 
 //device
-import {isMobile} from 'react-device-detect';
+import { isMobile } from "react-device-detect";
+import { User } from "./classes/user";
 
 const protectedViews = () => {
   return (
     <>
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/adduser" element={<AddUser />} />
-      <Route path="/post" element={<Post />} />
-      <Route path="/chat" element={<Chat />} />
-      <Route path="/warroom" element={<WarRoom />} />
-      <Route path="/myarmy" element={<MyArmy />} />
-      <Route path="/createformation" element={<CreateFormation />} />
-      <Route path="/createcampaign" element={<CreateCampaign />} />
-      <Route path="/drawmap" element={<DrawMap />} />
+
+      <Route path="profile" element={<Profile />} />
+      <Route path="about" element={<About />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="settings" element={<Settings />} />
+      <Route path="adduser" element={<AddUser />} />
+      <Route path="post" element={<Post />} />
+      <Route path="chat" element={<Chat />} />
+      <Route path="warroom" element={<WarRoom />} />
+      <Route path="myarmy" element={<MyArmy />} />
+      <Route path="createformation" element={<CreateFormation />} />
+      <Route path="createcampaign" element={<CreateCampaign />} />
+      <Route path="drawmap" element={<DrawMap />} />
+      <Route path="myarmy/:formation" element={<FormationSingle />} />
       <Route path="/showlove" element={<ShowUsLove />} />
+
     </>
-  )
-}
+  );
+};
 
 function App() {
   const dispatch = useDispatch();
-  const isLogged = useSelector(state => state.portal.isLogged);
-  localStorage.setItem("portal", JSON.stringify(testUser));
-  //const currentUser = useSelector(state => state.portal.currentUser);
+
+  const isLogged = useSelector((state) => state.portal.isLogged);
+  const username = useSelector((state) => state.portal.currentUser.username);
+
   useEffect(() => {
-    if(Cookies.get("portalLog")){
+    if (Cookies.get("portalLog")) {
       const cookie = Cookies.get("portalLog");
-      if (cookie === "true"){
+      if (cookie === "true") {
         dispatch(setIsLogged(true));
-        if (localStorage.getItem("portal")){
-          dispatch(setCurrentUser(JSON.parse(localStorage.getItem("portal"))))
-          console.log("read from localStorage")
-        }else{
-          localStorage.setItem("portal", JSON.stringify(testUser)); //this comes from the database?
-          console.log("get data from database?")
+
+
+        if (localStorage.getItem("lostordata")) {
+          dispatch(
+            setCurrentUser(JSON.parse(localStorage.getItem("lostordata")))
+          );
+          console.log("read from localStorage");
+        } else {
+          // localStorage.setItem("portal", JSON.stringify(testUser));
+          new User(username);
+          localStorage.setItem("lostordata");
+          //this comes from the database?
+
+          console.log("get data from database?");
         }
       }
-    }   
+    }
 
-    // eslint-disable-next-line      
+    // eslint-disable-next-line
   }, []);
 
-  if (isMobile){
+  if (isMobile) {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/*" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="signup" element={<SignUp />} />
             {isLogged && protectedViews()}
           </Route>
         </Routes>
       </BrowserRouter>
     );
   }
-  return (
-    <h1>This app is only for mobiles</h1>
-  )
+  return <h1>This app is only for mobiles</h1>;
 }
 
 export default App;

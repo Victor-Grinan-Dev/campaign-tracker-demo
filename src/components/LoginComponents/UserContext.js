@@ -2,34 +2,36 @@
 import React from "react";
 //hooks:
 
-// import { Link, useNavigate } from "react-router-dom";
+//import { Link, useNavigate } from "react-router-dom";
 //redux:
 import { useDispatch } from "react-redux";
 // import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/globalState/globalStateSlice";
-import { changeUserName, changeUserType, changeUserIndex, setIsLogged } from "../../features/portalSlice";
+import { setCurrentUser, setIsLogged, setCurrentUserID } from "../../features/portalSlice";
 // **********
 
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { User } from "../../classes/user";
 export const UserContext = createContext();
 
 export const Axios = axios.create({
-  baseURL: "http://localhost/hammer_db_api/",
+  // baseURL: "http://localhost/hammer_db_api/",
+  baseURL: "https://hammerdbapi.herokuapp.com/",
 });
 
 export const UserContextProvider = ({ children }) => {
-  const [theUser, setUser] = useState(null);
+  // const [theUser, setUser] = useState(null);
   const [wait, setWait] = useState(false);
   // added from Game
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  //const navigate = useNavigate();
   // **********
 
-  const registerUser = async ({ name, email, password }) => {
+  const registerUser = async ({ username, email, password }) => {
     setWait(true);
     try {
       const { data } = await Axios.post("register.php", {
-        name,
+        username,
         email,
         password,
       });
@@ -43,23 +45,52 @@ export const UserContextProvider = ({ children }) => {
 
   const loginUser = async ({ email, password }) => {
     setWait(true);
-    console.log("from before 111 loggedInCheck");
-    console.log(email, password);
-    console.log("from loginUser");
+    // console.log("from before 111 loggedInCheck");
+    // console.log(email, password);
+    // console.log("from loginUser");
 
     try {
       const { data } = await Axios.post("login.php", {
         email,
         password,
       });
-      console.log(data);
+      // console.log(data);
       if (data.success && data.token) {
         localStorage.setItem("loginToken", data.token);
         setWait(false);
         return { success: 1 };
       }
       setWait(false);
-      console.log(data.message);
+      // console.log(data.message);
+      return { success: 0, message: data.message };
+    } catch (err) {
+      setWait(false);
+      return { success: 0, message: "Server Error!" };
+    }
+  };
+
+  const updateUser = async (userportdata, useridtodb) => {
+    console.log(userportdata, useridtodb);
+    // const updateUser = async (useridtodb) => {
+    //   console.log(useridtodb);
+
+    setWait(true);
+    // console.log("from before 111 loggedInCheck");
+    // console.log(email, password);
+    // console.log("from loginUser");
+
+    try {
+      const { data } = await Axios.post("suportal.php", {
+        userportdata,
+        useridtodb,
+      });
+      // console.log(data);
+      if (data.success) {
+        setWait(false);
+        return { success: 1 };
+      }
+      setWait(false);
+      // console.log(data.message);
       return { success: 0, message: data.message };
     } catch (err) {
       setWait(false);
@@ -73,18 +104,23 @@ export const UserContextProvider = ({ children }) => {
     if (loginToken) {
       // const { data } = await Axios.get("getUser.php");
       const { data } = await Axios.get("getUser.php");
-      console.log(data);
+      //console.log(data);
       if (data.success && data.user) {
-        console.log(data.user);
-        // dispatch(changeUserName(data.user.name));
-        // dispatch(changeUserIndex(data.user.id));
         dispatch(setIsLogged(true));
-        setUser(data.user);
+        dispatch(setCurrentUserID(data.user.id));
+        if (!data.user.lostordata) {
+          const newUser = new User(data.user.username);
+          newUser.email = data.user.email;
+          dispatch(setCurrentUser(newUser));
+          return;
+        }
+        const fetdata = JSON.parse(data.user.lostordata);
+        // console.log(fetdata);
+        // console.log(JSON.parse(data.user.lostordata));
+        dispatch(setCurrentUser(fetdata));
         return;
-        // return setUser(data.user);
       }
-
-      setUser(null);
+      dispatch(setCurrentUser({}));
     }
   };
 
@@ -93,19 +129,19 @@ export const UserContextProvider = ({ children }) => {
       await loggedInCheck();
     }
     asyncCall();
+    // eslint-disable-next-line
   }, []);
 
   const logout = () => {
     localStorage.removeItem("loginToken");
-    setUser(null);
-    // added from Game
-    // dispatch(setIsLogged(false));
-    // dispatch(changeUserType(undefined));
-    // dispatch(changeUserName(undefined));
-    // navigate("/");
+    dispatch(setCurrentUser({}));
+    dispatch(setIsLogged(false));
+    //TRANSFER LOCAL STORAGE TO DB
+    //navigate("/");
   };
 
-  return <UserContext.Provider value={{ registerUser, loginUser, wait, user: theUser, loggedInCheck, logout }}>{children}</UserContext.Provider>;
+  // return <UserContext.Provider value={{ registerUser, loginUser, wait, user: theUser, loggedInCheck, logout }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ registerUser, loginUser, wait, loggedInCheck, logout, updateUser }}>{children}</UserContext.Provider>;
 };
 
 export default UserContextProvider;

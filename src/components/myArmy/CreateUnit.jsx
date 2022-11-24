@@ -90,8 +90,8 @@ const CreateUnit = () => {
                   backgroundImage: `url(${unitsImages[unit]})`,
                 }}
                 />
-                <label style={{fontSize:"8px"}}> { capitalStart(unit.split("_").join(" ")) } </label>
-                <button onClick={typeHandler} name="type" value={unit}> ➡️ </button>
+                <p style={{fontSize:"8px"}}> { capitalStart(unit.split("_").join(" ")) } </p>
+                <button onClick={typeHandler} name="type" value={unit}> → </button>
               </div>
             ))
             }
@@ -106,13 +106,13 @@ const CreateUnit = () => {
               fontSize:"10px",
             }}>{capitalStart(skills_by_unit_type[type].description)}</p>
             <div className="inputsUnit">
-              <div className='inputLittleSection'><label>Name: </label><input ref={unitNameRef} type="text" className='unitNameInput' onChange={nameHandler}/></div>
+              <div className='inputLittleSection'><p>Name: </p><input ref={unitNameRef} type="text" className='unitNameInput' onChange={nameHandler}/></div>
               <div className='inputLittleSection'>
-                <label>Models: </label>
+                <p>Models: </p>
                 <input ref={unitModelsRef} type="number" className='unitInput' onChange={modelsHandler}/>
               </div>
               <div className='inputLittleSection'>
-                <label>Point const:</label>
+                <p>Point const:</p>
                 <input ref={unitPointsRef} type="number" className='unitInput' onChange={poitCostHandler}/>
               </div>
             </div>

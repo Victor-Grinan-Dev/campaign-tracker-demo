@@ -8,9 +8,12 @@ export const unit2 = new Unit(2,"unit1", 1, 85, skills_by_unit_type["transport_t
 export const unit3 = new Unit(3,"unit1", 5, 100, skills_by_unit_type["infantry"]);
 export const unit4 = new Unit(4,"unit1", 1, 85, skills_by_unit_type["transport_tank"]);
 
-const testForm = new Formation("Form Test",[unit1, unit2, unit3,
-  unit4], factions["human_kin"], "nada" );
-testForm.point_cost = 370;
-testForm.damage = 45;
+export const unit6 = new Unit(2,"unit1", 1, 135, skills_by_unit_type["transport_armoured_tank"]);
+export const unit8 = new Unit(4,"unit1", 1, 135, skills_by_unit_type["transport_armoured_tank"]);
 
-export default testForm;
+const testForm1 = new Formation("Armoured Patrol",[unit1, unit2, unit3, unit4], factions["human_kin"], "nada" );
+testForm1.is_listed= false;
+const testForm2 = new Formation("Tank Squad",[unit6,unit8], factions["human_kin"], "nada" );
+testForm2.is_listed= false;
+const testFormList = [testForm1, testForm2];
+export default testFormList;

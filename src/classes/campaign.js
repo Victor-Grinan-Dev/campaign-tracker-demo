@@ -1,5 +1,5 @@
 export class Campaign {
-    isPublished = false;
+    isPublished = true;
     isStarted = false;
     isEnded = false;
     rules = [];
@@ -9,6 +9,7 @@ export class Campaign {
     initialMap = []; //initial map in case of comparison
     banner = undefined;
     actionPool = [] //[ timestamp, armyName, action ]
+    camapignMaster = undefined;
 
     constructor(campaignId, name, armySize, map, rounds=4, timeLapse="weeks") {
         this.campaignId = campaignId;

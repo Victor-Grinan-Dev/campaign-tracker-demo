@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 
 //clases
@@ -9,24 +9,27 @@ import water from '../../assets/backgrounds/sea_sprite.jpg';//NOT WORKING
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapObj, setDimension, setTileSize, setBrush, setReset, setMaxPlayers, countDownStartPosLeft, setStartPosLeft } from '../../features/drawMapSlice';
+import { setMapObj, setDimension, setTileSize, setBrush, countDownStartPosLeft } from '../../features/drawMapSlice';
 import { setCurrentUser, setRobotSay } from '../../features/portalSlice';
 
 //components
 import MapReader from './MapReader';
 
 //functions
-import {capitalStart} from '../../functions/capitalStart.js'
+//import {capitalStart} from '../../functions/capitalStart.js'
 import { generateMap, mapRandomizer} from '../../functions/mapGenerator';
 
 //data
 import { terrainTypes } from '../../data/terrainTypes.js'
 
+const fontSize = {
+  fontSize:"12px"
+};
+
 const DrawMap = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-  const robotSay = useSelector(state => state.portal.robotSay)
   const dimensionRef = useRef(null);
   const setAllRef = useRef(null);
 
@@ -34,8 +37,6 @@ const DrawMap = () => {
   const mapName = useSelector(state=>state.drawMap.mapObj.name);
   const shape = useSelector(state=>state.drawMap.mapObj.shape);
   const dimension = useSelector(state=>state.drawMap.dimension);
-  const maxPlayers = useSelector(state=>state.drawMap.mapObj.maxPlayers);
-
 
   const tileSize = useSelector(state=>state.drawMap.tileSize);
   const brush = useSelector(state=>state.drawMap.brush);
@@ -43,8 +44,6 @@ const DrawMap = () => {
   const startPosLeft = useSelector(state=>state.drawMap.startPosLeft);
 
   const currentUser = useSelector(state=>state.portal.currentUser);
-
-  const [changingName, setChangingName] = useState(false);
 
   useEffect(() => {
     updateMap(generateMap(mapObj.name, dimension, mapObj.shape));
@@ -60,7 +59,7 @@ const DrawMap = () => {
   useEffect(()=>{
     localStorage.setItem("portal", JSON.stringify(currentUser));
     dispatch(setRobotSay(""))
-  },[currentUser]);
+  },[currentUser, dispatch]);
 
   const changeData = (e) => {
     dispatch(setMapObj({...mapObj, [e.target.name]:e.target.value}));
@@ -191,21 +190,33 @@ const DrawMap = () => {
     setRobotSay("");
   }
 
-  const changeNameOkButton = () => {
-    setChangingName(false);
-    setRobotSay("");
-  }
-
   const setStartsHandler = () => {
     dispatch(setBrush("startingPos"))
   }
-
+      
   const cancelHandler = () => {
         dispatch(setDimension("min"));
         dispatch(setMaxPlayers(2));
         dispatch(setTileSize(30));
         dispatch(setRobotSay(""))
         navigate("/createcampaign");
+  }
+
+  const setMaxPlayers = (mapObj) => {
+    const minPlayers = 2;
+    const maxPlayers = 8;
+
+    if(mapObj.totalTiles && mapObj.totalTiles / 50 > maxPlayers){
+      return maxPlayers;
+    }else if(mapObj.totalTiles / 50 < minPlayers){
+      return minPlayers;
+    }else{
+      let result = Math.floor(mapObj.totalTiles / 50);
+      if (result % 2 !== 0){
+        result = result + 1;
+      }
+      return result;
+    }
   }
 
   const setPlayableTiles = (mapObj) => {
@@ -217,7 +228,9 @@ const DrawMap = () => {
         }
       }
     }
-    return {...mapObj,"playableTiles": playableTiles}
+    const maxPlayer = setMaxPlayers(mapObj);
+    console.log(setMaxPlayers(mapObj))
+    return {...mapObj,"playableTiles": playableTiles, "maxPlayers": maxPlayer};
   }
 
   const mapValidator = () => {
@@ -259,7 +272,6 @@ const DrawMap = () => {
         //resetValues:
         resetHandler();
         setMapObj(new Map("Name", "Undefined", "min", []))
-        setChangingName(false);
         dimensionRef.current.value = "";
         setAllRef.current.value = "";
 
@@ -269,34 +281,26 @@ const DrawMap = () => {
   }
 
   return (
-    <div className='drawmap view'>
-        <div>
-          <p>🤖: {robotSay}</p>
-        </div>
+    <div className='view'>
         
         <div className="topPanel">
-          <div className="topArea panelSection">
+          <div className="panelSection">
     
-            {
-            changingName ? 
-              <div>
-                <input type="text" name="name" onChange={changeData}/>
-                <button onClick={changeNameOkButton}>ok</button>
-              </div> : 
-              <p onClick={()=>setChangingName(true)}>Name: "{capitalStart(mapName)}"</p>
-            }
+ 
+            <input type="text" name="name" className='mapNameInput' onChange={changeData} style={fontSize} placeholder="name"/> 
+    
             
             <div className="mainButtons">
-              <button className='appButtonGreen' onClick={saveMapHandler}>save</button>
-              <button onClick={cancelHandler} className="appButtonDanger">cancel</button>
+              <button className='smallButton' onClick={saveMapHandler}style={fontSize}>Save</button>
+              <button onClick={cancelHandler} className="smallButton" style={fontSize}>Go back</button>
             </div>
           </div>
           
-            <div className="midTopPanel panelSection">
+            <div className="panelSection" style={fontSize}>
             new canvas: 
             {
               shape === "sq" ? <div className="dimensionArea"> 
-                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="width" onChange={dimensionHandler} className="smallButton" >
                 <option value="" hidden>width</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -307,7 +311,7 @@ const DrawMap = () => {
                   <option value="23">23</option>
                   <option value="25">25</option>
                 </select> 
-                <select ref={dimensionRef} name="heigth" onChange={dimensionHandler} className="appButton">
+                <select ref={dimensionRef} name="heigth" onChange={dimensionHandler} className="smallButton">
                 <option value="" hidden>heigth</option>
                   <option value="9">9</option>
                   <option value="11">11</option>
@@ -319,7 +323,7 @@ const DrawMap = () => {
                   <option value="25">25</option>
                 </select>
               </div> :
-              <select ref={dimensionRef} name="hexSide" onChange={dimensionHandler} className="appButton">
+              <select ref={dimensionRef} name="hexSide" onChange={dimensionHandler} className="smallButton">
                   <option value="" hidden>Dimension</option>
                   <option value="5">5</option>
                   <option value="7">7</option>
@@ -328,17 +332,17 @@ const DrawMap = () => {
                   <option value="13">13</option>
               </select>
             }
-              <button onClick={changeData} name="shape" value={shape === "sq" ? "hx" : "sq"} className='appButton'>shape</button>
-              <button onClick={resetHandler} name="shape" className='appButton'>reset</button>
+              <button onClick={changeData} name="shape" value={shape === "sq" ? "hx" : "sq"} className='smallButton'>shape</button>
+              <button onClick={resetHandler} name="shape" className='smallButton'>reset</button>
           </div>
 
         <div className="bottomTopPanel panelSection">
   
-          <button name="-" onClick={tileSizeHandler} className="appButton">-</button>
-             <>zoom</> 
-          <button name="+" onClick={tileSizeHandler} className="appButton">+</button>
+          <button name="-" onClick={tileSizeHandler} className="smallButton">-</button>
+             <p style={fontSize}>zoom</p> 
+          <button name="+" onClick={tileSizeHandler} className="smallButton">+</button>
 
-            <select ref={setAllRef} onChange={setAllHandler} className='appButton'>
+            <select ref={setAllRef} onChange={setAllHandler} className='smallButton'>
               <option value="" hidden>set all tiles</option>
               <option value="blank" >blank</option>
               <option value="plains" >plains</option>
@@ -348,7 +352,7 @@ const DrawMap = () => {
               <option value="mountains" >mountain</option>
               <option value="city" >city</option>
               </select>
-            <button onClick={randomizeHandler} className='appButton' >randomize</button>
+            <button onClick={randomizeHandler} className='smallButton' >randomize</button>
 
           
         </div>
@@ -363,27 +367,28 @@ const DrawMap = () => {
         {<MapReader nestedArray={mapObj.map} tileSize={tileSize} shape={mapObj.shape} mapObj={mapObj} action={clickTileHandler}/> }
         </div>
         <div className="bottomPanel">
-          <p>Brush:</p>
-          <div className="topPanelButtons">
-            <div className="terrainButtons">
+          <p style={fontSize}>Brush:</p>
+          <div className="panelSection">
+            <div className="panelSection">
               
-              <button name="plains" onClick={brushHandler} className='appButton' >plains</button>
-              <button name="hills" onClick={brushHandler} className='appButton' >hills</button>
-              <button name="forest" onClick={brushHandler} className='appButton' >forest</button>
-              <button name="swamp" onClick={brushHandler} className='appButton' >swamp</button>
-              <button name="city" onClick={brushHandler} className='appButton' >city</button>
-              <button name="mountains" onClick={brushHandler} className='appButton' >mountain</button>
+              <button name="plains" onClick={brushHandler} className='smallButton' >plains</button>
+              <button name="hills" onClick={brushHandler} className='smallButton' >hills</button>
+              <button name="forest" onClick={brushHandler} className='smallButton' >forest</button>
+              <button name="swamp" onClick={brushHandler} className='smallButton' >swamp</button>
+              <button name="city" onClick={brushHandler} className='smallButton' >city</button>
+              <button name="mountains" onClick={brushHandler} className='smallButton' >mountain</button>
 
               <div>
-                <button name="blank" onClick={brushHandler} className='appButton' >blank</button>
-                <button name="del" onClick={brushHandler} className='appButton' >delete</button>
+                <button name="blank" onClick={brushHandler} className='smallButton' >blank</button>
+                <button name="del" onClick={brushHandler} className='smallButton' >delete</button>
               </div>
 
             </div>
 
             <div className="featuresButton">
-              <button onClick={setStartsHandler}>start</button>
-              <button>flag</button>
+              <button onClick={setStartsHandler} className='smallButton'>start</button>
+              
+              <button className='smallButton'>flag</button>
 
               {/*
               <button> building 1 </button>
@@ -401,8 +406,6 @@ const DrawMap = () => {
               */}
         
           </div>
-
-          
         </div>
     </div>
   )
