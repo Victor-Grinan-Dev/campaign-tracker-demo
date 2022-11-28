@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useContext } from "react";
 import HOTWButton from "../../ui_components/HOTWButton";
 import Gates from "../../ui_components/Gates";
 import Logo from "../../ui_components/Logo";

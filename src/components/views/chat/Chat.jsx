@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Msg } from '../../../classes/msg';
 
-const reciver = "all";
-const search = "";
+//const reciver = "all";
+//const search = "";
 
 const Chat = () => {
     const [text, setText] = useState();

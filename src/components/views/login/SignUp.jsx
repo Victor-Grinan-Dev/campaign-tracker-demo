@@ -79,7 +79,7 @@ function SignUp() {
         <img
           className="signup_img"
           src={userImage}
-          alt="user Image"
+          alt="userType"
           style={{
             filter: "grayscale(100%)",
             height: "40vh",

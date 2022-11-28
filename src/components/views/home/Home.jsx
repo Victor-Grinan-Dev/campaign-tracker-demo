@@ -9,7 +9,7 @@ import Login from "../login/Login";
 
 const Home = () => {
   // const dispatch = useDispatch();
-  const user = useSelector((state) => state.portal.currentUser);
+  //const user = useSelector((state) => state.portal.currentUser);
   const isLogged = useSelector((state) => state.portal.isLogged);
   // const localuser = useSelector((state) => state.portal.currentUser);
   // console.log(localuser);
