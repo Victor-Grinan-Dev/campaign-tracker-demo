@@ -16,14 +16,13 @@ import { User } from "../../../classes/user";
 
 const userImage = "https://source.unsplash.com/1vC4ZwkJNdA";
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/; //4 to 24
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/; //(?*=.*[!"$@€£%"])
-
-const USER_URL = "/user";
+//const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/; //4 to 24
+//const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/; //(?*=.*[!"$@€£%"]
+//const USER_URL = "/user";
 
 function SignUp() {
   // LoginDB place
-
+  const [success, setSuccess] = useState(false);
   const { registerUser, wait } = useContext(UserContext);
   const [errMsg, setErrMsg] = useState(false);
   const [successMsg, setSuccessMsg] = useState(false);
@@ -43,7 +42,7 @@ function SignUp() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-
+    console.log(wait)
     if (!Object.values(formData).every((val) => val.trim() !== "")) {
       console.log("from object" + Object.values(formData));
       setSuccessMsg(false);
@@ -58,6 +57,7 @@ function SignUp() {
       localStorage.setItem("portal", JSON.stringify(data));
       setSuccessMsg("You have successfully registered.");
       setErrMsg(false);
+      setSuccess(true)
     } else if (!data.success && data.message) {
       console.log("test" + data.message);
       setSuccessMsg(false);
@@ -65,7 +65,7 @@ function SignUp() {
     }
   };
 
-  const [success, setSuccess] = useState(false);
+  
 
   return (
     <>

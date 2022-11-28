@@ -2,10 +2,10 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import HOTWButton from "../../ui_components/HOTWButton";
 import Gates from "../../ui_components/Gates";
 import Logo from "../../ui_components/Logo";
-import { useDispatch } from "react-redux";
-import { setCurrentUser, setIsLogged } from "../../../features/portalSlice";
+//import { useDispatch } from "react-redux";
+//import { setCurrentUser, setIsLogged } from "../../../features/portalSlice";
 import { User } from "../../../classes/user";
-import Cookies from "js-cookie";
+//import Cookies from "js-cookie";
 import { UserContext } from "../../LoginComponents/UserContext";
 import NextPage from "./NextPage";
 
@@ -14,7 +14,7 @@ testUser.type = "admin";
 
 const Login = () => {
   const userRef = useRef();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   // const handleSubmit = () => {
   //   dispatch(setCurrentUser(testUser));
@@ -24,7 +24,7 @@ const Login = () => {
 
   // Login to db space
   const { loginUser, wait, loggedInCheck, user } = useContext(UserContext);
-  const [redirect, setRedirect] = useState(false);
+  //const [redirect, setRedirect] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -39,7 +39,7 @@ const Login = () => {
     });
   };
   const submitForm = async (e) => {
-    // console.log("from submitForm");
+    console.log(wait, user);
     e.preventDefault();
 
     if (!Object.values(formData).every((val) => val.trim() !== "")) {
@@ -51,7 +51,7 @@ const Login = () => {
     if (data.success) {
       // console.log(data);
       // e.target.reset();
-      setRedirect("Redirecting...");
+      //setRedirect("Redirecting...");
       // console.log("go to loggedIncheck");
       const ret = await loggedInCheck();
       // console.log(user.name);
@@ -63,6 +63,7 @@ const Login = () => {
       // dispatch(changeUserIndex(user.id));
       // dispatch(changeUserName(data[item].username));
       // dispatch(changeUserIndex(item));
+      console.log(ret)
       return;
     }
     setErrMsg(data.message);
@@ -114,6 +115,7 @@ const Login = () => {
         </p>
         <NextPage pageUrl="/signup" pageName="Sign Up" />
       </div>
+      <p>{errMsg}</p>
     </div>
   );
 };

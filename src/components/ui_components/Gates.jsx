@@ -41,7 +41,8 @@ const Gates = () => {
             <img className="gate" src={user} alt="user" />
           </>
         )
-      
+      default:
+        return 0;
     }
   }
 

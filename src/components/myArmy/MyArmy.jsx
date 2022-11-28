@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
 import Formations from './Formations';
@@ -7,7 +7,7 @@ import Formations from './Formations';
 
 
 const MyArmy = () => {
-  const robotSay = useSelector(state=>state.portal.robotSay)
+  //const robotSay = useSelector(state=>state.portal.robotSay)
   return (
     <div className='myArmy view'>
       

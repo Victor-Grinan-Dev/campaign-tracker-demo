@@ -39,7 +39,7 @@ const allCamp = [
 ];
 
 const WarRoom = () => {
-    const user = useSelector(state => state.portal.currentUser);
+    //const user = useSelector(state => state.portal.currentUser);
   return (
     <div className='warRoom view'>
         <div className="campaignArea">

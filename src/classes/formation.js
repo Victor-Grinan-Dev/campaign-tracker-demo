@@ -1,4 +1,4 @@
-import { factions } from "../data/factions";
+//import { factions } from "../data/factions";
 
 export class Formation {
     id=null
