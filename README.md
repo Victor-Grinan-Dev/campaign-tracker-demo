@@ -14,7 +14,7 @@ https://enchanting-taiyaki-964ff9.netlify.app/
 - axios
 - js-cookie
 
-## Instalation:
+## Installation:
 
 - clone the repo
 - npm i
