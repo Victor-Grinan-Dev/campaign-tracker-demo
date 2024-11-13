@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-//import { skills_by_unit_type } from "../data/skillsByUnitType";
 
 export const unitSlice = createSlice({
     name:'unit',
@@ -11,8 +10,6 @@ export const unitSlice = createSlice({
     }, 
 
     reducers:{
-
-    
         setName(state, action){
             state.name = action.payload;
         },
@@ -28,7 +25,6 @@ export const unitSlice = createSlice({
         setType(state, action){
             state.type = action.payload;
         },
-
     }
 });
 

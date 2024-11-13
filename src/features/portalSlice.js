@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const portalSlice = createSlice({
   name: "portal",
   initialState: {
-    isLogged: false,
+    isLogged: true,
     currentUser: {
       username: undefined,
       type: undefined,

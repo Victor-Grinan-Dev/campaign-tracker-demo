@@ -19,11 +19,12 @@ const Fromations = () => {
         )) 
 
       }
-      {formations.length > 0 &&
+      {formations &&
         formations.map((f,i) => (
           <FormationCard formation={f} key={i} fn={addToArmy} tokensize={80}/>
         )) 
       }
+
     </div>
   )
 }
